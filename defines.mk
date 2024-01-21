@@ -9,7 +9,7 @@ EXT_OPTIONS_MENU ?= 1
 # Enable debug options menu (Enabled if DEBUG is not 0)
 EXT_DEBUG_MENU ?= 0
 # Enable better camera (Puppycam 2)
-BETTERCAMERA ?= 1
+BETTERCAMERA ?= 0
 # Enable cheats
 CHEATS_ACTIONS ?= 1
 # Enable rumble functions (Originally in Shindou)

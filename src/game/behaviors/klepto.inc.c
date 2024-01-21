@@ -250,8 +250,8 @@ static void klepto_act_dive_at_mario(void) {
                 }
             }
 
-            if (gMarioStates[0].action != ACT_SLEEPING
-                && !(gMarioStates[0].action & (ACT_FLAG_SHORT_HITBOX | ACT_FLAG_BUTT_OR_STOMACH_SLIDE))
+            if (gMarioState->action != ACT_SLEEPING
+                && !(gMarioState->action & (ACT_FLAG_SHORT_HITBOX | ACT_FLAG_BUTT_OR_STOMACH_SLIDE))
                 && o->oDistanceToMario < 200.0f && dy > 50.0f && dy < 90.0f
                 && mario_lose_cap_to_enemy(1)) {
                 o->oAnimState = KLEPTO_ANIM_STATE_HOLDING_CAP;
@@ -392,8 +392,8 @@ void bhv_klepto_update(void) {
             o->oFlags &= ~OBJ_FLAG_SET_FACE_YAW_TO_MOVE_YAW;
 
             cur_obj_become_intangible();
-        } else if (gMarioStates[0].action == ACT_SLEEPING
-                   || (gMarioStates[0].action
+        } else if (gMarioState->action == ACT_SLEEPING
+                   || (gMarioState->action
                        & (ACT_FLAG_SHORT_HITBOX | ACT_FLAG_BUTT_OR_STOMACH_SLIDE))) {
             cur_obj_become_intangible();
         } else {

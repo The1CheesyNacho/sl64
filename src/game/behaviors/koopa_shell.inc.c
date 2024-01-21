@@ -26,7 +26,7 @@ void koopa_shell_spawn_water_drop(void) {
 
     spawn_object(o, MODEL_WAVE_TRAIL, bhvObjectWaveTrail);
 
-    if (gMarioStates[0].forwardVel > 10.0f) {
+    if (gMarioState->forwardVel > 10.0f) {
         struct Object *drop = spawn_object_with_scale(o, MODEL_WHITE_PARTICLE_SMALL,
                                                       bhvWaterDroplet, 1.5f);
         drop->oVelY = random_float() * 30.0f;

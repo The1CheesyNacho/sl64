@@ -198,7 +198,7 @@ void play_painting_eject_sound(void) {
         // ripple when Mario enters painting
         if (!sPaintingEjectSoundPlayed) {
             play_sound(SOUND_GENERAL_PAINTING_EJECT,
-                       gMarioStates[0].marioObj->header.gfx.cameraToObject);
+                       gMarioState->marioObj->header.gfx.cameraToObject);
         }
         sPaintingEjectSoundPlayed = TRUE;
     } else {

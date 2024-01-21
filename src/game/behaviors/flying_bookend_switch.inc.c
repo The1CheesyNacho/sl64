@@ -276,7 +276,7 @@ void bhv_book_switch_loop(void) {
                 } else {
                     struct Object *sp38;
                     s16 sp36 = random_u16() & 0x1;
-                    s16 sp34 = gMarioObject->oPosZ + 1.5f * gMarioStates[0].vel[2];
+                    s16 sp34 = gMarioObject->oPosZ + 1.5f * gMarioState->vel[2];
 
                     play_sound(SOUND_MENU_CAMERA_BUZZ, gGlobalSoundSource);
 

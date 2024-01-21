@@ -53,7 +53,7 @@ s32 transition_submerged_to_airborne(struct MarioState *m);
 s32 set_water_plunge_action(struct MarioState *m);
 u32 update_and_return_cap_flags(struct MarioState *m);
 s32 execute_mario_action(UNUSED struct Object *o);
-void init_mario(void);
-void init_mario_from_save_file(void);
+void init_mario(u8 playerIndex);
+void init_mario_from_save_file(u8 index);
 
 #endif // MARIO_H

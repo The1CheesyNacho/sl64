@@ -167,7 +167,7 @@ struct CreditsEntry sCreditsSequence[] = {
         0, CREDITS_POS_ONE, 1,    0, { 0, 0, 0 }, NULL },
 };
 
-struct MarioState gMarioStates[1];
+struct MarioState gMarioStates[2];
 struct HudDisplay gHudDisplay;
 s16 sCurrPlayMode;
 s16 sTransitionTimer;
@@ -373,40 +373,40 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
 // ex-alo change
 // Function went through a revision to remove course and warp specific code changes
 // Comments were added to clarify what's changed
-void init_mario_after_warp(void) {
+void init_mario_after_warp(u8 playerIndex) {
     struct ObjectWarpNode *spawnNode = area_get_warp_node(sWarpDest.nodeId);
     u32 marioSpawnType = get_mario_spawn_type(spawnNode->object);
 
     if (gMarioState->action != ACT_UNINITIALIZED) {
-        gPlayerSpawnInfos[0].startPos[0] = (s16) spawnNode->object->oPosX;
-        gPlayerSpawnInfos[0].startPos[1] = (s16) spawnNode->object->oPosY;
-        gPlayerSpawnInfos[0].startPos[2] = (s16) spawnNode->object->oPosZ;
+        gPlayerSpawnInfos[playerIndex].startPos[0] = (s16) spawnNode->object->oPosX;
+        gPlayerSpawnInfos[playerIndex].startPos[1] = (s16) spawnNode->object->oPosY;
+        gPlayerSpawnInfos[playerIndex].startPos[2] = (s16) spawnNode->object->oPosZ;
 
-        gPlayerSpawnInfos[0].startAngle[0] = 0;
-        gPlayerSpawnInfos[0].startAngle[1] = spawnNode->object->oMoveAngleYaw;
-        gPlayerSpawnInfos[0].startAngle[2] = 0;
+        gPlayerSpawnInfos[playerIndex].startAngle[0] = 0;
+        gPlayerSpawnInfos[playerIndex].startAngle[1] = spawnNode->object->oMoveAngleYaw;
+        gPlayerSpawnInfos[playerIndex].startAngle[2] = 0;
 
         if (marioSpawnType == MARIO_SPAWN_DOOR_WARP) {
-            init_door_warp(&gPlayerSpawnInfos[0], sWarpDest.arg);
+            init_door_warp(&gPlayerSpawnInfos[playerIndex], sWarpDest.arg);
         }
 
         if (sWarpDest.type == WARP_TYPE_CHANGE_LEVEL || sWarpDest.type == WARP_TYPE_CHANGE_AREA) {
-            gPlayerSpawnInfos[0].areaIndex = sWarpDest.areaIdx;
+            gPlayerSpawnInfos[playerIndex].areaIndex = sWarpDest.areaIdx;
             load_mario_area();
         }
 
         // Don't reset Mario on the same warp area, preserves cap powerup like in SM64DS
         if (sWarpDest.type != WARP_TYPE_SAME_AREA) {
-            init_mario();
+            init_mario(playerIndex);
         } else {
-            vec3s_copy(gMarioState->faceAngle, gMarioSpawnInfo->startAngle);
-            vec3s_to_vec3f(gMarioState->pos, gMarioSpawnInfo->startPos);
+            vec3s_copy(gMarioStates[playerIndex].faceAngle, gPlayerSpawnInfos[playerIndex].startAngle);
+            vec3s_to_vec3f(gMarioStates[playerIndex].pos, gPlayerSpawnInfos[playerIndex].startPos);
         }
 
         set_mario_initial_action(gMarioState, marioSpawnType, sWarpDest.arg);
 
-        gMarioState->interactObj = spawnNode->object;
-        gMarioState->usedObj = spawnNode->object;
+        gMarioStates[playerIndex].interactObj = spawnNode->object;
+        gMarioStates[playerIndex].usedObj = spawnNode->object;
     }
 
     reset_camera(gCurrentArea->camera);
@@ -482,6 +482,7 @@ void init_mario_after_warp(void) {
 
 // used for warps inside one level
 void warp_area(void) {
+    u8 player;
     if (sWarpDest.type != WARP_TYPE_NOT_WARPING) {
         if (sWarpDest.type == WARP_TYPE_CHANGE_AREA) {
             level_control_timer(TIMER_CONTROL_HIDE);
@@ -489,22 +490,24 @@ void warp_area(void) {
             load_area(sWarpDest.areaIdx);
         }
 
-        init_mario_after_warp();
+        for (player = 0; player < 2; player++) init_mario_after_warp(player);
     }
 }
 
 // used for warps between levels
 void warp_level(void) {
+    u8 player;
     gCurrLevelNum = sWarpDest.levelNum;
 
     level_control_timer(TIMER_CONTROL_HIDE);
 
     load_area(sWarpDest.areaIdx);
-    init_mario_after_warp();
+    for (player = 0; player < 2; player++) init_mario_after_warp(player);
 }
 
 void warp_credits(void) {
     s32 marioAction = ACT_UNINITIALIZED;
+    u8 playerIndex;
 
     switch (sWarpDest.nodeId) {
         case WARP_NODE_CREDITS_START:
@@ -524,17 +527,19 @@ void warp_credits(void) {
 
     load_area(sWarpDest.areaIdx);
 
-    vec3s_set(gPlayerSpawnInfos[0].startPos, gCurrCreditsEntry->marioPos[0],
-              gCurrCreditsEntry->marioPos[1], gCurrCreditsEntry->marioPos[2]);
+    for (playerIndex = 0; playerIndex < 2; playerIndex++) {
+        vec3s_set(gPlayerSpawnInfos[playerIndex].startPos, gCurrCreditsEntry->marioPos[0],
+                gCurrCreditsEntry->marioPos[1], gCurrCreditsEntry->marioPos[2]);
 
-    vec3s_set(gPlayerSpawnInfos[0].startAngle, 0, 0x100 * gCurrCreditsEntry->marioAngle, 0);
+        vec3s_set(gPlayerSpawnInfos[playerIndex].startAngle, 0, 0x100 * gCurrCreditsEntry->marioAngle, 0);
 
-    gPlayerSpawnInfos[0].areaIndex = sWarpDest.areaIdx;
+        gPlayerSpawnInfos[playerIndex].areaIndex = sWarpDest.areaIdx;
 
-    load_mario_area();
-    init_mario();
+        load_mario_area();
+        init_mario(playerIndex);
 
-    set_mario_action(gMarioState, marioAction, 0);
+        set_mario_action(&gMarioStates[playerIndex], marioAction, 0);
+    }
 
     reset_camera(gCurrentArea->camera);
 
@@ -1218,6 +1223,7 @@ s32 update_level(void) {
 
 s32 init_level(void) {
     s32 fadeFromColor = FALSE;
+    u8 playerIndex;
 
     set_play_mode(PLAY_MODE_NORMAL);
 
@@ -1259,9 +1265,11 @@ s32 init_level(void) {
             warp_level();
         }
     } else {
-        if (gPlayerSpawnInfos[0].areaIndex >= 0) {
-            load_mario_area();
-            init_mario();
+        for (playerIndex = 0; playerIndex < 2; playerIndex++) {
+            if (gPlayerSpawnInfos[playerIndex].areaIndex >= 0) {
+                load_mario_area();
+                init_mario(playerIndex);
+            }         
         }
 
         if (gCurrentArea != NULL) {
@@ -1273,12 +1281,7 @@ s32 init_level(void) {
                 if (gMarioState->action != ACT_UNINITIALIZED) {
                     // ex-alo change
                     // Checks for peach intro skip
-                    if (should_intro_be_skipped()) {
-                        set_mario_action(gMarioState, ACT_IDLE, 0);
-                    } else {
-                        set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
-                        fadeFromColor = TRUE;
-                    }
+                    set_mario_action(gMarioState, ACT_IDLE, 0);
                 }
             }
         }
@@ -1325,6 +1328,7 @@ s32 lvl_init_or_update(s16 initOrUpdate, UNUSED s32 unused) {
 }
 
 s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum) {
+    u8 player;
 #ifdef VERSION_EU
     s16 language = eu_get_language();
     switch (language) {
@@ -1354,7 +1358,9 @@ s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum) {
     gCurrCreditsEntry = NULL;
     gSpecialTripleJump = FALSE;
 
-    init_mario_from_save_file();
+    for (player = 0; player < 2; player++) {
+        init_mario_from_save_file(player);
+    }
     disable_warp_checkpoint();
     save_file_move_cap_to_default_location();
     select_mario_cam_mode();

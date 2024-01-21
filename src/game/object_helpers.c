@@ -837,7 +837,7 @@ void cur_obj_change_action(s32 action) {
 }
 
 void cur_obj_set_vel_from_mario_vel(f32 objBaseForwardVel, f32 multiplier) {
-    f32 marioForwardVel = gMarioStates[0].forwardVel;
+    f32 marioForwardVel = gMarioState->forwardVel;
     f32 objForwardVel = objBaseForwardVel * multiplier;
 
     if (marioForwardVel < objForwardVel) {
@@ -925,7 +925,7 @@ s32 cur_obj_check_frame_prior_current_frame(s16 *a0) {
 }
 
 s32 mario_is_in_air_action(void) {
-    if (gMarioStates[0].action & ACT_FLAG_AIR) {
+    if (gMarioState->action & ACT_FLAG_AIR) {
         return TRUE;
     } else {
         return FALSE;
@@ -933,7 +933,7 @@ s32 mario_is_in_air_action(void) {
 }
 
 s32 mario_is_dive_sliding(void) {
-    if (gMarioStates[0].action == ACT_DIVE_SLIDE) {
+    if (gMarioState->action == ACT_DIVE_SLIDE) {
         return TRUE;
     } else {
         return FALSE;
@@ -1011,7 +1011,7 @@ void cur_obj_set_model(ModelID16 modelID) {
 }
 
 void mario_set_flag(s32 flag) {
-    gMarioStates[0].flags |= flag;
+    gMarioState->flags |= flag;
 }
 
 s32 cur_obj_clear_interact_status_flag(s32 flag) {
@@ -2032,7 +2032,7 @@ s32 cur_obj_wait_then_blink(s32 timeUntilBlinking, s32 numBlinks) {
 
 s32 cur_obj_is_mario_ground_pounding_platform(void) {
     if (gMarioObject->platform == o) {
-        if (gMarioStates[0].action == ACT_GROUND_POUND_LAND) {
+        if (gMarioState->action == ACT_GROUND_POUND_LAND) {
             return TRUE;
         }
     }
@@ -2057,8 +2057,8 @@ void cur_obj_push_mario_away(f32 radius) {
     if (marioDist < radius) {
         //! If this function pushes Mario out of bounds, it will trigger Mario's
         //  oob failsafe
-        gMarioStates[0].pos[0] += (radius - marioDist) / radius * marioRelX;
-        gMarioStates[0].pos[2] += (radius - marioDist) / radius * marioRelZ;
+        gMarioState->pos[0] += (radius - marioDist) / radius * marioRelX;
+        gMarioState->pos[2] += (radius - marioDist) / radius * marioRelZ;
     }
 }
 
@@ -2207,11 +2207,11 @@ s32 cur_obj_mario_far_away(void) {
 }
 
 s32 is_mario_moving_fast_or_in_air(s32 speedThreshold) {
-    if (gMarioStates[0].forwardVel > speedThreshold) {
+    if (gMarioState->forwardVel > speedThreshold) {
         return TRUE;
     }
 
-    if (gMarioStates[0].action & ACT_FLAG_AIR) {
+    if (gMarioState->action & ACT_FLAG_AIR) {
         return TRUE;
     } else {
         return FALSE;
@@ -2385,7 +2385,7 @@ s32 cur_obj_can_mario_activate_textbox(f32 radius, f32 height, UNUSED s32 unused
         UNUSED s16 angleFromMario = obj_angle_to_object(gMarioObject, o);
 
         if (latDistToMario < radius && o->oPosY < gMarioObject->oPosY + 160.0f
-            && gMarioObject->oPosY < o->oPosY + height && !(gMarioStates[0].action & ACT_FLAG_AIR)
+            && gMarioObject->oPosY < o->oPosY + height && !(gMarioState->action & ACT_FLAG_AIR)
             && mario_ready_to_speak()) {
             return TRUE;
         }
@@ -2772,7 +2772,7 @@ ModelID32 obj_get_model(struct Object *obj) {
 }
 
 s32 mario_is_close_to_a_ceiling(void) {   
-    if (gMarioStates[0].pos[1] + 160.0f + FIND_SURFACE_BUFFER >= gMarioStates[0].ceilHeight) {
+    if (gMarioState->pos[1] + 160.0f + FIND_SURFACE_BUFFER >= gMarioState->ceilHeight) {
         return TRUE;
     }
 

@@ -2741,7 +2741,7 @@ s16 render_pause_screen(void) {
 
 #if !EXIT_COURSE_ANYWHERE
 /* Added support for the "Exit course at any time" cheat */
-            if ((gMarioStates[0].action & ACT_FLAG_PAUSE_EXIT) 
+            if ((gMarioState->action & ACT_FLAG_PAUSE_EXIT) 
 #ifdef CHEATS_ACTIONS
                 || (Cheats.EnableCheats && Cheats.ExitAnywhere)
 #endif

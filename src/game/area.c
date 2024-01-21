@@ -24,7 +24,7 @@
 
 #include "gfx_dimensions.h"
 
-struct SpawnInfo gPlayerSpawnInfos[1];
+struct SpawnInfo gPlayerSpawnInfos[2];
 struct GraphNode *gGraphNodePointers[MODEL_ID_COUNT];
 struct Area gAreaData[8];
 
@@ -286,7 +286,8 @@ void load_mario_area(void) {
 
     if (gCurrentArea->index == gMarioSpawnInfo->areaIndex) {
         gCurrentArea->flags |= 0x01;
-        spawn_objects_from_info(0, gMarioSpawnInfo);
+        spawn_objects_from_info(0, &gPlayerSpawnInfos[0]);
+        spawn_objects_from_info(0, &gPlayerSpawnInfos[1]);
     }
 }
 

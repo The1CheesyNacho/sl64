@@ -456,6 +456,8 @@ static void level_cmd_23(void) {
 }
 
 static void level_cmd_init_mario(void) {
+    gMarioSpawnInfo = &gPlayerSpawnInfos[CMD_GET(u32, 4) & 0xFF];
+
     vec3s_set(gMarioSpawnInfo->startPos, 0, 0, 0);
     vec3s_set(gMarioSpawnInfo->startAngle, 0, 0, 0);
 

@@ -34,7 +34,7 @@ void bhv_pushable_loop(void) {
     o->oForwardVel = 0.0f;
 
     if (obj_check_if_collided_with_object(o, gMarioObject)
-        && (gMarioStates[0].flags & MARIO_UNKNOWN_31)) {
+        && (gMarioState->flags & MARIO_UNKNOWN_31)) {
         s16 sp1C = obj_angle_to_object(o, gMarioObject);
         if (abs_angle_diff(sp1C, gMarioObject->oMoveAngleYaw) > 0x4000) {
             o->oMoveAngleYaw = (s16)((gMarioObject->oMoveAngleYaw + 0x2000) & 0xC000);

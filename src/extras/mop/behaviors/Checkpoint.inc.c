@@ -2,9 +2,9 @@ extern struct WarpCheckpoint gWarpCheckpoint;
 
 void bhv_checkpoint_flag_init(void){
 	if(gWarpCheckpoint.actNum==64 && o->oBhvParams==0){
-		gMarioStates[0].pos[0]=o->oPosX;
-		gMarioStates[0].pos[1]=o->oPosY;
-		gMarioStates[0].pos[2]=o->oPosZ;
+		gMarioState->pos[0]=o->oPosX;
+		gMarioState->pos[1]=o->oPosY;
+		gMarioState->pos[2]=o->oPosZ;
         o->oAnimState = 0;
 	}
 }
@@ -17,7 +17,7 @@ void bhv_checkpoint_flag_loop(void){
 		}
 	}else{
 		o->oIntangibleTimer=0;
-		if (o->oDistanceToMario<150.0f || gMarioStates[0].interactObj == o){
+		if (o->oDistanceToMario<150.0f || gMarioState->interactObj == o){
 			//don't set a real checkpoint because we don't have a real
 			//warp node to set it to. Instead abuse the fact that
 			//in game checkpoint only set the course num

@@ -606,7 +606,7 @@ Gfx *geo_switch_mario_hand_grab_pos(s32 callContext, struct GraphNode *b, Mat4 *
  */
 Gfx *geo_render_mirror_mario(s32 callContext, struct GraphNode *node, UNUSED Mat4 *c) {
     f32 mirroredX;
-    struct Object *mario = gMarioStates[0].marioObj;
+    struct Object *mario = gMarioState->marioObj;
 
     switch (callContext) {
         case GEO_CONTEXT_CREATE:
