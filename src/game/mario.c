@@ -1955,7 +1955,7 @@ void init_mario(u8 playerIndex) {
         find_water_level(gPlayerSpawnInfos[playerIndex].startPos[0], gPlayerSpawnInfos[playerIndex].startPos[2]);
 
     gMarioStates[playerIndex].area = gCurrentArea;
-    gMarioStates[playerIndex].marioObj = playerIndex == 0 ? gMarioObject : gLuigiObject;
+    gMarioStates[playerIndex].marioObj = gMarioObject;
     gMarioStates[playerIndex].marioObj->header.gfx.animInfo.animID = -1;
     vec3s_copy(gMarioStates[playerIndex].faceAngle, gPlayerSpawnInfos[playerIndex].startAngle);
     vec3s_set(gMarioStates[playerIndex].angleVel, 0, 0, 0);

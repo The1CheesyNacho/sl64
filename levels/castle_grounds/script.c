@@ -162,8 +162,8 @@ const LevelScript level_castle_grounds_entry[] = {
     LOAD_MIO0        (/*seg*/ 0x08, _common0_mio0SegmentRomStart, _common0_mio0SegmentRomEnd),
     LOAD_RAW         (/*seg*/ 0x0F, _common0_geoSegmentRomStart,  _common0_geoSegmentRomEnd),
     ALLOC_LEVEL_POOL(),
+    MARIO(/*model*/ MODEL_LUIGI, /*bhvParam*/ BPARAM4(0x01), /*bhv*/ bhvMario),
     MARIO(/*model*/ MODEL_MARIO, /*bhvParam*/ BPARAM4(0x00), /*bhv*/ bhvMario),
-    MARIO(/*model*/ MODEL_FISH, /*bhvParam*/ BPARAM4(0x01), /*bhv*/ bhvMario),
     JUMP_LINK(script_func_global_1),
     JUMP_LINK(script_func_global_11),
     JUMP_LINK(script_func_global_16),
@@ -182,9 +182,6 @@ const LevelScript level_castle_grounds_entry[] = {
         JUMP_LINK(script_func_local_2),
         JUMP_LINK(script_func_local_3),
         JUMP_LINK(script_func_local_4),
-#ifdef PORT_MOP_OBJS
-        JUMP_LINK(script_func_local_mop),
-#endif
         TERRAIN(/*terrainData*/ castle_grounds_seg7_collision_level),
         MACRO_OBJECTS(/*objList*/ castle_grounds_seg7_macro_objs),
         SET_BACKGROUND_MUSIC(/*settingsPreset*/ 0x0000, /*seq*/ SEQ_SOUND_PLAYER),

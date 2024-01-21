@@ -487,8 +487,7 @@ void spawn_objects_from_info(UNUSED s32 unused, struct SpawnInfo *spawnInfo) {
             // ex-alo change
             // Checks for Mario behavior so bparam4 can be used by any object
             if (object->behavior == segmented_to_virtual(bhvMario)) {
-                if (object->oBhvParams & 0xFF) gLuigiObject = object;
-                else gMarioObject = object;
+                gMarioObject = object;
                 geo_make_first_child(&object->header.gfx.node);
             }
 
