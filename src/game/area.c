@@ -280,14 +280,13 @@ void unload_area(void) {
     }
 }
 
-void load_mario_area(void) {
+void load_mario_area(u8 playerIndex) {
     stop_sounds_in_continuous_banks();
     load_area(gMarioSpawnInfo->areaIndex);
 
     if (gCurrentArea->index == gMarioSpawnInfo->areaIndex) {
         gCurrentArea->flags |= 0x01;
-        spawn_objects_from_info(0, &gPlayerSpawnInfos[0]);
-        spawn_objects_from_info(0, &gPlayerSpawnInfos[1]);
+        spawn_objects_from_info(0, &gPlayerSpawnInfos[playerIndex]);
     }
 }
 

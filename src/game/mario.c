@@ -2010,7 +2010,7 @@ void init_mario_from_save_file(u8 index) {
     gMarioStates[index].unk00 = 0;
     gMarioStates[index].flags = 0;
     gMarioStates[index].action = 0;
-    gMarioStates[index].spawnInfo = &gPlayerSpawnInfos[index];
+    gMarioStates[index].spawnInfo = &gPlayerSpawnInfos[0];
     gMarioStates[index].statusForCamera = &gPlayerCameraState[0];
     gMarioStates[index].marioBodyState = &gBodyStates[index];
     gMarioStates[index].controller = &gControllers[index];
