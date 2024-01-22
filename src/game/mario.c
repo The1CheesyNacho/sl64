@@ -1975,8 +1975,6 @@ void init_mario(u8 playerIndex) {
 
     mario_reset_bodystate(gMarioState);
     update_mario_info_for_cam(gMarioState);
-    mario_reset_bodystate(gLuigiState);
-    update_mario_info_for_cam(gLuigiState);
     gMarioStates[playerIndex].marioBodyState->punchState = 0;
 
     gMarioStates[playerIndex].marioObj->oPosX = gMarioStates[playerIndex].pos[0];
@@ -2009,15 +2007,15 @@ void init_mario(u8 playerIndex) {
 }
 
 void init_mario_from_save_file(u8 index) {
-    gMarioStates[index].unk00 = 0;
+    gMarioStates[index].unk00 = index;
     gMarioStates[index].flags = 0;
     gMarioStates[index].action = 0;
-    gMarioStates[index].spawnInfo = &gPlayerSpawnInfos[0];
-    gMarioStates[index].statusForCamera = &gPlayerCameraState[0];
+    gMarioStates[index].spawnInfo = &gPlayerSpawnInfos[index];
+    gMarioStates[index].statusForCamera = &gPlayerCameraState[index];
     gMarioStates[index].marioBodyState = &gBodyStates[index];
     gMarioStates[index].controller = &gControllers[index];
-    gMarioStates[0].animList = &gMarioAnimsBuf[0];
-    gMarioStates[1].animList = &gMarioAnimsBuf[1];
+    gLuigiState->animList = &gLuigiAnimsBuf;
+    gMarioState->animList = &gMarioAnimsBuf;
 
     gMarioStates[index].numCoins = 0;
     gMarioStates[index].numStars =

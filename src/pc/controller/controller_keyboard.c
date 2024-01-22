@@ -14,6 +14,7 @@
 
 static int keyboard_buttons_down;
 
+
 #define MAX_KEYBINDS 64
 static int keyboard_mapping[MAX_KEYBINDS][2];
 static int num_keybinds = 0;

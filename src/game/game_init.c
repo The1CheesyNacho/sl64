@@ -72,9 +72,11 @@ uintptr_t gPhysicalFramebuffers[3];
 uintptr_t gPhysicalZBuffer;
 
 // Mario Anims and Demo allocation
-void *gMarioAnimsMemAlloc[0];
+void *gMarioAnimsMemAlloc;
+void *gLuigiAnimsMemAlloc;
 void *gDemoInputsMemAlloc;
-struct DmaHandlerList gMarioAnimsBuf[0];
+struct DmaHandlerList gMarioAnimsBuf;
+struct DmaHandlerList gLuigiAnimsBuf;
 struct DmaHandlerList gDemoInputsBuf;
 
 // General timer that runs as the game starts
@@ -699,11 +701,12 @@ void setup_game_memory(void) {
     gPhysicalFramebuffers[1] = VIRTUAL_TO_PHYSICAL(gFramebuffer1);
     gPhysicalFramebuffers[2] = VIRTUAL_TO_PHYSICAL(gFramebuffer2);
     // Setup Mario Animations
-    gMarioAnimsMemAlloc[0] = main_pool_alloc(0x4000, MEMORY_POOL_LEFT);
-    set_segment_base_addr(17, (void *) gMarioAnimsMemAlloc[0]);
-    setup_dma_table_list(&gMarioAnimsBuf[0], gMarioAnims, gMarioAnimsMemAlloc[0]);
-    gMarioAnimsMemAlloc[1] = main_pool_alloc(0x4000, MEMORY_POOL_LEFT);
-    setup_dma_table_list(&gMarioAnimsBuf[1], gMarioAnims, gMarioAnimsMemAlloc[1]);
+    gMarioAnimsMemAlloc = main_pool_alloc(0x4000, MEMORY_POOL_LEFT);
+    set_segment_base_addr(17, (void *) gMarioAnimsMemAlloc);
+    setup_dma_table_list(&gMarioAnimsBuf, gMarioAnims, gMarioAnimsMemAlloc);
+    gLuigiAnimsMemAlloc = main_pool_alloc(0x4000, MEMORY_POOL_LEFT);
+    setup_dma_table_list(&gLuigiAnimsBuf, gMarioAnims, gLuigiAnimsMemAlloc);
+    set_segment_base_addr(17, (void *) gLuigiAnimsMemAlloc);
     // Setup Demo Inputs List
     gDemoInputsMemAlloc = main_pool_alloc(0x800, MEMORY_POOL_LEFT);
     set_segment_base_addr(24, (void *) gDemoInputsMemAlloc);

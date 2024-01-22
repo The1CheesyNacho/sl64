@@ -86,6 +86,26 @@ unsigned int configKeyStickUp[MAX_BINDS]    = { 0x0148,   VK_INVALID, VK_INVALID
 unsigned int configKeyStickDown[MAX_BINDS]  = { 0x0150,   VK_INVALID, VK_INVALID };
 unsigned int configKeyStickLeft[MAX_BINDS]  = { 0x014B,   VK_INVALID, VK_INVALID };
 unsigned int configKeyStickRight[MAX_BINDS] = { 0x014D,   VK_INVALID, VK_INVALID };
+
+unsigned int configKeyLuigiA[MAX_BINDS]          = { 0x002D,   0x1000,     0x1101     };
+unsigned int configKeyLuigiB[MAX_BINDS]          = { 0x002E,   0x1002,     0x1103     };
+unsigned int configKeyLuigiStart[MAX_BINDS]      = { 0x001C,   0x1006,     0x1102     };
+unsigned int configKeyLuigiL[MAX_BINDS]          = { 0x0010,   0x1009,     VK_INVALID };
+unsigned int configKeyLuigiR[MAX_BINDS]          = { 0x0012,   0x100A,     VK_INVALID };
+unsigned int configKeyLuigiZ[MAX_BINDS]          = { 0x002C,   0x1007,     VK_INVALID };
+unsigned int configKeyLuigiCUp[MAX_BINDS]        = { 0x0011,   VK_INVALID, VK_INVALID };
+unsigned int configKeyLuigiCDown[MAX_BINDS]      = { 0x001F,   VK_INVALID, VK_INVALID };
+unsigned int configKeyLuigiCLeft[MAX_BINDS]      = { 0x001E,   VK_INVALID, VK_INVALID };
+unsigned int configKeyLuigiCRight[MAX_BINDS]     = { 0x0020,   VK_INVALID, VK_INVALID };
+unsigned int configKeyLuigiDUp[MAX_BINDS]        = { 0x0014,   VK_INVALID, VK_INVALID };
+unsigned int configKeyLuigiDDown[MAX_BINDS]      = { 0x0022,   VK_INVALID, VK_INVALID };
+unsigned int configKeyLuigiDLeft[MAX_BINDS]      = { 0x0021,   VK_INVALID, VK_INVALID };
+unsigned int configKeyLuigiDRight[MAX_BINDS]     = { 0x0023,   VK_INVALID, VK_INVALID };
+unsigned int configKeyLuigiStickUp[MAX_BINDS]    = { 0x0148,   VK_INVALID, VK_INVALID };
+unsigned int configKeyLuigiStickDown[MAX_BINDS]  = { 0x0150,   VK_INVALID, VK_INVALID };
+unsigned int configKeyLuigiStickLeft[MAX_BINDS]  = { 0x014B,   VK_INVALID, VK_INVALID };
+unsigned int configKeyLuigiStickRight[MAX_BINDS] = { 0x014D,   VK_INVALID, VK_INVALID };
+
 unsigned int configStickDeadzone = 16; // 16*DEADZONE_STEP=4960 (the original default deadzone)
 unsigned int configRumbleStrength = 50;
 

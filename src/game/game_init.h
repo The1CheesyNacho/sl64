@@ -31,7 +31,8 @@ extern OSMesg gGfxMesgBuf[1];
 extern struct VblankHandler gGameVblankHandler;
 extern uintptr_t gPhysicalFramebuffers[3];
 extern uintptr_t gPhysicalZBuffer;
-extern void *gMarioAnimsMemAlloc[0];
+extern void *gMarioAnimsMemAlloc;
+extern void *gLuigiAnimsMemAlloc;
 extern void *gDemoInputsMemAlloc;
 extern struct SPTask *gGfxSPTask;
 #ifdef USE_SYSTEM_MALLOC
@@ -45,7 +46,8 @@ extern u8 *gGfxPoolEnd;
 extern struct GfxPool *gGfxPool;
 extern u8 gControllerBits;
 extern s8 gEepromProbe;
-extern struct DmaHandlerList gMarioAnimsBuf[0];
+extern struct DmaHandlerList gMarioAnimsBuf;
+extern struct DmaHandlerList gLuigiAnimsBuf;
 extern struct DmaHandlerList gDemoInputsBuf;
 
 #ifdef GODDARD_MFACE
@@ -60,7 +62,8 @@ extern struct DemoInput gRecordedDemoInput;
 
 // this area is the demo input + the header. when the demo is loaded in, there is a header the size
 // of a single word next to the input list. this word is the current ID count.
-extern struct DmaHandlerList gMarioAnimsBuf[0];
+extern struct DmaHandlerList gMarioAnimsBuf;
+extern struct DmaHandlerList gLuigiAnimsBuf;
 extern struct DmaHandlerList gDemoInputsBuf;
 
 extern u8 gMarioAnims[];

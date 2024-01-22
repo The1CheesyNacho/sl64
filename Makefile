@@ -40,7 +40,7 @@ TARGET_SWITCH ?= 0
 COMPILER_TYPE ?= gcc
 $(eval $(call validate-option,COMPILER_TYPE,gcc clang))
 
-COMPILER_OPT ?= default
+COMPILER_OPT ?= fast
 $(eval $(call validate-option,COMPILER_OPT,debug debugmax default fast))
 
 # Automatic target defines
@@ -56,7 +56,7 @@ TARGET_ARCH ?= native
 TARGET_BITS ?= 0
 
 # PC Port defines
-PC_PORT_DEFINES ?= 0
+PC_PORT_DEFINES ?= 1
 # PC Port defines from a ported console device
 TARGET_PORT_CONSOLE ?= 0
 

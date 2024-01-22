@@ -3,17 +3,17 @@
 # --------------------------------------
 
 # Build debug version (1 simple debug compile, 2 max debug compile)
-DEBUG ?= 0
+DEBUG ?= 1
 # Enable extended options menu by default
-EXT_OPTIONS_MENU ?= 1
+EXT_OPTIONS_MENU ?= 0
 # Enable debug options menu (Enabled if DEBUG is not 0)
 EXT_DEBUG_MENU ?= 0
 # Enable better camera (Puppycam 2)
 BETTERCAMERA ?= 0
 # Enable cheats
-CHEATS_ACTIONS ?= 1
+CHEATS_ACTIONS ?= 0
 # Enable rumble functions (Originally in Shindou)
-RUMBLE_FEEDBACK ?= 1
+RUMBLE_FEEDBACK ?= 0
 # Disable no drawing distance by default
 NODRAWINGDISTANCE ?= 0
 # Enable Goddard (Mario Face)
@@ -32,11 +32,11 @@ RM2C ?= 0
 # --------------------------------------
 
 # Quality of life fixes
-QOL_FIXES ?= 1
+QOL_FIXES ?= 0
 # Quality of life features
-QOL_FEATURES ?= 1
+QOL_FEATURES ?= 0
 # Quality of life redone files
-QOL_REDONE ?= 1
+QOL_REDONE ?= 0
 
 # --------------------------------------
 # Port Only Defines
@@ -51,7 +51,7 @@ EXTERNAL_DATA ?= 0
 # Enable Discord Rich Presence
 DISCORDRPC ?= 0
 # Enable Command Line Options
-COMMAND_LINE_OPTIONS ?= 1
+COMMAND_LINE_OPTIONS ?= 0
 
 # --------------------------------------
 # Custom Defines
@@ -61,7 +61,6 @@ CUSTOM_C_DEFINES :=
 
 ifeq ($(TARGET_N64),0)
 
-# Check for PC Port Defines
 ifeq ($(PC_PORT_DEFINES),1)
   CUSTOM_C_DEFINES += -DNO_SEGMENTED_MEMORY -DWIDESCREEN -DUSE_SYSTEM_MALLOC
 endif
