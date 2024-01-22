@@ -3913,7 +3913,7 @@ s32 cam_select_alt_mode(s32 selection) {
     }
 
     if (sSelectionFlags & CAM_MODE_MARIO_SELECTED) {
-        mode = CAM_SELECTION_MARIO;
+        mode = CAM_SELECTION_FIXED;
     }
     return mode;
 }
