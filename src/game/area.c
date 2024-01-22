@@ -194,7 +194,8 @@ void clear_areas(void) {
     gCurrentArea = NULL;
     gWarpTransition.isActive = FALSE;
     gWarpTransition.pauseRendering = FALSE;
-    gMarioSpawnInfo->areaIndex = -1;
+    gPlayerSpawnInfos[0].areaIndex = -1;
+    gPlayerSpawnInfos[1].areaIndex = -1;
 
     for (i = 0; i < 8; i++) {
         gAreaData[i].index = i;
@@ -280,13 +281,21 @@ void unload_area(void) {
     }
 }
 
-void load_mario_area(u8 playerIndex) {
-    stop_sounds_in_continuous_banks();
+
+void load_mario_area(void) {
+    u8 playerIndex;
     load_area(gMarioSpawnInfo->areaIndex);
+
+    if (!gCurrentArea) { return; }
+
+    for (s32 i = 0; i < playerIndex; i++) {
+        if (!gMarioStates[i].spawnInfo) { continue; }
+        gMarioStates[i].spawnInfo->areaIndex = gCurrentArea->index;
+    }
 
     if (gCurrentArea->index == gMarioSpawnInfo->areaIndex) {
         gCurrentArea->flags |= 0x01;
-        spawn_objects_from_info(0, &gPlayerSpawnInfos[playerIndex]);
+        spawn_objects_from_info(0, gMarioSpawnInfo);
     }
 }
 
@@ -302,18 +311,26 @@ void unload_mario_area(void) {
 }
 
 void change_area(s32 index) {
-    s32 areaFlags = gCurrentArea->flags;
+    u8 playerIndex;
+    s32 areaFlags = (gCurrentArea != NULL) ? gCurrentArea->flags : 0;
 
     if (gCurrAreaIndex != index) {
         unload_area();
         load_area(index);
 
-        gCurrentArea->flags = areaFlags;
-        gMarioObject->oActiveParticleFlags = 0;
+        if (gCurrentArea != NULL) {
+            gCurrentArea->flags = areaFlags;
+        }
+        for (s32 i = 0; i < playerIndex; i++) {
+            gMarioStates[i].marioObj->oActiveParticleFlags = 0;
+        }
     }
 
     if (areaFlags & 0x01) {
-        gMarioObject->header.gfx.areaIndex = index, gMarioSpawnInfo->areaIndex = index;
+        for (s32 i = 0; i < playerIndex; i++) {
+            gMarioStates[i].marioObj->header.gfx.areaIndex = index;
+            gMarioStates[i].spawnInfo->areaIndex = index;
+        }
     }
 }
 
