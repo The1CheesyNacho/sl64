@@ -23,7 +23,8 @@ const LevelScript level_bowser_1_entry[] = {
     LOAD_MIO0(/*seg*/ 0x06, _group12_mio0SegmentRomStart, _group12_mio0SegmentRomEnd),
     LOAD_RAW (/*seg*/ 0x0D, _group12_geoSegmentRomStart, _group12_geoSegmentRomEnd),
     ALLOC_LEVEL_POOL(),
-    MARIO(/*model*/ MODEL_MARIO, /*bhvParam*/ BPARAM4(0x01), /*bhv*/ bhvMario),
+    CMD23(/*model*/ MODEL_LUIGI, /*bhvParam*/ BPARAM4(0x01), /*bhv*/ bhvMario),
+    MARIO(/*model*/ MODEL_MARIO, /*bhvParam*/ BPARAM4(0x00), /*bhv*/ bhvMario),
     JUMP_LINK(script_func_global_13),
     LOAD_MODEL_FROM_GEO(MODEL_LEVEL_GEOMETRY_03, bowser_1_yellow_sphere_geo),
 
