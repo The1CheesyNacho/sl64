@@ -2015,7 +2015,7 @@ void init_mario_from_save_file(u8 index) {
     gMarioStates[index].spawnInfo = &gPlayerSpawnInfos[0];
     gMarioStates[index].statusForCamera = &gPlayerCameraState[0];
     gMarioStates[index].marioBodyState = &gBodyStates[index];
-    gMarioStates[index].controller = &gControllers[0];
+    gMarioStates[index].controller = &gControllers[index];
     gMarioStates[0].animList = &gMarioAnimsBuf[0];
     gMarioStates[1].animList = &gMarioAnimsBuf[1];
 
