@@ -172,7 +172,7 @@ void clear_areas(void);
 void clear_area_graph_nodes(void);
 void load_area(s32 index);
 void unload_area(void);
-void load_mario_area(void);
+void load_mario_area(u8 playerIndex);
 void unload_mario_area(void);
 void change_area(s32 index);
 void area_update_objects(void);

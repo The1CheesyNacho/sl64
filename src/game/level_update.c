@@ -392,7 +392,7 @@ void init_mario_after_warp(u8 playerIndex) {
 
         if (sWarpDest.type == WARP_TYPE_CHANGE_LEVEL || sWarpDest.type == WARP_TYPE_CHANGE_AREA) {
             gPlayerSpawnInfos[playerIndex].areaIndex = sWarpDest.areaIdx;
-            load_mario_area();
+            load_mario_area(playerIndex);
         }
 
         // Don't reset Mario on the same warp area, preserves cap powerup like in SM64DS
@@ -535,7 +535,7 @@ void warp_credits(void) {
 
         gPlayerSpawnInfos[playerIndex].areaIndex = sWarpDest.areaIdx;
 
-        load_mario_area();
+        load_mario_area(playerIndex);
         init_mario(playerIndex);
 
         set_mario_action(&gMarioStates[playerIndex], marioAction, 0);
@@ -1267,7 +1267,7 @@ s32 init_level(void) {
     } else {
         for (playerIndex = 0; playerIndex < 2; playerIndex++) {
             if (gPlayerSpawnInfos[playerIndex].areaIndex >= 0) {
-                load_mario_area();
+                load_mario_area(playerIndex);
                 init_mario(playerIndex);
             }         
         }

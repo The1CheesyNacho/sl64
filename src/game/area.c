@@ -282,20 +282,13 @@ void unload_area(void) {
 }
 
 
-void load_mario_area(void) {
-    u8 playerIndex;
+void load_mario_area(u8 playerIndex) {
+    stop_sounds_in_continuous_banks();
     load_area(gMarioSpawnInfo->areaIndex);
-
-    if (!gCurrentArea) { return; }
-
-    for (s32 i = 0; i < playerIndex; i++) {
-        if (!gMarioStates[i].spawnInfo) { continue; }
-        gMarioStates[i].spawnInfo->areaIndex = gCurrentArea->index;
-    }
 
     if (gCurrentArea->index == gMarioSpawnInfo->areaIndex) {
         gCurrentArea->flags |= 0x01;
-        spawn_objects_from_info(0, gMarioSpawnInfo);
+        spawn_objects_from_info(0, &gPlayerSpawnInfos[playerIndex]);
     }
 }
 

@@ -72,9 +72,9 @@ uintptr_t gPhysicalFramebuffers[3];
 uintptr_t gPhysicalZBuffer;
 
 // Mario Anims and Demo allocation
-void *gMarioAnimsMemAlloc;
+void *gMarioAnimsMemAlloc[0];
 void *gDemoInputsMemAlloc;
-struct DmaHandlerList gMarioAnimsBuf;
+struct DmaHandlerList gMarioAnimsBuf[0];
 struct DmaHandlerList gDemoInputsBuf;
 
 // General timer that runs as the game starts
@@ -620,14 +620,14 @@ void read_controller_inputs(void) {
     // For some reason, player 1's inputs are copied to player 3's port.
     // This potentially may have been a way the developers "recorded"
     // the inputs for demos, despite record_demo existing.
-    gPlayer3Controller->rawStickX = gPlayer1Controller->rawStickX;
-    gPlayer3Controller->rawStickY = gPlayer1Controller->rawStickY;
-    gPlayer3Controller->stickX = gPlayer1Controller->stickX;
-    gPlayer3Controller->stickY = gPlayer1Controller->stickY;
-    gPlayer3Controller->stickMag = gPlayer1Controller->stickMag;
-    gPlayer3Controller->buttonPressed = gPlayer1Controller->buttonPressed;
-    gPlayer3Controller->buttonDown = gPlayer1Controller->buttonDown;
-    
+        gPlayer3Controller->rawStickX = gPlayer1Controller->rawStickX;
+        gPlayer3Controller->rawStickY = gPlayer1Controller->rawStickY;
+        gPlayer3Controller->stickX = gPlayer1Controller->stickX;
+        gPlayer3Controller->stickY = gPlayer1Controller->stickY;
+        gPlayer3Controller->stickMag = gPlayer1Controller->stickMag;
+        gPlayer3Controller->buttonPressed = gPlayer1Controller->buttonPressed;
+        gPlayer3Controller->buttonDown = gPlayer1Controller->buttonDown;
+
 #ifdef BETTERCAMERA
     //If a cutscene's active, just kill all controller input.
     if (gPuppyCam.enabled && gPuppyCam.cutscene && gPuppyCam.sceneInput) {
@@ -686,7 +686,7 @@ void init_controllers(void) {
  * Setup main segments and framebuffers.
  */
 void setup_game_memory(void) {
-    UNUSED u8 filler[8];
+    u8 playerIndex;
 
     // Setup general Segment 0
     set_segment_base_addr(0, (void *) 0x80000000);
@@ -699,9 +699,11 @@ void setup_game_memory(void) {
     gPhysicalFramebuffers[1] = VIRTUAL_TO_PHYSICAL(gFramebuffer1);
     gPhysicalFramebuffers[2] = VIRTUAL_TO_PHYSICAL(gFramebuffer2);
     // Setup Mario Animations
-    gMarioAnimsMemAlloc = main_pool_alloc(0x4000, MEMORY_POOL_LEFT);
-    set_segment_base_addr(17, (void *) gMarioAnimsMemAlloc);
-    setup_dma_table_list(&gMarioAnimsBuf, gMarioAnims, gMarioAnimsMemAlloc);
+    gMarioAnimsMemAlloc[0] = main_pool_alloc(0x4000, MEMORY_POOL_LEFT);
+    set_segment_base_addr(17, (void *) gMarioAnimsMemAlloc[0]);
+    setup_dma_table_list(&gMarioAnimsBuf[0], gMarioAnims, gMarioAnimsMemAlloc[0]);
+    gMarioAnimsMemAlloc[1] = main_pool_alloc(0x4000, MEMORY_POOL_LEFT);
+    setup_dma_table_list(&gMarioAnimsBuf[1], gMarioAnims, gMarioAnimsMemAlloc[1]);
     // Setup Demo Inputs List
     gDemoInputsMemAlloc = main_pool_alloc(0x800, MEMORY_POOL_LEFT);
     set_segment_base_addr(24, (void *) gDemoInputsMemAlloc);
