@@ -267,12 +267,7 @@ void bhv_mario_update(void) {
     s32 i;
     s32 playerIndex;
     
-    for (s32 i = 0; i < playerIndex; i++) {
-        if (gMarioStates[i].marioObj == NULL) { continue; }
-        gMarioStates[i].marioObj->oBhvParams = i + 1;
-    }
-
-
+    gMarioState = &gMarioStates[gCurrentObject->oBhvParams & 0xFF];
     gMarioState->marioObj = gCurrentObject;
 
     particleFlags = execute_mario_action(gCurrentObject);
