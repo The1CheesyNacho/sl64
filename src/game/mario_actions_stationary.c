@@ -39,9 +39,9 @@ s32 check_common_idle_cancels(struct MarioState *m) {
         return set_mario_action(m, ACT_BEGIN_SLIDING, 0);
     }
 
-    if (m->input & INPUT_FIRST_PERSON) {
+    /*if (m->input & INPUT_FIRST_PERSON) {
         return set_mario_action(m, ACT_FIRST_PERSON, 0);
-    }
+    }*/
 
     if (m->input & INPUT_NONZERO_ANALOG) {
         m->faceAngle[1] = (s16) m->intendedYaw;
@@ -493,9 +493,9 @@ s32 act_standing_against_wall(struct MarioState *m) {
         return check_common_action_exits(m);
     }
 
-    if (m->input & INPUT_FIRST_PERSON) {
+    /*if (m->input & INPUT_FIRST_PERSON) {
         return set_mario_action(m, ACT_FIRST_PERSON, 0);
-    }
+    }*/
 
     if (m->input & INPUT_B_PRESSED) {
         return set_mario_action(m, ACT_PUNCHING, 0);

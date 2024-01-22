@@ -4964,9 +4964,9 @@ void radial_camera_input(struct Camera *c) {
         if (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT) {
             gCameraMovementFlags &= ~CAM_MOVE_ZOOMED_OUT;
             play_sound_cbutton_up();
-        } else {
+        } /*else {
             set_mode_c_up(c);
-        }
+        }*/
     }
 
     // Zoom out
@@ -5007,14 +5007,14 @@ void handle_c_button_movement(struct Camera *c) {
         if (c->mode != CAMERA_MODE_FIXED && (gCameraMovementFlags & CAM_MOVE_ZOOMED_OUT)) {
             gCameraMovementFlags &= ~CAM_MOVE_ZOOMED_OUT;
             play_sound_cbutton_up();
-        } else {
+        } /*else {
             set_mode_c_up(c);
             if (sZeroZoomDist > gCameraZoomDist) {
                 sZoomAmount = -gCameraZoomDist;
             } else {
                 sZoomAmount = gCameraZoomDist;
             }
-        }
+        }*/
     }
     if (c->mode != CAMERA_MODE_FIXED) {
         // Zoom out
