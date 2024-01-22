@@ -182,6 +182,7 @@ s8 sTimerRunning;
 s8 gNeverEnteredCastle;
 
 struct MarioState *gMarioState = &gMarioStates[0];
+struct MarioState *gLuigiState = &gMarioStates[1];
 s8 sWarpCheckpointActive = FALSE;
 
 u16 level_control_timer(s32 timerOp) {
@@ -538,7 +539,8 @@ void warp_credits(void) {
         load_mario_area(playerIndex);
         init_mario(playerIndex);
 
-        set_mario_action(&gMarioStates[playerIndex], marioAction, 0);
+        set_mario_action(gMarioState, marioAction, 0);
+        set_mario_action(gLuigiState, marioAction, 0);
     }
 
     reset_camera(gCurrentArea->camera);
@@ -1277,11 +1279,13 @@ s32 init_level(void) {
 
             if (gCurrDemoInput != NULL) {
                 set_mario_action(gMarioState, ACT_IDLE, 0);
+                set_mario_action(gLuigiState, ACT_IDLE, 0);
             } else if (!gDebugLevelSelect) {
                 if (gMarioState->action != ACT_UNINITIALIZED) {
                     // ex-alo change
                     // Checks for peach intro skip
                     set_mario_action(gMarioState, ACT_IDLE, 0);
+                    set_mario_action(gLuigiState, ACT_IDLE, 0);
                 }
             }
         }

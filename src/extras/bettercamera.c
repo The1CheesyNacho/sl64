@@ -1401,7 +1401,7 @@ static void puppycam_collision(void) {
 
 extern Vec3f sOldPosition;
 extern Vec3f sOldFocus;
-extern struct PlayerGeometry sMarioGeometry;
+extern struct PlayerGeometry sMarioGeometry[playerIndex];
 
 // Applies the PuppyCam values to the actual game's camera, giving the final product.
 static void puppycam_apply(void) {
@@ -1436,18 +1436,18 @@ static void puppycam_apply(void) {
     gLakituState.roll    = 0;
 
     if (gMarioState->floor != NULL) {
-        sMarioGeometry.prevFloor = sMarioGeometry.currFloor = gMarioState->floor;
-        sMarioGeometry.prevFloorHeight = sMarioGeometry.currFloorHeight = gMarioState->floorHeight;
-        sMarioGeometry.prevFloorType = sMarioGeometry.currFloorType = gMarioState->floor->type;
+        sMarioGeometry[playerIndex].prevFloor = sMarioGeometry[playerIndex].currFloor = gMarioState->floor;
+        sMarioGeometry[playerIndex].prevFloorHeight = sMarioGeometry[playerIndex].currFloorHeight = gMarioState->floorHeight;
+        sMarioGeometry[playerIndex].prevFloorType = sMarioGeometry[playerIndex].currFloorType = gMarioState->floor->type;
     }
 
     if (gMarioState->ceil != NULL) {
-        sMarioGeometry.prevCeil = sMarioGeometry.currCeil = gMarioState->ceil;
-        sMarioGeometry.prevCeilHeight = sMarioGeometry.currCeilHeight = gMarioState->ceilHeight;
-        sMarioGeometry.prevCeilType = sMarioGeometry.currCeilType = gMarioState->ceil->type;
+        sMarioGeometry[playerIndex].prevCeil = sMarioGeometry[playerIndex].currCeil = gMarioState->ceil;
+        sMarioGeometry[playerIndex].prevCeilHeight = sMarioGeometry[playerIndex].currCeilHeight = gMarioState->ceilHeight;
+        sMarioGeometry[playerIndex].prevCeilType = sMarioGeometry[playerIndex].currCeilType = gMarioState->ceil->type;
     }
 
-    sMarioGeometry.waterHeight = gMarioState->waterLevel;
+    sMarioGeometry[playerIndex].waterHeight = gMarioState->waterLevel;
 }
 
 extern Texture texture_hud_char_puppycam[];

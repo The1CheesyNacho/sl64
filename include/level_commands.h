@@ -283,10 +283,10 @@ enum LevelCommandsIDList {
     CMD_PTR(geo)
 
 // unk8 is float, but doesn't really matter since CMD23 is unused
-#define CMD23(model, unk4, unk8) \
-    CMD_BBH(LVL_SCRIPT_CMD_23, 0x08, 0), \
-    CMD_PTR(unk4), \
-    CMD_W(unk8)
+#define CMD23(model, bhvArg, bhv) \
+    CMD_BBH(LVL_SCRIPT_CMD_23, 0x0C, model), \
+    CMD_W(bhvArg), \
+    CMD_PTR(bhv)
 
 #define OBJECT_WITH_ACTS(model, posX, posY, posZ, angleX, angleY, angleZ, bhvParam, bhv, acts) \
     CMD_BBBB(LVL_SCRIPT_CMD_24, 0x1C, acts, 0x00), \
