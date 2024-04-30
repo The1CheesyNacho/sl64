@@ -3,27 +3,27 @@
 # --------------------------------------
 
 # Build debug version (1 simple debug compile, 2 max debug compile)
-DEBUG ?= 0
+DEBUG ?= 1
 # Enable extended options menu by default
 EXT_OPTIONS_MENU ?= 1
 # Enable debug options menu (Enabled if DEBUG is not 0)
-EXT_DEBUG_MENU ?= 0
+EXT_DEBUG_MENU ?= 1
 # Enable better camera (Puppycam 2)
-BETTERCAMERA ?= 1
+BETTERCAMERA ?= 0
 # Enable cheats
 CHEATS_ACTIONS ?= 1
 # Enable rumble functions (Originally in Shindou)
 RUMBLE_FEEDBACK ?= 1
 # Disable no drawing distance by default
-NODRAWINGDISTANCE ?= 0
+NODRAWINGDISTANCE ?= 1
 # Enable Goddard (Mario Face)
-GODDARD_MFACE ?= 1
+GODDARD_MFACE ?= 0
 # Kaze MOP Objects Port, disabled by default
-PORT_MOP_OBJS ?= 0
+PORT_MOP_OBJS ?= 1
 # Enable level vanilla checks
 VANILLA_CHECKS ?= 1
 # Enable extended bounds
-EXTENDED_BOUNDS ?= 0
+EXTENDED_BOUNDS ?= 1
 # Accept RM2C level folder output
 RM2C ?= 0
 
@@ -43,7 +43,7 @@ QOL_REDONE ?= 1
 # --------------------------------------
 
 # Enable 60 fps interpolation
-HIGH_FPS_PC ?= 0
+HIGH_FPS_PC ?= 1
 # Disable text-based save-files by default
 TEXTSAVES ?= 0
 # Load resources from external files
