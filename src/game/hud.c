@@ -58,6 +58,13 @@ static struct PowerMeterHUD sPowerMeterHUD = {
 // when the power meter is hidden.
 s32 sPowerMeterVisibleTimer = 0;
 
+u8 gHudIdle = 0;
+s32 gHudIdleTimer = 0;
+s32 gHudForceIdle = 0;
+s32 gHudRedCoinTimer = 0;
+f32 gHudOffset = 0;
+f32 gHudRedCoinOffset = 0;
+
 s16 sCameraHUDStatus = CAM_STATUS_NONE;
 
 s32 set_hud_auto_x_pos(s32 x) {
@@ -89,7 +96,7 @@ void patch_interpolated_hud(void) {
 /**
  * Renders a rgba16 16x16 glyph texture from a table list.
  */
-void render_hud_tex_lut(s32 x, s32 y, u8 *texture) {
+void render_hud_tex_lut(s32 x, s32 y, Texture *texture) {
     gDPPipeSync(gDisplayListHead++);
     gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture);
     gSPDisplayList(gDisplayListHead++, &dl_hud_img_load_tex_block);
@@ -98,9 +105,20 @@ void render_hud_tex_lut(s32 x, s32 y, u8 *texture) {
 }
 
 /**
+ * Renders a rgba16 16x16 glyph texture from a table list.
+ */
+void render_hud_tex_lut_big(s32 x, s32 y, Texture *texture) {
+    gDPPipeSync(gDisplayListHead++);
+    gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture);
+    gSPDisplayList(gDisplayListHead++, &dl_hud_img_load_tex_block_32);
+    gSPTextureRectangle(gDisplayListHead++, x << 2, y << 2, (x + 31) << 2, (y + 31) << 2,
+                        G_TX_RENDERTILE, 0, 0, 4 << 10, 1 << 10);
+}
+
+/**
  * Renders a rgba16 8x8 glyph texture from a table list.
  */
-void render_hud_small_tex_lut(s32 x, s32 y, u8 *texture) {
+void render_hud_small_tex_lut(s32 x, s32 y, Texture *texture) {
     gDPSetTile(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE, 0,
                 G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOLOD, G_TX_WRAP | G_TX_NOMIRROR, G_TX_NOMASK, G_TX_NOLOD);
     gDPTileSync(gDisplayListHead++);
@@ -119,15 +137,17 @@ void render_hud_small_tex_lut(s32 x, s32 y, u8 *texture) {
  * Renders power meter health segment texture using a table list.
  */
 void render_power_meter_health_segment(s16 numHealthWedges) {
-    u8 *(*healthLUT)[] = segmented_to_virtual(&power_meter_health_segments_lut);
+    u8 *(*healthLUT)[];
+
+    healthLUT = segmented_to_virtual(power_meter_health_segments_lut);
 
     gDPPipeSync(gDisplayListHead++);
-    gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1,
-                       (*healthLUT)[numHealthWedges - 1]);
-    gDPLoadSync(gDisplayListHead++);
-    gDPLoadBlock(gDisplayListHead++, G_TX_LOADTILE, 0, 0, 32 * 32 - 1, CALC_DXT(32, G_IM_SIZ_16b_BYTES));
-    gSP1Triangle(gDisplayListHead++, 0, 1, 2, 0);
+    g_Tani_LoadTextureImage2(gDisplayListHead++, (*healthLUT)[numHealthWedges * 2], G_IM_FMT_RGBA,
+                             G_IM_SIZ_16b, 32, 64, 0, 7) gSP1Triangle(gDisplayListHead++, 0, 1, 2, 0);
     gSP1Triangle(gDisplayListHead++, 0, 2, 3, 0);
+    g_Tani_LoadTextureImage2(gDisplayListHead++, (*healthLUT)[(numHealthWedges * 2) + 1], G_IM_FMT_RGBA,
+                             G_IM_SIZ_16b, 32, 64, 0, 7) gSP1Triangle(gDisplayListHead++, 4, 5, 6, 0);
+    gSP1Triangle(gDisplayListHead++, 4, 6, 7, 0);
 }
 
 /**
@@ -135,38 +155,28 @@ void render_power_meter_health_segment(s16 numHealthWedges) {
  * That includes the "POWER" base and the colored health segment textures.
  */
 void render_dl_power_meter(s16 numHealthWedges) {
-#ifdef HIGH_FPS_PC
-    f32 interpolatedY;
-#endif
-    Mtx *mtx = alloc_display_list(sizeof(Mtx));
+    Mtx *translateMtx;
+    Mtx *scaleMtx;
 
-    if (mtx == NULL) {
+    translateMtx = alloc_display_list(sizeof(Mtx));
+    scaleMtx = alloc_display_list(sizeof(Mtx));
+
+    if (translateMtx == NULL || scaleMtx == NULL) {
         return;
     }
 
-#ifdef HIGH_FPS_PC
-    if (gGlobalTimer == sPowerMeterLastRenderTimestamp + 1) {
-        interpolatedY = (sPowerMeterLastY + sPowerMeterHUD.y) / 2.0f;
-    } else {
-        interpolatedY = sPowerMeterHUD.y;
-    }
-    guTranslate(mtx, (f32) set_hud_auto_x_pos(sPowerMeterHUD.x), interpolatedY, 0);
-    sPowerMeterLastY = sPowerMeterHUD.y;
-    sPowerMeterLastRenderTimestamp = gGlobalTimer;
-    sPowerMeterDisplayListPos = gDisplayListHead;
-#else
-    guTranslate(mtx, (f32) set_hud_auto_x_pos(sPowerMeterHUD.x), (f32) sPowerMeterHUD.y, 0);
-#endif
+    guTranslate(translateMtx, (f32) sPowerMeterHUD.x, (f32) sPowerMeterHUD.y, 0);
+    guScale(scaleMtx, 0.75f, 0.75f, 1.0f);
 
-    gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(mtx++),
+    gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(translateMtx++),
               G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_PUSH);
+
+    gSPMatrix(gDisplayListHead++, VIRTUAL_TO_PHYSICAL(scaleMtx++),
+              G_MTX_MODELVIEW | G_MTX_MUL | G_MTX_NOPUSH);
+
     gSPDisplayList(gDisplayListHead++, &dl_power_meter_base);
 
-    if (numHealthWedges != 0) {
-        gSPDisplayList(gDisplayListHead++, &dl_power_meter_health_segments_begin);
-        render_power_meter_health_segment(numHealthWedges);
-        gSPDisplayList(gDisplayListHead++, &dl_power_meter_health_segments_end);
-    }
+    render_power_meter_health_segment(numHealthWedges);
 
     gSPPopMatrix(gDisplayListHead++, G_MTX_MODELVIEW);
 }
@@ -179,7 +189,7 @@ void animate_power_meter_emphasized(void) {
     s16 hudDisplayFlags = gHudDisplay.flags;
 
     if (!(hudDisplayFlags & HUD_DISPLAY_FLAG_EMPHASIZE_POWER)) {
-        if (sPowerMeterVisibleTimer == 45.0) {
+        if (sPowerMeterVisibleTimer == 45.0f) {
             sPowerMeterHUD.animation = POWER_METER_DEEMPHASIZING;
         }
     } else {
@@ -194,22 +204,14 @@ void animate_power_meter_emphasized(void) {
 static void animate_power_meter_deemphasizing(void) {
     s16 speed = 5;
 
-    if (sPowerMeterHUD.y > POWER_Y + 14) {
-        speed = 3;
-    }
-
-    if (sPowerMeterHUD.y > POWER_Y + 24) {
-        speed = 2;
-    }
-
-    if (sPowerMeterHUD.y > POWER_Y + 29) {
-        speed = 1;
-    }
+    if (sPowerMeterHUD.y > HUD_POWER_METER_Y - 20) speed = 3;
+    if (sPowerMeterHUD.y > HUD_POWER_METER_Y - 10) speed = 2;
+    if (sPowerMeterHUD.y > HUD_POWER_METER_Y -  5) speed = 1;
 
     sPowerMeterHUD.y += speed;
 
-    if (sPowerMeterHUD.y > POWER_Y + 34) {
-        sPowerMeterHUD.y = POWER_Y + 34;
+    if (sPowerMeterHUD.y > HUD_POWER_METER_Y) {
+        sPowerMeterHUD.y = HUD_POWER_METER_Y;
         sPowerMeterHUD.animation = POWER_METER_VISIBLE;
     }
 }
@@ -220,7 +222,7 @@ static void animate_power_meter_deemphasizing(void) {
  */
 static void animate_power_meter_hiding(void) {
     sPowerMeterHUD.y += 20;
-    if (sPowerMeterHUD.y > POWER_Y + 134) {
+    if (sPowerMeterHUD.y > HUD_POWER_METER_HIDDEN_Y) {
         sPowerMeterHUD.animation = POWER_METER_HIDDEN;
         sPowerMeterVisibleTimer = 0;
     }
@@ -234,7 +236,7 @@ void handle_power_meter_actions(s16 numHealthWedges) {
     if (numHealthWedges < 8 && sPowerMeterStoredHealth == 8
         && sPowerMeterHUD.animation == POWER_METER_HIDDEN) {
         sPowerMeterHUD.animation = POWER_METER_EMPHASIZED;
-        sPowerMeterHUD.y = POWER_Y;
+        sPowerMeterHUD.y = HUD_POWER_METER_EMPHASIZED_Y;
     }
 
     // Show power meter if health is full, has 8
@@ -243,22 +245,24 @@ void handle_power_meter_actions(s16 numHealthWedges) {
     }
 
     // After health is full, hide power meter
-    if (numHealthWedges == 8 && sPowerMeterVisibleTimer > 45.0) {
+    if (numHealthWedges == 8 && sPowerMeterVisibleTimer > 45.0f) {
         sPowerMeterHUD.animation = POWER_METER_HIDING;
     }
 
     // Update to match health value
     sPowerMeterStoredHealth = numHealthWedges;
 
+#ifndef BREATH_METER
     // If Mario is swimming, keep power meter visible
     if (gPlayerCameraState->action & ACT_FLAG_SWIMMING) {
         if (sPowerMeterHUD.animation == POWER_METER_HIDDEN
             || sPowerMeterHUD.animation == POWER_METER_EMPHASIZED) {
             sPowerMeterHUD.animation = POWER_METER_DEEMPHASIZING;
-            sPowerMeterHUD.y = POWER_Y;
+            sPowerMeterHUD.y = HUD_POWER_METER_EMPHASIZED_Y;
         }
         sPowerMeterVisibleTimer = 0;
     }
+#endif
 }
 
 /**
@@ -266,74 +270,74 @@ void handle_power_meter_actions(s16 numHealthWedges) {
  * or has taken damage and has less than 8 health segments.
  * And calls a power meter animation function depending of the value defined.
  */
+f32 prevHurt = 0;
+f32 hurt = 0;
+f32 hurtTimer = 0;
+
+f32 map_value(f32 srcMin, f32 srcMax, f32 dstMin, f32 dstMax, f32 x) {
+    return (x - srcMin) / (srcMax - srcMin) * (dstMax - dstMin) + dstMin;
+}
+
 void render_hud_power_meter(void) {
     s16 shownHealthWedges = gHudDisplay.wedges;
-
-    if (sPowerMeterHUD.animation != POWER_METER_HIDING) {
-        handle_power_meter_actions(shownHealthWedges);
+    f32 powerMeterX, powerMeterY;
+    f32 srcX, srcY, dstX, dstY;
+    f32 interpolation, shakiness, range;
+    prevHurt = hurt;
+    hurt = gMarioState->hurtCounter;
+    if (hurtTimer != 0) {
+        hurtTimer--;
+        if (hurtTimer < 16 && gMarioState->health < 0x0300) hurtTimer = 16;
     }
-
-    if (sPowerMeterHUD.animation == POWER_METER_HIDDEN) {
-        return;
+    if (hurt != 0 && prevHurt == 0) hurtTimer = 90;
+    powerMeterX = SCREEN_CENTER_X;
+    powerMeterY = SCREEN_HEIGHT - 32 - 10;
+    if (hurtTimer > 15) {
+        powerMeterX = SCREEN_WIDTH / 2.f - 28;
+        powerMeterY = SCREEN_HEIGHT / 2.f + 32;
     }
-
-    switch (sPowerMeterHUD.animation) {
-        case POWER_METER_EMPHASIZED:
-            animate_power_meter_emphasized();
-            break;
-        case POWER_METER_DEEMPHASIZING:
-            animate_power_meter_deemphasizing();
-            break;
-        case POWER_METER_HIDING:
-            animate_power_meter_hiding();
-            break;
-        default:
-            break;
+    else if (hurtTimer <= 15 && hurtTimer != 0) {
+        srcX = SCREEN_WIDTH / 2.f - 28;
+        srcY = SCREEN_HEIGHT / 2.f + 32;
+        dstX = powerMeterX;
+        dstY = powerMeterY;
+        interpolation = 1 - sqrt(1 - map_value(15, 1, 0, 1, hurtTimer));
+        powerMeterX = map_value(0, 1, srcX, dstX, interpolation);
+        powerMeterY = map_value(0, 1, srcY, dstY, interpolation);
     }
-
+    shakiness = gMarioState->hurtCounter;
+    range = (s32)(shakiness * 3);
+    if (range > 0) {
+        powerMeterX = powerMeterX + (random_float() * (range + range) - range);
+        powerMeterY = powerMeterY + (random_float() * (range + range) - range);
+    }
+    sPowerMeterHUD.x = powerMeterX;
+    sPowerMeterHUD.y = powerMeterY;
     render_dl_power_meter(shownHealthWedges);
-
-    sPowerMeterVisibleTimer++;
 }
 
 /**
  * Renders the amount of lives Mario has.
  */
 void render_hud_mario_lives(void) {
-    print_text(set_hud_auto_x_pos(HUD_LIVES_MARIO_X), HUD_LIVES_MARIO_Y, ","); // 'Mario Head' glyph
-    print_text(set_hud_auto_x_pos(HUD_LIVES_CROSS_X), HUD_LIVES_CROSS_Y, "*"); // 'X' glyph
-    print_text_fmt_int(set_hud_auto_x_pos(HUD_LIVES_NUM_X), HUD_LIVES_NUM_Y, "%d", gHudDisplay.lives);
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(71) + (1 - gHudOffset) * 120, HUD_TOP_Y, ","); // 'Mario Head' glyph
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(56) + (1 - gHudOffset) * 120, HUD_TOP_Y, "*"); // 'X' glyph
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(44) + (1 - gHudOffset) * 120, HUD_TOP_Y, "%d", gHudDisplay.lives);
 }
 
-/**
- * Renders the amount of coins collected.
- */
 void render_hud_coins(void) {
-    print_text(set_hud_auto_x_pos(HUD_COINS_X), HUD_COINS_Y, "+"); // 'Coin' glyph
-    print_text(set_hud_auto_x_pos(HUD_COINS_CROSS_X), HUD_COINS_Y, "*"); // 'X' glyph
-    print_text_fmt_int(set_hud_auto_x_pos(HUD_COINS_NUM_X), HUD_COINS_Y, "%d", gHudDisplay.coins);
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(71) + (1 - gHudOffset) * 120, HUD_TOP_Y - 40, "+"); // 'Coin' glyph
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(56) + (1 - gHudOffset) * 120, HUD_TOP_Y - 40, "*"); // 'X' glyph
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(44) + (1 - gHudOffset) * 120, HUD_TOP_Y - 40, "%d", gHudDisplay.coins);
 }
 
 /**
- * Renders the amount of stars collected.
- * Disables "X" glyph when Mario has 100 stars or more.
+	@@ -432,22 +471,19 @@ void render_hud_coins(void) {
  */
 void render_hud_stars(void) {
-    s8 showX = 0;
-
-    if (gHudFlash == 1 && gGlobalTimer & 8) {
-        return;
-    }
-
-    if (gHudDisplay.stars < 100) {
-        showX = 1;
-    }
-
-    print_text(set_hud_auto_x_pos(HUD_STARS_X), HUD_STARS_Y, "-"); // 'Star' glyph
-    if (showX == 1) {
-        print_text(set_hud_auto_x_pos(HUD_STARS_CROSS_X), HUD_STARS_CROSS_Y, "*"); // 'X' glyph
-    }
-    print_text_fmt_int((showX * 14) + set_hud_auto_x_pos(HUD_STARS_NUM_X), HUD_STARS_NUM_Y, "%d", gHudDisplay.stars);
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(71) + (1 - gHudOffset) * 120, HUD_TOP_Y - 20, "-"); // 'Star' glyph
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(56) + (1 - gHudOffset) * 120, HUD_TOP_Y - 20, "*"); // 'X' glyph
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(44) + (1 - gHudOffset) * 120,HUD_TOP_Y - 20, "%d", gHudDisplay.stars);
 }
 
 /**
@@ -341,12 +345,12 @@ void render_hud_stars(void) {
  * Leftover function from the beta version of the game.
  */
 void render_hud_keys(void) {
-    s16 i;
-
-    for (i = 0; i < gHudDisplay.keys; i++) {
-        print_text((i * 16) + 220, 142, "/"); // unused glyph - beta key
+    char* keys[] = { ".", "/" };
+    for (u8 i = 0; i < 3; i++) {
+        print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(71) + (1 - gHudOffset) * 120 + i * 15, HUD_TOP_Y - 60, keys[i < gMarioState->numKeys]);
     }
 }
+
 
 /**
  * Renders the timer when Mario start sliding in PSS.
@@ -442,11 +446,42 @@ void render_hud_camera_status(void) {
     gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
 }
 
+void render_hud_red_coins() {
+    print_text(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(8), 16 - (1 - gHudRedCoinOffset) * 120, "#"); // 'Coin' glyph
+    print_text(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(23), 16 - (1 - gHudRedCoinOffset) * 120, "*"); // 'X' glyph
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(35), 16 - (1 - gHudRedCoinOffset) * 120, "%d", gRedCoinsCollected);
+}
+
+void hud_set_idle(u8 idle) {
+    gHudIdle = idle;
+}
+
+void hud_force_idle() {
+    gHudIdleTimer = MAX(15, gHudIdleTimer);
+    gHudForceIdle = 150;
+}
+
+
 /**
  * Render HUD strings using hudDisplayFlags with it's render functions,
  * excluding the cannon reticle which detects a camera preset for it.
  */
 void render_hud(void) {
+    if (gHudIdle || gHudForceIdle > 0) {
+        gHudIdleTimer++;
+        if (gHudIdleTimer > 60) gHudIdleTimer = 60;
+    }
+    else {
+        gHudIdleTimer--;
+        if (gHudIdleTimer < 0) gHudIdleTimer = 0;
+    }
+    if (gHudForceIdle > 0) gHudForceIdle--;
+    gHudOffset = (1 - (1 - gHudIdleTimer / 60.f) * (1 - gHudIdleTimer / 60.f));
+    if (gRedCoinsCollected > 0) {
+        gHudRedCoinTimer++;
+        if (gHudRedCoinTimer > 60) gHudRedCoinTimer = 60;
+        gHudRedCoinOffset = (1 - (1 - gHudRedCoinTimer / 60.f) * (1 - gHudRedCoinTimer / 60.f));
+    }
     s16 hudDisplayFlags = gHudDisplay.flags;
 
     if (hudDisplayFlags == HUD_DISPLAY_NONE) {
@@ -488,6 +523,7 @@ void render_hud(void) {
 #if SHOW_COINS
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_COIN_COUNT) {
             render_hud_coins();
+            render_hud_red_coins();
         }
 #endif
 #if SHOW_STARS

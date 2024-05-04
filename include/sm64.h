@@ -9,6 +9,7 @@
 #include "object_constants.h"
 #include "sounds.h"
 #include "model_ids.h"
+#include "gex.h"
 #include "mario_animation_ids.h"
 #include "mario_geo_switch_case_ids.h"
 #include "surface_terrains.h"

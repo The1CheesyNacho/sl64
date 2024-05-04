@@ -92,7 +92,7 @@ Lights1 wario_wario_green_lights = gdSPDefLights1(
 
 Gfx wario_mario_metal_rgba16_aligner[] = {gsSPEndDisplayList()};
 u8 wario_mario_metal_rgba16[] = {
-	#include "actors/wario/mario_metal.rgba16.inc.c"
+	#include "actors/mario/mario_metal.rgba16.inc.c"
 };
 
 Gfx wario_custom_wario_overalls_button_rgba16_aligner[] = {gsSPEndDisplayList()};
@@ -162,12 +162,12 @@ u8 wario_custom_wario_mouth_dead_rgba16[] = {
 
 Gfx wario_mario_wing_rgba16_aligner[] = {gsSPEndDisplayList()};
 u8 wario_mario_wing_rgba16[] = {
-	#include "actors/wario/mario_wing.rgba16.inc.c"
+	#include "actors/mario/mario_wing.rgba16.inc.c"
 };
 
 Gfx wario_mario_wing_tip_rgba16_aligner[] = {gsSPEndDisplayList()};
 u8 wario_mario_wing_tip_rgba16[] = {
-	#include "actors/wario/mario_wing_tip.rgba16.inc.c"
+	#include "actors/mario/mario_wing_tip.rgba16.inc.c"
 };
 
 Vtx wario_000_offset_butt_mesh_layer_1_vtx_0[76] = {
