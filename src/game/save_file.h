@@ -11,7 +11,7 @@
 #define MENU_DATA_MAGIC 0x4849
 #define SAVE_FILE_MAGIC 0x4441
 
-#define NUM_SAVE_FILES 4
+#define NUM_SAVE_FILES 2
 
 // Support both types of endianness on PC Port (little and big)
 #ifndef TARGET_N64
