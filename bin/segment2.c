@@ -2509,7 +2509,7 @@ const Texture texture_transition_bowser_half[] = {
 };
 
 const Texture texture_waterbox_water[] = {
-#include "textures/segment2/segment2.11C58.rgba16.inc.c"
+#include "textures/segment2/custom_segment2.11C58.rgba16.inc.c"
 };
 
 const Texture texture_waterbox_jrb_water[] = {
