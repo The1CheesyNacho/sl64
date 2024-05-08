@@ -46,6 +46,7 @@
 #include "extras/debug_menu.h"
 #endif
 
+int currentplayer;
 u32 unused80339F10;
 u8 unused80339F1C[20];
 
@@ -1375,6 +1376,30 @@ void update_mario_button_inputs(struct MarioState *m) {
         if (m->controller->buttonPressed & Z_TRIG) {
             m->input |= INPUT_Z_PRESSED;
         }
+    }
+
+    if (m->controller->buttonPressed & L_TRIG) {
+        play_sound(SOUND_MENU_STAR_SOUND, gGlobalSoundSource);
+        m->particleFlags |= PARTICLE_MIST_CIRCLE;
+        currentplayer++;
+    }
+
+    switch (currentplayer){
+    case 0:
+        m->marioObj->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_MARIO];
+    break;
+    
+    case 1:
+        m->marioObj->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_LUIGI];
+    break;
+    
+    case 2:
+        m->marioObj->header.gfx.sharedChild = gLoadedGraphNodes[MODEL_SYOBON];
+    break;
+    }
+
+    if (currentplayer > 2){
+        currentplayer = 0;
     }
 
     if (m->input & INPUT_A_PRESSED) {

@@ -1271,8 +1271,7 @@ s32 init_level(void) {
                     if (should_intro_be_skipped()) {
                         set_mario_action(gMarioState, ACT_IDLE, 0);
                     } else {
-                        set_mario_action(gMarioState, ACT_INTRO_CUTSCENE, 0);
-                        fadeFromColor = TRUE;
+                        set_mario_action(gMarioState, ACT_IDLE, 0);
                     }
                 }
             }

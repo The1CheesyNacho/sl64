@@ -59,6 +59,7 @@ build/*
 .assets-local.txt
 sm64_save_file.bin
 sm64config.txt
+!textures/skyboxes/clouds.png
 
 # Android files
 !/textures/touchcontrols/*.png
