@@ -3,42 +3,49 @@
 const GeoLayout syobon_002_switch_opt0_001_switch_opt1_000_switch_opt0_000_switch_001_opt1[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_closed_v4_1),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_004_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout syobon_002_switch_opt0_001_switch_opt1_000_switch_opt0_000_switch_001_opt2[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_custom_v4_2),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_003_2),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout syobon_002_switch_opt0_001_switch_opt1_000_switch_opt0_000_switch_001_opt3[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_closed_v4_1),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_002_3),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout syobon_002_switch_opt0_001_switch_opt1_000_switch_opt0_000_switch_001_opt4[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_closed_v4_1),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_002_3),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout syobon_002_switch_opt0_001_switch_opt1_000_switch_opt0_000_switch_001_opt5[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_closed_v4_1),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_002_3),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout syobon_002_switch_opt0_001_switch_opt1_000_switch_opt0_000_switch_001_opt6[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_dead_v4_3),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_002_3),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout syobon_002_switch_opt0_001_switch_opt1_000_switch_opt0_000_switch_001_opt7[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_DISPLAY_LIST(LAYER_TRANSPARENT, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_005_4),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -76,6 +83,7 @@ const GeoLayout syobon_002_switch_opt0_001_switch_opt1[] = {
 											GEO_BRANCH(1, syobon_002_switch_opt0_001_switch_opt1_000_switch_opt0_000_switch_001_opt4),
 											GEO_BRANCH(1, syobon_002_switch_opt0_001_switch_opt1_000_switch_opt0_000_switch_001_opt5),
 											GEO_BRANCH(1, syobon_002_switch_opt0_001_switch_opt1_000_switch_opt0_000_switch_001_opt6),
+											GEO_BRANCH(1, syobon_002_switch_opt0_001_switch_opt1_000_switch_opt0_000_switch_001_opt7),
 										GEO_CLOSE_NODE(),
 									GEO_CLOSE_NODE(),
 								GEO_CLOSE_NODE(),
@@ -441,42 +449,49 @@ const GeoLayout syobon_002_switch_opt0_001_switch_opt3[] = {
 const GeoLayout syobon_002_switch_opt0_001_switch_opt0_000_switch_opt0_000_switch_001_opt1[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_closed_v4_1),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_004_1),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout syobon_002_switch_opt0_001_switch_opt0_000_switch_opt0_000_switch_001_opt2[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_custom_v4_2),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_003_2),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout syobon_002_switch_opt0_001_switch_opt0_000_switch_opt0_000_switch_001_opt3[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_closed_v4_1),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_002_3),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout syobon_002_switch_opt0_001_switch_opt0_000_switch_opt0_000_switch_001_opt4[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_closed_v4_1),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_002_3),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout syobon_002_switch_opt0_001_switch_opt0_000_switch_opt0_000_switch_001_opt5[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_closed_v4_1),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_002_3),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
 const GeoLayout syobon_002_switch_opt0_001_switch_opt0_000_switch_opt0_000_switch_001_opt6[] = {
 	GEO_NODE_START(),
 	GEO_OPEN_NODE(),
-		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_eyes_dead_v4_3),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_002_3),
+	GEO_CLOSE_NODE(),
+	GEO_RETURN(),
+};
+const GeoLayout syobon_002_switch_opt0_001_switch_opt0_000_switch_opt0_000_switch_001_opt7[] = {
+	GEO_NODE_START(),
+	GEO_OPEN_NODE(),
+		GEO_DISPLAY_LIST(LAYER_OPAQUE, syobon_000_displaylist_mesh_layer_1_mat_override_f3dlite_material_005_4),
 	GEO_CLOSE_NODE(),
 	GEO_RETURN(),
 };
@@ -528,6 +543,7 @@ const GeoLayout syobon_geo[] = {
 																	GEO_BRANCH(1, syobon_002_switch_opt0_001_switch_opt0_000_switch_opt0_000_switch_001_opt4),
 																	GEO_BRANCH(1, syobon_002_switch_opt0_001_switch_opt0_000_switch_opt0_000_switch_001_opt5),
 																	GEO_BRANCH(1, syobon_002_switch_opt0_001_switch_opt0_000_switch_opt0_000_switch_001_opt6),
+																	GEO_BRANCH(1, syobon_002_switch_opt0_001_switch_opt0_000_switch_opt0_000_switch_001_opt7),
 																GEO_CLOSE_NODE(),
 															GEO_CLOSE_NODE(),
 														GEO_CLOSE_NODE(),
