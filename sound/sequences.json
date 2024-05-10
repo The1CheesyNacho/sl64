@@ -22,7 +22,8 @@
     "03_level_grass": [
         "22"
     ],
-    "04_level_inside_castle": [
+    "04_level_inside_castle": null,
+    "04_custom_level_inside_castle": [
         "0E"
     ],
     "05_level_water": [
