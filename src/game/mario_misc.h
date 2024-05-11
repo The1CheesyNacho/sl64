@@ -31,5 +31,6 @@ Gfx *geo_render_mirror_mario(s32 callContext, struct GraphNode *node, UNUSED Mat
 Gfx *geo_mirror_mario_backface_culling(s32 callContext, struct GraphNode *node, UNUSED Mat4 *c);
 Gfx* geo_set_player_mario(s32 callContext, struct GraphNode* node, UNUSED Mat4* c);
 Gfx* geo_set_player_luigi(s32 callContext, struct GraphNode* node, UNUSED Mat4* c);
+Gfx* geo_set_player_syobon(s32 callContext, struct GraphNode* node, UNUSED Mat4* c);
 
 #endif // MARIO_MISC_H

@@ -223,16 +223,16 @@ void copy_mario_state_to_object(void) {
     s32 i = 0;
     // L is real
     if (gCurrentObject != gMarioObject) {
-        i++;
+        i = 1;
     }
 
-    gCurrentObject->oVelX = gMarioState->vel[0];
-    gCurrentObject->oVelY = gMarioState->vel[1];
-    gCurrentObject->oVelZ = gMarioState->vel[2];
+    gCurrentObject->oVelX = gMarioStates[i].vel[0];
+    gCurrentObject->oVelY = gMarioStates[i].vel[1];
+    gCurrentObject->oVelZ = gMarioStates[i].vel[2];
 
-    gCurrentObject->oPosX = gMarioState->pos[0];
-    gCurrentObject->oPosY = gMarioState->pos[1];
-    gCurrentObject->oPosZ = gMarioState->pos[2];
+    gCurrentObject->oPosX = gMarioStates[i].pos[0];
+    gCurrentObject->oPosY = gMarioStates[i].pos[1];
+    gCurrentObject->oPosZ = gMarioStates[i].pos[2];
 
     gCurrentObject->oMoveAnglePitch = gCurrentObject->header.gfx.angle[0];
     gCurrentObject->oMoveAngleYaw = gCurrentObject->header.gfx.angle[1];
@@ -242,9 +242,9 @@ void copy_mario_state_to_object(void) {
     gCurrentObject->oFaceAngleYaw = gCurrentObject->header.gfx.angle[1];
     gCurrentObject->oFaceAngleRoll = gCurrentObject->header.gfx.angle[2];
 
-    gCurrentObject->oAngleVelPitch = gMarioState->angleVel[0];
-    gCurrentObject->oAngleVelYaw = gMarioState->angleVel[1];
-    gCurrentObject->oAngleVelRoll = gMarioState->angleVel[2];
+    gCurrentObject->oAngleVelPitch = gMarioStates[i].angleVel[0];
+    gCurrentObject->oAngleVelYaw = gMarioStates[i].angleVel[1];
+    gCurrentObject->oAngleVelRoll = gMarioStates[i].angleVel[2];
 }
 
 /**
@@ -490,7 +490,8 @@ void spawn_objects_from_info(UNUSED s32 unused, struct SpawnInfo *spawnInfo) {
             // ex-alo change
             // Checks for Mario behavior so bparam4 can be used by any object
             if (object->behavior == segmented_to_virtual(bhvMario)) {
-                gMarioObject = object;
+                if (object->oBhvParams & 0xFF) gLuigiObject = object;
+                else gMarioObject = object;
                 geo_make_first_child(&object->header.gfx.node);
             }
 

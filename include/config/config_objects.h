@@ -26,7 +26,7 @@
 #define FIX_PUSH_MARIO_OUT_OF_OBJECT_FLOOR (0 || QOL_FIXES || COLLISION_FIXES)
 
 /// Makes rooms code use room ids to check for a room rather than a floor
-#define BETTER_ROOM_CHECKS (0 || QOL_FEATURES || COLLISION_FIXES)
+#define BETTER_ROOM_CHECKS (1 || QOL_FEATURES || COLLISION_FIXES)
 
 /*******************
  * OBJECT SETTINGS *

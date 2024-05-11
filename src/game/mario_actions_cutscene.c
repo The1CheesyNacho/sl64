@@ -1063,11 +1063,7 @@ s32 act_warp_door_spawn(struct MarioState *m) {
             m->usedObj->oInteractStatus = INT_STATUS_UNK19;
         }
     } else if (m->usedObj->oAction == 0) {
-        if (gNeverEnteredCastle == TRUE && gCurrLevelNum == LEVEL_CASTLE) {
-            set_mario_action(m, ACT_READING_AUTOMATIC_DIALOG, DIALOG_021);
-        } else {
-            set_mario_action(m, ACT_IDLE, 0);
-        }
+            set_mario_action(gMarioState, ACT_IDLE, 0);
     }
     set_mario_animation(m, MARIO_ANIM_FIRST_PERSON);
     stop_and_set_height_to_floor(m);

@@ -678,3 +678,8 @@ Gfx* geo_set_player_luigi(s32 callContext, struct GraphNode* node, UNUSED Mat4* 
     geo_player_index = 1;
     return NULL;
 }
+
+Gfx* geo_set_player_syobon(s32 callContext, struct GraphNode* node, UNUSED Mat4* c) {
+    geo_player_index = 3;
+    return NULL;
+}

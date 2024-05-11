@@ -3526,6 +3526,7 @@ const BehaviorScript bhvYellowBall[] = {
 UNUSED static const u64 behavior_data_unused_0 = 0;
 const BehaviorScript bhvMario[] = {
     BEGIN(OBJ_LIST_PLAYER),
+    SET_INTERACT_TYPE(INTERACT_IGLOO_BARRIER),
     SET_INT(oIntangibleTimer, 0),
     OR_INT(oFlags, OBJ_FLAG_0100),
     OR_INT(oUnk94, 0x0001),

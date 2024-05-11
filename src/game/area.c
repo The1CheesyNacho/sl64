@@ -245,16 +245,11 @@ void load_area(s32 index) {
         gCurrAreaIndex = gCurrentArea->index;
         main_pool_pop_state();
         main_pool_push_state();
-
-#if BETTER_ROOM_CHECKS
         gMarioCurrentRoom = 0;
-#endif
 
-#if FIX_DOOR_NO_ROOM_VISIBLE
         if (gCurrentArea->surfaceRooms != NULL) {
             bzero(gDoorAdjacentRooms, sizeof(gDoorAdjacentRooms));
         }
-#endif
 
         if (gCurrentArea->terrainData != NULL) {
             load_area_terrain(index, gCurrentArea->terrainData, gCurrentArea->surfaceRooms,
@@ -314,15 +309,15 @@ void change_area(s32 index) {
         if (gCurrentArea != NULL) {
             gCurrentArea->flags = areaFlags;
         }
-        for (s32 i = 0; i < playerIndex; i++) {
-            gMarioStates[i].marioObj->oActiveParticleFlags = 0;
+        for (s32 i = 0; i < 2; i++) {
+            gMarioStates[0].marioObj->oActiveParticleFlags = 0;
         }
     }
 
     if (areaFlags & 0x01) {
-        for (s32 i = 0; i < playerIndex; i++) {
-            gMarioStates[i].marioObj->header.gfx.areaIndex = index;
-            gMarioStates[i].spawnInfo->areaIndex = index;
+        for (s32 i = 0; i < 2; i++) {
+            gMarioStates[0].marioObj->header.gfx.areaIndex = index;
+            gMarioStates[0].spawnInfo->areaIndex = index;
         }
     }
 }
