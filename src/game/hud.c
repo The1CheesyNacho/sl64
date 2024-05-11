@@ -57,6 +57,12 @@ static struct PowerMeterHUD sPowerMeterHUD = {
 // Gets reset when the health is filled and stops counting
 // when the power meter is hidden.
 s32 sPowerMeterVisibleTimer = 0;
+u8 gHudIdle = 0;
+s32 gHudIdleTimer = 0;
+s32 gHudForceIdle = 0;
+s32 gHudRedCoinTimer = 0;
+f32 gHudOffset = 0;
+f32 gHudRedCoinOffset = 0;
 
 s16 sCameraHUDStatus = CAM_STATUS_NONE;
 
@@ -94,6 +100,17 @@ void render_hud_tex_lut(s32 x, s32 y, u8 *texture) {
     gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture);
     gSPDisplayList(gDisplayListHead++, &dl_hud_img_load_tex_block);
     gSPTextureRectangle(gDisplayListHead++, x << 2, y << 2, (x + 15) << 2, (y + 15) << 2,
+                        G_TX_RENDERTILE, 0, 0, 4 << 10, 1 << 10);
+}
+
+/**
+ * Renders a rgba16 16x16 glyph texture from a table list.
+ */
+void render_hud_tex_lut_big(s32 x, s32 y, Texture *texture) {
+    gDPPipeSync(gDisplayListHead++);
+    gDPSetTextureImage(gDisplayListHead++, G_IM_FMT_RGBA, G_IM_SIZ_16b, 1, texture);
+    gSPDisplayList(gDisplayListHead++, &dl_hud_img_load_tex_block_32);
+    gSPTextureRectangle(gDisplayListHead++, x << 2, y << 2, (x + 31) << 2, (y + 31) << 2,
                         G_TX_RENDERTILE, 0, 0, 4 << 10, 1 << 10);
 }
 
@@ -300,40 +317,24 @@ void render_hud_power_meter(void) {
  * Renders the amount of lives Mario has.
  */
 void render_hud_mario_lives(void) {
-    print_text(set_hud_auto_x_pos(HUD_LIVES_MARIO_X), HUD_LIVES_MARIO_Y, ","); // 'Mario Head' glyph
-    print_text(set_hud_auto_x_pos(HUD_LIVES_CROSS_X), HUD_LIVES_CROSS_Y, "*"); // 'X' glyph
-    print_text_fmt_int(set_hud_auto_x_pos(HUD_LIVES_NUM_X), HUD_LIVES_NUM_Y, "%d", gHudDisplay.lives);
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(71) + (1 - gHudOffset) * 120, HUD_TOP_Y, ","); // 'Mario Head' glyph
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(56) + (1 - gHudOffset) * 120, HUD_TOP_Y, "*"); // 'X' glyph
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(44) + (1 - gHudOffset) * 120, HUD_TOP_Y, "%d", gHudDisplay.lives);
 }
 
-/**
- * Renders the amount of coins collected.
- */
 void render_hud_coins(void) {
-    print_text(set_hud_auto_x_pos(HUD_COINS_X), HUD_COINS_Y, "+"); // 'Coin' glyph
-    print_text(set_hud_auto_x_pos(HUD_COINS_CROSS_X), HUD_COINS_Y, "*"); // 'X' glyph
-    print_text_fmt_int(set_hud_auto_x_pos(HUD_COINS_NUM_X), HUD_COINS_Y, "%d", gHudDisplay.coins);
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(71) + (1 - gHudOffset) * 120, HUD_TOP_Y - 40, "+"); // 'Coin' glyph
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(56) + (1 - gHudOffset) * 120, HUD_TOP_Y - 40, "*"); // 'X' glyph
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(44) + (1 - gHudOffset) * 120, HUD_TOP_Y - 40, "%d", gHudDisplay.coins);
 }
 
 /**
- * Renders the amount of stars collected.
- * Disables "X" glyph when Mario has 100 stars or more.
+	@@ -432,22 +471,19 @@ void render_hud_coins(void) {
  */
 void render_hud_stars(void) {
-    s8 showX = 0;
-
-    if (gHudFlash == 1 && gGlobalTimer & 8) {
-        return;
-    }
-
-    if (gHudDisplay.stars < 100) {
-        showX = 1;
-    }
-
-    print_text(set_hud_auto_x_pos(HUD_STARS_X), HUD_STARS_Y, "-"); // 'Star' glyph
-    if (showX == 1) {
-        print_text(set_hud_auto_x_pos(HUD_STARS_CROSS_X), HUD_STARS_CROSS_Y, "*"); // 'X' glyph
-    }
-    print_text_fmt_int((showX * 14) + set_hud_auto_x_pos(HUD_STARS_NUM_X), HUD_STARS_NUM_Y, "%d", gHudDisplay.stars);
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(71) + (1 - gHudOffset) * 120, HUD_TOP_Y - 20, "-"); // 'Star' glyph
+    print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(56) + (1 - gHudOffset) * 120, HUD_TOP_Y - 20, "*"); // 'X' glyph
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(44) + (1 - gHudOffset) * 120,HUD_TOP_Y - 20, "%d", gHudDisplay.stars);
 }
 
 /**
@@ -341,12 +342,12 @@ void render_hud_stars(void) {
  * Leftover function from the beta version of the game.
  */
 void render_hud_keys(void) {
-    s16 i;
-
-    for (i = 0; i < gHudDisplay.keys; i++) {
-        print_text((i * 16) + 220, 142, "/"); // unused glyph - beta key
+    char* keys[] = { ".", "/" };
+    for (u8 i = 0; i < 3; i++) {
+        print_text(GFX_DIMENSIONS_RECT_FROM_RIGHT_EDGE(71) + (1 - gHudOffset) * 120 + i * 15, HUD_TOP_Y - 60, keys[i < gMarioState->numKeys]);
     }
 }
+
 
 /**
  * Renders the timer when Mario start sliding in PSS.
@@ -442,11 +443,42 @@ void render_hud_camera_status(void) {
     gSPDisplayList(gDisplayListHead++, dl_hud_img_end);
 }
 
+void render_hud_red_coins() {
+    print_text(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(8), 16 - (1 - gHudRedCoinOffset) * 120, "#"); // 'Coin' glyph
+    print_text(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(23), 16 - (1 - gHudRedCoinOffset) * 120, "*"); // 'X' glyph
+    print_text_fmt_int(GFX_DIMENSIONS_RECT_FROM_LEFT_EDGE(35), 16 - (1 - gHudRedCoinOffset) * 120, "%d", gRedCoinsCollected);
+}
+
+void hud_set_idle(u8 idle) {
+    gHudIdle = idle;
+}
+
+void hud_force_idle() {
+    gHudIdleTimer = MAX(15, gHudIdleTimer);
+    gHudForceIdle = 150;
+}
+
+
 /**
  * Render HUD strings using hudDisplayFlags with it's render functions,
  * excluding the cannon reticle which detects a camera preset for it.
  */
 void render_hud(void) {
+    if (gHudIdle || gHudForceIdle > 0) {
+        gHudIdleTimer++;
+        if (gHudIdleTimer > 60) gHudIdleTimer = 60;
+    }
+    else {
+        gHudIdleTimer--;
+        if (gHudIdleTimer < 0) gHudIdleTimer = 0;
+    }
+    if (gHudForceIdle > 0) gHudForceIdle--;
+    gHudOffset = (1 - (1 - gHudIdleTimer / 60.f) * (1 - gHudIdleTimer / 60.f));
+    if (gRedCoinsCollected > 0) {
+        gHudRedCoinTimer++;
+        if (gHudRedCoinTimer > 60) gHudRedCoinTimer = 60;
+        gHudRedCoinOffset = (1 - (1 - gHudRedCoinTimer / 60.f) * (1 - gHudRedCoinTimer / 60.f));
+    }
     s16 hudDisplayFlags = gHudDisplay.flags;
 
     if (hudDisplayFlags == HUD_DISPLAY_NONE) {
@@ -480,35 +512,25 @@ void render_hud(void) {
             return;
         }
 #endif
-#if SHOW_LIVES
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_LIVES) {
             render_hud_mario_lives();
         }
-#endif
-#if SHOW_COINS
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_COIN_COUNT) {
             render_hud_coins();
+            render_hud_red_coins();
         }
-#endif
-#if SHOW_STARS
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_STAR_COUNT) {
             render_hud_stars();
         }
-#endif
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_KEYS) {
             render_hud_keys();
         }
 
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_CAMERA_AND_POWER) {
             render_hud_power_meter();
-#if SHOW_CAM
-            render_hud_camera_status();
-#endif
         }
-#if SHOW_TIMER
         if (hudDisplayFlags & HUD_DISPLAY_FLAG_TIMER) {
             render_hud_timer();
         }
-#endif
     }
 }

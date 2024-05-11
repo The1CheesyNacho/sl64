@@ -204,17 +204,13 @@ ALIGNED8 static const Texture texture_hud_char_star[] = {
 #include "textures/segment2/segment2.05C00.rgba16.inc.c"
 };
 
-#if defined(VERSION_JP) || defined(VERSION_SH)
 ALIGNED8 static const Texture texture_hud_char_decimal_point[] = {
-#include "textures/segment2/segment2.05E00.rgba16.inc.c"
+#include "textures/segment2/segment2.decimal_point.rgba16.inc.c"
 };
-#endif
 
-#if defined(VERSION_JP) || defined(VERSION_SH)
 ALIGNED8 static const Texture texture_hud_char_beta_key[] = {
-#include "textures/segment2/segment2.06000.rgba16.inc.c"
+#include "textures/segment2/segment2.beta_key.rgba16.inc.c"
 };
-#endif
 
 #ifdef BETTERCAMERA
 ALIGNED8 const Texture texture_hud_char_puppycam[] = {
@@ -1838,7 +1834,7 @@ const Texture *const main_hud_lut[] = {
     texture_hud_char_percent,                 0x0,                      0x0,                  0x0,
                   0x0,               0x0,               0x0,               0x0,
                   0x0,               0x0, texture_hud_char_multiply, texture_hud_char_coin,
-    texture_hud_char_mario_head, texture_hud_char_star,               0x0,               0x0,
+    texture_hud_char_mario_head, texture_hud_char_star, texture_hud_char_decimal_point, texture_hud_char_beta_key,
     texture_hud_char_apostrophe, texture_hud_char_double_quote,
 #else
     texture_hud_char_0, texture_hud_char_1, texture_hud_char_2, texture_hud_char_3,
@@ -2117,6 +2113,17 @@ const Gfx dl_hud_img_load_tex_block[] = {
     gsDPSetTileSize(0, 0, 0, (16 - 1) << G_TEXTURE_IMAGE_FRAC, (16 - 1) << G_TEXTURE_IMAGE_FRAC),
     gsSPEndDisplayList(),
 };
+
+// 0x0200EC98 - 0x0200ECC8
+const Gfx dl_hud_img_load_tex_block_32[] = {
+    gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 0, 0, G_TX_LOADTILE, 0, (G_TX_WRAP | G_TX_NOMIRROR), 8, G_TX_NOLOD, (G_TX_WRAP | G_TX_NOMIRROR), 8, G_TX_NOLOD),
+    gsDPLoadSync(),
+    gsDPLoadBlock(G_TX_LOADTILE, 0, 0, ((32 * 32) - 1), CALC_DXT(32, G_IM_SIZ_16b_BYTES)),
+    gsDPSetTile(G_IM_FMT_RGBA, G_IM_SIZ_16b, 8, 0, G_TX_RENDERTILE, 0, (G_TX_WRAP | G_TX_NOMIRROR), 8, G_TX_NOLOD, (G_TX_WRAP | G_TX_NOMIRROR), 8, G_TX_NOLOD),
+    gsDPSetTileSize(0, 0, 0, (32 - 1) << G_TEXTURE_IMAGE_FRAC, (32 - 1) << G_TEXTURE_IMAGE_FRAC),
+    gsSPEndDisplayList(),
+};
+
 
 // 0x0200ECC8 - 0x0200ED00
 const Gfx dl_hud_img_end[] = {
@@ -2502,7 +2509,7 @@ const Texture texture_transition_bowser_half[] = {
 };
 
 const Texture texture_waterbox_water[] = {
-#include "textures/segment2/segment2.11C58.rgba16.inc.c"
+#include "textures/segment2/custom_segment2.11C58.rgba16.inc.c"
 };
 
 const Texture texture_waterbox_jrb_water[] = {
@@ -3466,3 +3473,4 @@ const s16 seg2_painting_mesh_neighbor_tris[] = {
       3, 240, 242, 244,
       1, 243,
 };
+

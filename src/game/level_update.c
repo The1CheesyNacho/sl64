@@ -374,10 +374,12 @@ void set_mario_initial_action(struct MarioState *m, u32 spawnType, u32 actionArg
 // ex-alo change
 // Function went through a revision to remove course and warp specific code changes
 // Comments were added to clarify what's changed
-void init_mario_after_warp(u8 playerIndex) {
+void init_mario_after_warp(void) {
     struct ObjectWarpNode *spawnNode = area_get_warp_node(sWarpDest.nodeId);
     u32 marioSpawnType = get_mario_spawn_type(spawnNode->object);
+    u32 playerIndex;
 
+   for (playerIndex = 0; playerIndex < 2; playerIndex++) {
     if (gMarioState->action != ACT_UNINITIALIZED) {
         gPlayerSpawnInfos[playerIndex].startPos[0] = (s16) spawnNode->object->oPosX;
         gPlayerSpawnInfos[playerIndex].startPos[1] = (s16) spawnNode->object->oPosY;
@@ -396,28 +398,15 @@ void init_mario_after_warp(u8 playerIndex) {
             load_mario_area(playerIndex);
         }
 
-        // Don't reset Mario on the same warp area, preserves cap powerup like in SM64DS
-        if (sWarpDest.type != WARP_TYPE_SAME_AREA) {
-            init_mario(playerIndex);
-        } else {
-            vec3s_copy(gMarioStates[playerIndex].faceAngle, gPlayerSpawnInfos[playerIndex].startAngle);
-            vec3s_to_vec3f(gMarioStates[playerIndex].pos, gPlayerSpawnInfos[playerIndex].startPos);
-        }
-
+        init_mario(playerIndex);
         set_mario_initial_action(gMarioState, marioSpawnType, sWarpDest.arg);
+        set_mario_initial_action(gLuigiState, marioSpawnType, sWarpDest.arg);
 
-        gMarioStates[playerIndex].interactObj = spawnNode->object;
-        gMarioStates[playerIndex].usedObj = spawnNode->object;
+        gMarioState->interactObj = spawnNode->object;
+        gMarioState->usedObj = spawnNode->object;
     }
-
+   }
     reset_camera(gCurrentArea->camera);
-
-#if BUGFIX_SAME_AREA_WARP_MUSIC
-    // Setting a variable here before it gets set to not warping
-    u32 warpSameArea = (sWarpDest.type == WARP_TYPE_SAME_AREA);
-#endif
-
-    // Needed to play transitions properly
     sWarpDest.type = WARP_TYPE_NOT_WARPING;
     sDelayedWarpOp = WARP_OP_NONE;
 
@@ -446,44 +435,43 @@ void init_mario_after_warp(u8 playerIndex) {
     }
 
     if (gCurrDemoInput == NULL) {
-        // Don't try to override music when warping in the same level area
-        // Vanilla: This used to have an override to play the Slide racing music
-        // but with BUGFIX_SAME_AREA_WARP_MUSIC it's no longer necessary
-#if BUGFIX_SAME_AREA_WARP_MUSIC
-        if (!warpSameArea)
+#ifdef BETTER_REVERB
+        gBetterReverbPresetValue = gCurrentArea->betterReverbPreset;
 #endif
-        {
-            set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
-
-            if (gMarioState->flags & MARIO_METAL_CAP) {
-                play_cap_music(SEQUENCE_ARGS(4, SEQ_EVENT_METAL_CAP));
-            }
-
-            if (gMarioState->flags & (MARIO_VANISH_CAP | MARIO_WING_CAP)) {
-                play_cap_music(SEQUENCE_ARGS(4, SEQ_EVENT_POWERUP));
-            }
+        set_background_music(gCurrentArea->musicParam, gCurrentArea->musicParam2, 0);
+        
+#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
+        if (gCurrLevelNum == LEVEL_BOB
+            && get_current_background_music() != SEQUENCE_ARGS(4, NULL) && sTimerRunning) {
         }
 
-        // Properly play the castle warp sound exiting on any exit course warp
-        // Vanilla: Previous checks used the same node and level ids for exit course
-        // but with a warp flag it's no longer necessary
-        if (sWarpDest.arg & WARP_FLAG_EXIT_COURSE) {
+        if (sWarpDest.levelNum == LEVEL_CASTLE && sWarpDest.areaIdx == 1
+            && (sWarpDest.nodeId == 32)
+        ) {
             play_sound(SOUND_MENU_MARIO_CASTLE_WARP, gGlobalSoundSource);
         }
-#ifndef VERSION_JP
-        // Play castle warp sound on special warp instead of fixed warp ids
-        // Vanilla: Previous checks used specific node and level ids but they share
-        // the same source warp node and course id, so the conditions are simplified
-        if (sSourceWarpNodeId == WARP_NODE_WARP_FLOOR && gCurrCourseNum == COURSE_NONE) {
+
+        if (sWarpDest.levelNum == LEVEL_CASTLE_GROUNDS && sWarpDest.areaIdx == 1
+            && (sWarpDest.nodeId == 7 || sWarpDest.nodeId == 10 || sWarpDest.nodeId == 20
+                || sWarpDest.nodeId == 30)) {
+            play_sound(SOUND_MENU_MARIO_CASTLE_WARP, gGlobalSoundSource);
+        }
+#endif
+#ifndef DISABLE_EXIT_COURSE
+       if (sWarpDest.arg == WARP_FLAG_EXIT_COURSE) {
             play_sound(SOUND_MENU_MARIO_CASTLE_WARP, gGlobalSoundSource);
         }
 #endif
     }
+#ifdef PUPPYPRINT_DEBUG
+    gPuppyWarp = 0;
+    gLastWarpID = sWarpDest.nodeId;
+    gPuppyWarpArea = 0;
+#endif
 }
 
 // used for warps inside one level
 void warp_area(void) {
-    u8 player;
     if (sWarpDest.type != WARP_TYPE_NOT_WARPING) {
         if (sWarpDest.type == WARP_TYPE_CHANGE_AREA) {
             level_control_timer(TIMER_CONTROL_HIDE);
@@ -491,20 +479,20 @@ void warp_area(void) {
             load_area(sWarpDest.areaIdx);
         }
 
-        for (player = 0; player < 2; player++) init_mario_after_warp(player);
+        init_mario_after_warp();
     }
 }
 
 // used for warps between levels
 void warp_level(void) {
-    u8 player;
     gCurrLevelNum = sWarpDest.levelNum;
 
     level_control_timer(TIMER_CONTROL_HIDE);
 
     load_area(sWarpDest.areaIdx);
-    for (player = 0; player < 2; player++) init_mario_after_warp(player);
+    init_mario_after_warp();
 }
+
 
 void warp_credits(void) {
     s32 marioAction = ACT_UNINITIALIZED;
@@ -662,18 +650,23 @@ void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpFlags)
  * Check if Mario is above and close to a painting warp floor, and return the
  * corresponding warp node.
  */
-struct WarpNode *get_painting_warp_node(void) {
-    struct WarpNode *warpNode = NULL;
-    s32 paintingIndex = gMarioState->floor->type - SURFACE_PAINTING_WARP_D3;
+struct WarpNode *get_painting_warp_node(u8* marioIndex) {
+    u8 pl;
+    pl = 2;
 
-    if (paintingIndex >= PAINTING_WARP_INDEX_START && paintingIndex < PAINTING_WARP_INDEX_END) {
-        if (paintingIndex < PAINTING_WARP_INDEX_FA
-            || gMarioState->pos[1] - gMarioState->floorHeight < 80.0f) {
-            warpNode = &gCurrentArea->paintingWarpNodes[paintingIndex];
+    for (u8 i = 0; i < pl; i++) {
+        s32 paintingIndex = gMarioStates[i].floor->type - SURFACE_PAINTING_WARP_D3;
+
+        if (paintingIndex >= PAINTING_WARP_INDEX_START && paintingIndex < PAINTING_WARP_INDEX_END) {
+            if (paintingIndex < PAINTING_WARP_INDEX_FA
+                || gMarioStates[i].pos[1] - gMarioStates[i].floorHeight < 80.0f) {
+                *marioIndex = i;
+                return &gCurrentArea->paintingWarpNodes[paintingIndex];
+            }
         }
     }
 
-    return warpNode;
+    return NULL;
 }
 
 /**
@@ -682,10 +675,11 @@ struct WarpNode *get_painting_warp_node(void) {
 void initiate_painting_warp(void) {
     if (gCurrentArea->paintingWarpNodes != NULL && gMarioState->floor != NULL) {
         struct WarpNode warpNode;
-        struct WarpNode *pWarpNode = get_painting_warp_node();
+        u8 marioIndex;
+        struct WarpNode *pWarpNode = get_painting_warp_node(&marioIndex);
 
         if (pWarpNode != NULL) {
-            if (gMarioState->action & ACT_FLAG_INTANGIBLE) {
+            if (gMarioStates[marioIndex].action & ACT_FLAG_INTANGIBLE) {
                 play_painting_eject_sound();
             } else if (pWarpNode->id != 0) {
                 warpNode = *pWarpNode;
@@ -924,12 +918,6 @@ void initiate_delayed_warp(void) {
 void update_hud_values(void) {
     if (gCurrCreditsEntry == NULL) {
         s16 numHealthWedges = gMarioState->health > 0 ? gMarioState->health >> 8 : 0;
-
-        if (gCurrCourseNum >= COURSE_MIN) {
-            gHudDisplay.flags |= HUD_DISPLAY_FLAG_COIN_COUNT;
-        } else {
-            gHudDisplay.flags &= ~HUD_DISPLAY_FLAG_COIN_COUNT;
-        }
 
         if (gHudDisplay.coins < gMarioState->numCoins) {
             if (gGlobalTimer & 1) {

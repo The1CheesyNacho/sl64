@@ -18,3 +18,5 @@
 #include "mario/geo.inc.c"
 
 #include "luigi/geo.inc.c"
+#include "molalla/geo.inc.c"
+#include "syobon/geo.inc.c"
