@@ -171,6 +171,12 @@ void init_z_buffer(void) {
                      SCREEN_HEIGHT - 1 - BORDER_HEIGHT);
 }
 
+static void assign_controller_data_to_port(struct Controller* controller, int port) {
+    controller->statusData = &gControllerStatuses[port];
+    controller->controllerData = &gControllerPads[port];
+    controller->port = port;
+}
+
 /**
  * Tells the RDP which of the three framebuffers it shall draw to.
  */
@@ -682,9 +688,6 @@ void init_controllers(void) {
         gControllers[0] = gControllers[1];
         gControllers[1] = temp;
 #endif
-
-    // Disable the ports after the last used one.
-    osContSetCh(lastUsedPort + 1);
 }
 
 // Game thread core
