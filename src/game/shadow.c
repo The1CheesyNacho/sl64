@@ -578,15 +578,10 @@ s8 correct_shadow_solidity_for_animations(s32 isLuigi, u8 initialSolidity, struc
             player = gMarioObject;
             break;
         case 1:
-            /**
-             * This is evidence of a removed second player, likely Luigi.
-             * This variable lies in memory just after the gMarioObject and
-             * has the same type of shadow that Mario does. The `isLuigi`
-             * variable is never 1 in the game. Note that since this was a
-             * switch-case, not an if-statement, the programmers possibly
-             * intended there to be even more than 2 characters.
-             */
             player = gLuigiObject;
+            break;
+        case 2:
+            player = gSyobonObject;
             break;
     }
 
@@ -978,7 +973,7 @@ Gfx *create_shadow_below_xyz(f32 xPos, f32 yPos, f32 zPos, s16 shadowScale, u8 s
             break;
         case SHADOW_CIRCLE_PLAYER:
             displayList = create_shadow_player(xPos, yPos, zPos, shadowScale, shadowSolidity,
-                                               /* isLuigi */ FALSE);
+                                               /* isLuigi */ TRUE);
             break;
         default:
             displayList = create_shadow_hardcoded_rectangle(xPos, yPos, zPos, shadowScale,

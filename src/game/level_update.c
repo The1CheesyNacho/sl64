@@ -1272,14 +1272,6 @@ s32 init_level(void) {
                 set_mario_action(gMarioState, ACT_IDLE, 0);
                 set_mario_action(gLuigiState, ACT_IDLE, 0);
                 set_mario_action(gSyobonState, ACT_IDLE, 0);
-            } else if (!gDebugLevelSelect) {
-                if (gMarioState->action != ACT_UNINITIALIZED) {
-                    // ex-alo change
-                    // Checks for peach intro skip
-                    set_mario_action(gMarioState, ACT_IDLE, 0);
-                    set_mario_action(gLuigiState, ACT_IDLE, 0);
-                    set_mario_action(gSyobonState, ACT_IDLE, 0);
-                }
             }
         }
 

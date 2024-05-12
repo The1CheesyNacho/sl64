@@ -1055,16 +1055,7 @@ s32 act_going_through_door(struct MarioState *m) {
 }
 
 s32 act_warp_door_spawn(struct MarioState *m) {
-    if (m->actionState == 0) {
-        m->actionState = 1;
-        if (m->actionArg & WARP_FLAG_DOOR_PULLED) {
-            m->usedObj->oInteractStatus = INT_STATUS_UNK18;
-        } else {
-            m->usedObj->oInteractStatus = INT_STATUS_UNK19;
-        }
-    } else if (m->usedObj->oAction == 0) {
-            set_mario_action(gMarioState, ACT_IDLE, 0);
-    }
+    set_mario_action(gMarioState, ACT_IDLE, 0);
     set_mario_animation(m, MARIO_ANIM_FIRST_PERSON);
     stop_and_set_height_to_floor(m);
     return FALSE;

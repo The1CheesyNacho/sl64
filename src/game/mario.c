@@ -1851,6 +1851,11 @@ s32 execute_mario_action(UNUSED struct Object *o) {
     set_debug_mario_action(gMarioState);
 #endif
 
+        if (gPlayer1Controller->buttonDown & U_JPAD && !(gPlayer1Controller->buttonDown & L_TRIG)) {
+            set_camera_mode(gMarioState->area->camera, CAMERA_MODE_8_DIRECTIONS, 1);
+            set_mario_action(gMarioState, ACT_DEBUG_FREE_MOVE, 0);
+        }
+
     if (gMarioState->action) {
         gMarioState->marioObj->header.gfx.node.flags &= ~GRAPH_RENDER_INVISIBLE;
         mario_reset_bodystate(gMarioState);

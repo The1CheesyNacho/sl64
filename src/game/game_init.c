@@ -621,17 +621,6 @@ void read_controller_inputs(void) {
         }
     }
 
-    // For some reason, player 1's inputs are copied to player 3's port.
-    // This potentially may have been a way the developers "recorded"
-    // the inputs for demos, despite record_demo existing.
-        gPlayer3Controller->rawStickX = gPlayer1Controller->rawStickX;
-        gPlayer3Controller->rawStickY = gPlayer1Controller->rawStickY;
-        gPlayer3Controller->stickX = gPlayer1Controller->stickX;
-        gPlayer3Controller->stickY = gPlayer1Controller->stickY;
-        gPlayer3Controller->stickMag = gPlayer1Controller->stickMag;
-        gPlayer3Controller->buttonPressed = gPlayer1Controller->buttonPressed;
-        gPlayer3Controller->buttonDown = gPlayer1Controller->buttonDown;
-
 #ifdef BETTERCAMERA
     //If a cutscene's active, just kill all controller input.
     if (gPuppyCam.enabled && gPuppyCam.cutscene && gPuppyCam.sceneInput) {
