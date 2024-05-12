@@ -637,46 +637,63 @@ void read_controller_inputs(void) {
 
 #define MAX_NUM_PLAYERS 3
 
-/**
- * Initialize the controller structs to point at the OSCont information.
- */
 void init_controllers(void) {
-    s16 port, cont;
+    int port, cont = 0;
+    int lastUsedPort = -1;
 
     // Set controller 1 to point to the set of status/pads for input 1 and
     // init the controllers.
-    gControllers[0].statusData = &gControllerStatuses[0];
-    gControllers[0].controllerData = &gControllerPads[0];
-    osContInit(&gSIEventMesgQueue, &gControllerBits, &gControllerStatuses[0]);
+    assign_controller_data_to_port(&gControllers[0], 0);
+    osContInit(&gSIEventMesgQueue, &gControllerBits, gControllerStatuses);
 
 #ifdef EEP
     // strangely enough, the EEPROM probe for save data is done in this function.
     // save pak detection?
-    gEepromProbe = osEepromProbe(&gSIEventMesgQueue);
+    gEepromProbe = (gEmulator & EMU_WIIVC)
+                 ? osEepromProbeVC(&gSIEventMesgQueue)
+                 : osEepromProbe  (&gSIEventMesgQueue);
 #endif
 #ifdef SRAM
     gSramProbe = nuPiInitSram();
 #endif
 
-    // Loop over the 4 ports and link the controller structs to the appropriate
-    // status and pad. Interestingly, although there are pointers to 3 controllers,
-    // only 2 are connected here. The third seems to have been reserved for debug
-    // purposes and was never connected in the retail ROM, thus gPlayer3Controller
-    // cannot be used, despite being referenced in various code.
-    for (cont = 0, port = 0; port < 4 && cont < 2; port++) {
+    // Loop over the 4 ports and link the controller structs to the appropriate status and pad.
+    for (port = 0; port < MAXCONTROLLERS; port++) {
+        if (cont >= MAX_NUM_PLAYERS) {
+            break;
+        }
+
         // Is controller plugged in?
         if (gControllerBits & (1 << port)) {
             // The game allows you to have just 1 controller plugged
             // into any port in order to play the game. this was probably
             // so if any of the ports didn't work, you can have controllers
             // plugged into any of them and it will work.
-#if ENABLE_RUMBLE
-            gControllers[cont].port = port;
-#endif
-            gControllers[cont].statusData = &gControllerStatuses[port];
-            gControllers[cont++].controllerData = &gControllerPads[port];
+            assign_controller_data_to_port(&gControllers[cont], port);
+
+            lastUsedPort = port;
+
+            cont++;
         }
     }
+
+#if (MAX_NUM_PLAYERS >= 2)
+    //! Some flashcarts (eg. ED64p) don't let you start a ROM with a GameCube controller in port 1,
+    //   so if port 1 is an N64 controller and port 2 is a GC controller, swap them.
+    if (
+        (gEmulator & EMU_CONSOLE) &&
+        ((gControllerBits & 0b11) == 0b11) && // Only swap if the first two ports both have controllers plugged in.
+        ((gControllerStatuses[0].type & CONT_CONSOLE_MASK) == CONT_CONSOLE_N64) && // If the 1st port's controller is N64.
+        ((gControllerStatuses[1].type & CONT_CONSOLE_MASK) == CONT_CONSOLE_GCN)    // If the 2nd port's controller is GCN.
+    ) {
+        struct Controller temp = gControllers[0];
+        gControllers[0] = gControllers[1];
+        gControllers[1] = temp;
+    }
+#endif
+
+    // Disable the ports after the last used one.
+    osContSetCh(lastUsedPort + 1);
 }
 
 // Game thread core
