@@ -646,7 +646,6 @@ void read_controller_inputs(void) {
 /**
  * Initialize the controller structs to point at the OSCont information.
  */
-#ifndef TARGET_PORT_CONSOLE
 void init_controllers(void) {
     s16 port, cont;
 
@@ -665,7 +664,7 @@ void init_controllers(void) {
     // only 2 are connected here. The third seems to have been reserved for debug
     // purposes and was never connected in the retail ROM, thus gPlayer3Controller
     // cannot be used, despite being referenced in various code.
-    for (cont = 0, port = 0; port < 4 && cont < 2; port++) {
+    for (cont = 0, port = 0; port < 4 && cont < 4; port++) {
         // Is controller plugged in?
         if (gControllerBits & (1 << port)) {
             // The game allows you to have just 1 controller plugged
@@ -680,48 +679,6 @@ void init_controllers(void) {
         }
     }
 }
-#else
-void init_controllers(void) {
-    s16 port, cont;
-    int lastUsedPort = -1;
-
-    // Set controller 1 to point to the set of status/pads for input 1 and
-    // init the controllers.
-    gControllers[0].statusData = &gControllerStatuses[0];
-    gControllers[0].controllerData = &gControllerPads[0];
-    osContInit(&gSIEventMesgQueue, &gControllerBits, &gControllerStatuses[0]);
-
-    // Strangely enough, the EEPROM probe for save data is done in this function.
-    // Save Pak detection?
-    gEepromProbe = osEepromProbe(&gSIEventMesgQueue);
-
-    // Loop over the 4 ports and link the controller structs to the appropriate status and pad.
-    for (port = 0; port < MAXCONTROLLERS; port++) {
-        if (cont >= MAX_NUM_PLAYERS) {
-            break;
-        }
-
-        // Is controller plugged in?
-        if (gControllerBits & (1 << port)) {
-            // The game allows you to have just 1 controller plugged
-            // into any port in order to play the game. this was probably
-            // so if any of the ports didn't work, you can have controllers
-            // plugged into any of them and it will work.
-#ifdef RUMBLE_FEEDBACK
-            gControllers[cont].port = port;
-#endif
-            gControllers[cont].statusData = &gControllerStatuses[port];
-            gControllers[cont++].controllerData = &gControllerPads[port];
-        }
-    }
-
-#if (MAX_NUM_PLAYERS >= 2)
-        struct Controller temp = gControllers[0];
-        gControllers[0] = gControllers[1];
-        gControllers[1] = temp;
-#endif
-}
-#endif
 // Game thread core
 // ----------------------------------------------------------------------------------------------------
 
