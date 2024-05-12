@@ -978,7 +978,7 @@ Gfx *create_shadow_below_xyz(f32 xPos, f32 yPos, f32 zPos, s16 shadowScale, u8 s
             break;
         case SHADOW_CIRCLE_PLAYER:
             displayList = create_shadow_player(xPos, yPos, zPos, shadowScale, shadowSolidity,
-                                               /* isLuigi */ TRUE);
+                                               /* isLuigi */ FALSE);
             break;
         default:
             displayList = create_shadow_hardcoded_rectangle(xPos, yPos, zPos, shadowScale,

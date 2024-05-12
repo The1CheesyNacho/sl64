@@ -167,7 +167,7 @@ struct CreditsEntry sCreditsSequence[] = {
         0, CREDITS_POS_ONE, 1,    0, { 0, 0, 0 }, NULL },
 };
 
-struct MarioState gMarioStates[2];
+struct MarioState gMarioStates[3];
 struct HudDisplay gHudDisplay;
 s16 sCurrPlayMode;
 s16 sTransitionTimer;
@@ -183,6 +183,7 @@ s8 gNeverEnteredCastle;
 
 struct MarioState *gMarioState = &gMarioStates[0];
 struct MarioState *gLuigiState = &gMarioStates[1];
+struct MarioState *gSyobonState = &gMarioStates[2];
 s8 sWarpCheckpointActive = FALSE;
 
 u16 level_control_timer(s32 timerOp) {
@@ -379,7 +380,7 @@ void init_mario_after_warp(void) {
     u32 marioSpawnType = get_mario_spawn_type(spawnNode->object);
     u32 playerIndex;
 
-   for (playerIndex = 0; playerIndex < 2; playerIndex++) {
+   for (playerIndex = 0; playerIndex < 3; playerIndex++) {
     if (gMarioState->action != ACT_UNINITIALIZED) {
         gPlayerSpawnInfos[playerIndex].startPos[0] = (s16) spawnNode->object->oPosX;
         gPlayerSpawnInfos[playerIndex].startPos[1] = (s16) spawnNode->object->oPosY;
@@ -401,6 +402,7 @@ void init_mario_after_warp(void) {
         init_mario(playerIndex);
         set_mario_initial_action(gMarioState, marioSpawnType, sWarpDest.arg);
         set_mario_initial_action(gLuigiState, marioSpawnType, sWarpDest.arg);
+        set_mario_initial_action(gSyobonState, marioSpawnType, sWarpDest.arg);
 
         gMarioState->interactObj = spawnNode->object;
         gMarioState->usedObj = spawnNode->object;
@@ -516,7 +518,7 @@ void warp_credits(void) {
 
     load_area(sWarpDest.areaIdx);
 
-    for (playerIndex = 0; playerIndex < 2; playerIndex++) {
+    for (playerIndex = 0; playerIndex < 3; playerIndex++) {
         vec3s_set(gPlayerSpawnInfos[playerIndex].startPos, gCurrCreditsEntry->marioPos[0],
                 gCurrCreditsEntry->marioPos[1], gCurrCreditsEntry->marioPos[2]);
 
@@ -529,6 +531,7 @@ void warp_credits(void) {
 
         set_mario_action(gMarioState, marioAction, 0);
         set_mario_action(gLuigiState, marioAction, 0);
+        set_mario_action(gSyobonState, marioAction, 0);
     }
 
     reset_camera(gCurrentArea->camera);
@@ -1255,7 +1258,7 @@ s32 init_level(void) {
             warp_level();
         }
     } else {
-        for (playerIndex = 0; playerIndex < 2; playerIndex++) {
+        for (playerIndex = 0; playerIndex < 3; playerIndex++) {
             if (gPlayerSpawnInfos[playerIndex].areaIndex >= 0) {
                 load_mario_area(playerIndex);
                 init_mario(playerIndex);
@@ -1268,12 +1271,14 @@ s32 init_level(void) {
             if (gCurrDemoInput != NULL) {
                 set_mario_action(gMarioState, ACT_IDLE, 0);
                 set_mario_action(gLuigiState, ACT_IDLE, 0);
+                set_mario_action(gSyobonState, ACT_IDLE, 0);
             } else if (!gDebugLevelSelect) {
                 if (gMarioState->action != ACT_UNINITIALIZED) {
                     // ex-alo change
                     // Checks for peach intro skip
                     set_mario_action(gMarioState, ACT_IDLE, 0);
                     set_mario_action(gLuigiState, ACT_IDLE, 0);
+                    set_mario_action(gSyobonState, ACT_IDLE, 0);
                 }
             }
         }
@@ -1350,7 +1355,7 @@ s32 lvl_init_from_save_file(UNUSED s16 arg0, s32 levelNum) {
     gCurrCreditsEntry = NULL;
     gSpecialTripleJump = FALSE;
 
-    for (player = 0; player < 2; player++) {
+    for (player = 0; player < 3; player++) {
         init_mario_from_save_file(player);
     }
     disable_warp_checkpoint();

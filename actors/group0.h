@@ -348,4 +348,6 @@ extern const Gfx white_particle_small_unused_dl[];
 
 #include "syobon/geo_header.h"
 
+#include "shelby/geo_header.h"
+
 #endif

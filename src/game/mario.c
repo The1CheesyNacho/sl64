@@ -1956,8 +1956,8 @@ void init_mario(u8 playerIndex) {
     gMarioStates[playerIndex].waterLevel =
         find_water_level(gPlayerSpawnInfos[playerIndex].startPos[0], gPlayerSpawnInfos[playerIndex].startPos[2]);
 
+    gMarioStates[playerIndex].marioObj = gMarioObject;
     gMarioStates[playerIndex].area = gCurrentArea;
-    gMarioStates[playerIndex].marioObj = playerIndex == 0 ? gMarioObject : gLuigiObject;
     gMarioStates[playerIndex].marioObj->header.gfx.animInfo.animID = -1;
     vec3s_copy(gMarioStates[playerIndex].faceAngle, gPlayerSpawnInfos[playerIndex].startAngle);
     vec3s_set(gMarioStates[playerIndex].angleVel, 0, 0, 0);
@@ -1989,24 +1989,8 @@ void init_mario(u8 playerIndex) {
 
     vec3f_copy(gMarioStates[playerIndex].marioObj->header.gfx.pos, gMarioStates[playerIndex].pos);
     vec3s_set(gMarioStates[playerIndex].marioObj->header.gfx.angle, 0, gMarioStates[playerIndex].faceAngle[1], 0);
-
-    Vec3s capPos;
-    if (save_file_get_cap_pos(capPos)
-#if FIX_HAT_CLONE_FADE
-    && (count_objects_with_behavior(bhvNormalCap) < 1)
-#endif
-    ) {
-        struct Object *capObject = spawn_object(gMarioStates[playerIndex].marioObj, MODEL_MARIOS_CAP, bhvNormalCap);
-
-        capObject->oPosX = capPos[0];
-        capObject->oPosY = capPos[1];
-        capObject->oPosZ = capPos[2];
-
-        capObject->oForwardVelS32 = 0;
-
-        capObject->oMoveAngleYaw = 0;
-    }
 }
+
 
 void init_mario_from_save_file(u8 index) {
     gMarioStates[index].unk00 = index;
@@ -2017,6 +2001,7 @@ void init_mario_from_save_file(u8 index) {
     gMarioStates[index].marioBodyState = &gBodyStates[index];
     gMarioStates[index].controller = &gControllers[index];
     gLuigiState->animList = &gLuigiAnimsBuf;
+    gSyobonState->animList = &gSyobonAnimsBuf;
     gMarioState->animList = &gMarioAnimsBuf;
 
     gMarioStates[index].numCoins = 0;

@@ -24,7 +24,7 @@
 
 #include "gfx_dimensions.h"
 
-struct SpawnInfo gPlayerSpawnInfos[2];
+struct SpawnInfo gPlayerSpawnInfos[3];
 struct GraphNode *gGraphNodePointers[MODEL_ID_COUNT];
 struct Area gAreaData[8];
 

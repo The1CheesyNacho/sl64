@@ -328,9 +328,11 @@ enum LevelCommandsIDList {
     CMD_HH(posY, posZ)
 
 // unused
-#define CMD2C() \
-    CMD_BBH(LVL_SCRIPT_CMD_2C, 0x04, 0x0000)
-
+#define CMD2C(model, bhvArg, bhv) \
+    CMD_BBH(BHV_SCRIPT_CMD_2C, 0x0C, model), \
+    CMD_W(bhvArg), \
+    CMD_PTR(bhv)
+    
 // unused
 #define CMD2D() \
     CMD_BBH(LVL_SCRIPT_CMD_2D, 0x04, 0x0000)

@@ -74,8 +74,10 @@ uintptr_t gPhysicalZBuffer;
 // Mario Anims and Demo allocation
 void *gMarioAnimsMemAlloc;
 void *gLuigiAnimsMemAlloc;
+void *gSyobonAnimsMemAlloc;
 void *gDemoInputsMemAlloc;
 struct DmaHandlerList gMarioAnimsBuf;
+struct DmaHandlerList gSyobonAnimsBuf;
 struct DmaHandlerList gLuigiAnimsBuf;
 struct DmaHandlerList gDemoInputsBuf;
 
@@ -707,6 +709,9 @@ void setup_game_memory(void) {
     gLuigiAnimsMemAlloc = main_pool_alloc(0x4000, MEMORY_POOL_LEFT);
     setup_dma_table_list(&gLuigiAnimsBuf, gMarioAnims, gLuigiAnimsMemAlloc);
     set_segment_base_addr(17, (void *) gLuigiAnimsMemAlloc);
+    gSyobonAnimsMemAlloc = main_pool_alloc(0x4000, MEMORY_POOL_LEFT);
+    set_segment_base_addr(17, (void *) gSyobonAnimsMemAlloc);
+    setup_dma_table_list(&gSyobonAnimsBuf, gMarioAnims, gSyobonAnimsMemAlloc);
     // Setup Demo Inputs List
     gDemoInputsMemAlloc = main_pool_alloc(0x800, MEMORY_POOL_LEFT);
     set_segment_base_addr(24, (void *) gDemoInputsMemAlloc);

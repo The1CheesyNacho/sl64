@@ -20,3 +20,4 @@
 #include "luigi/geo.inc.c"
 #include "molalla/geo.inc.c"
 #include "syobon/geo.inc.c"
+#include "shelby/geo.inc.c"
