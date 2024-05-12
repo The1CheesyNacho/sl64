@@ -656,7 +656,7 @@ void init_controllers(void) {
     // only 2 are connected here. The third seems to have been reserved for debug
     // purposes and was never connected in the retail ROM, thus gPlayer3Controller
     // cannot be used, despite being referenced in various code.
-    for (cont = 0, port = 0; port < 4 && cont < 2; port++) {
+    for (cont = 0, port = 0; port < 4 && cont < 3; port++) {
         // Is controller plugged in?
         if (gControllerBits & (1 << port)) {
             // The game allows you to have just 1 controller plugged
