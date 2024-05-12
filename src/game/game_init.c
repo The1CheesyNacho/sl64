@@ -635,6 +635,8 @@ void read_controller_inputs(void) {
 #endif
 }
 
+#define MAX_NUM_PLAYERS 3
+
 /**
  * Initialize the controller structs to point at the OSCont information.
  */
@@ -647,23 +649,28 @@ void init_controllers(void) {
     gControllers[0].controllerData = &gControllerPads[0];
     osContInit(&gSIEventMesgQueue, &gControllerBits, &gControllerStatuses[0]);
 
-    // Strangely enough, the EEPROM probe for save data is done in this function.
-    // Save Pak detection?
+#ifdef EEP
+    // strangely enough, the EEPROM probe for save data is done in this function.
+    // save pak detection?
     gEepromProbe = osEepromProbe(&gSIEventMesgQueue);
+#endif
+#ifdef SRAM
+    gSramProbe = nuPiInitSram();
+#endif
 
     // Loop over the 4 ports and link the controller structs to the appropriate
     // status and pad. Interestingly, although there are pointers to 3 controllers,
     // only 2 are connected here. The third seems to have been reserved for debug
     // purposes and was never connected in the retail ROM, thus gPlayer3Controller
     // cannot be used, despite being referenced in various code.
-    for (cont = 0, port = 0; port < 4 && cont < 3; port++) {
+    for (cont = 0, port = 0; port < 4 && cont < 2; port++) {
         // Is controller plugged in?
         if (gControllerBits & (1 << port)) {
             // The game allows you to have just 1 controller plugged
             // into any port in order to play the game. this was probably
             // so if any of the ports didn't work, you can have controllers
             // plugged into any of them and it will work.
-#ifdef RUMBLE_FEEDBACK
+#if ENABLE_RUMBLE
             gControllers[cont].port = port;
 #endif
             gControllers[cont].statusData = &gControllerStatuses[port];
