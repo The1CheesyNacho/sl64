@@ -488,9 +488,9 @@ void obj_move_xyz_using_fvel_and_yaw(struct Object *obj) {
  * Checks if a point is within distance from Mario's graphical position. Test is exclusive.
  */
 s8 is_point_within_radius_of_mario(f32 x, f32 y, f32 z, s32 dist) {
-    f32 mGfxX = gMarioObject->header.gfx.pos[0];
-    f32 mGfxY = gMarioObject->header.gfx.pos[1];
-    f32 mGfxZ = gMarioObject->header.gfx.pos[2];
+    f32 mGfxX = gMarioState->pos[0];
+    f32 mGfxY = gMarioState->pos[1];
+    f32 mGfxZ = gMarioState->pos[2];
 
     if ((x - mGfxX) * (x - mGfxX) + (y - mGfxY) * (y - mGfxY) + (z - mGfxZ) * (z - mGfxZ)
         < (f32)(dist * dist)) {

@@ -159,38 +159,33 @@ Gfx *geo_switch_anim_state(s32 callContext, struct GraphNode *node, UNUSED void 
 }
 
 Gfx *geo_switch_area(s32 callContext, struct GraphNode *node, UNUSED void *context) {
-    struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
-#if BETTER_ROOM_CHECKS
-    RoomData room;
-    #define ROOM_ID(r) r
-#else
     struct Surface *floor;
-    #define ROOM_ID(r) floor->r
-#endif
+    struct GraphNodeSwitchCase *switchCase = (struct GraphNodeSwitchCase *) node;
 
-    if (callContext == GEO_CONTEXT_RENDER && gMarioObject != NULL) {
-        Vec3f focusPos = { gMarioObject->oPosX, gMarioObject->oPosY, gMarioObject->oPosZ };
-#if ROOM_OBJECT_CAMERA_FOCUS
-        if (gCutsceneFocus != NULL) {
-            vec3f_copy(focusPos, gLakituState.pos);
-        }
-#endif
-
-#if BETTER_ROOM_CHECKS
-        room = get_room_at_pos(focusPos[0], focusPos[1], focusPos[2]);
-#else
-        if (gCurrentArea->surfaceRooms != NULL) {
-            find_room_floor(focusPos[0], focusPos[1], focusPos[2], &floor);
+    if (callContext == GEO_CONTEXT_RENDER) {
+        if (gMarioObject == NULL) {
+            switchCase->selectedCase = 0;
         } else {
-            floor = gMarioState->floor;
-        }
+#ifdef ENABLE_VANILLA_LEVEL_SPECIFIC_CHECKS
+            if (gCurrLevelNum == LEVEL_BBH) {
+                // In BBH, check for a floor manually, since there is an intangible floor. In custom hacks this can be removed.
+                find_room_floor(gMarioObject->oPosX, gMarioObject->oPosY, gMarioObject->oPosZ, &floor);
+            } else {
+                // Since no intangible floors are nearby, use Mario's floor instead.
+                floor = gMarioStates[0].floor;
+            }
+#else
+            floor = gMarioStates[0].floor;
 #endif
+            if (floor) {
+                gMarioCurrentRoom[0] = floor->room;
+                s16 roomCase = floor->room - 1;
+                print_debug_top_down_objectinfo("areainfo %d", floor->room);
 
-        print_debug_top_down_objectinfo("areainfo %d", ROOM_ID(room));
-
-        if (ROOM_ID(room) > 0) {
-            gMarioCurrentRoom = ROOM_ID(room);
-            switchCase->selectedCase = (ROOM_ID(room) - 1);
+                if (roomCase >= 0) {
+                    switchCase->selectedCase = roomCase;
+                }
+            }
         }
     } else {
         switchCase->selectedCase = 0;
@@ -2250,10 +2245,13 @@ void bhv_init_room(void) {
 #endif
 
 s32 cur_obj_is_mario_in_room(void) {
-    if (o->oRoom != -1 && gMarioCurrentRoom != 0) {
-        if (gMarioCurrentRoom == o->oRoom // Object is in Mario's room.
-            || gDoorAdjacentRooms[gMarioCurrentRoom].forwardRoom  == o->oRoom // Object is in the transition room's forward  room.
-            || gDoorAdjacentRooms[gMarioCurrentRoom].backwardRoom == o->oRoom // Object is in the transition room's backward room.
+u32 playerIndex;
+   for (playerIndex = 0; playerIndex < 3; playerIndex++) {
+    
+    if (o->oRoom != -1 && gMarioCurrentRoom[playerIndex] != 0) {
+        if (gMarioCurrentRoom[playerIndex] == o->oRoom // Object is in Mario's room.
+            || gDoorAdjacentRooms[gMarioCurrentRoom[playerIndex]].forwardRoom  == o->oRoom // Object is in the transition room's forward  room.
+            || gDoorAdjacentRooms[gMarioCurrentRoom[playerIndex]].backwardRoom == o->oRoom // Object is in the transition room's backward room.
         ) {
             return MARIO_INSIDE_ROOM;
         }
@@ -2261,6 +2259,7 @@ s32 cur_obj_is_mario_in_room(void) {
         return MARIO_OUTSIDE_ROOM;
     }
 
+   }
     return MARIO_ROOM_UNDEFINED;
 }
 

@@ -125,7 +125,7 @@ struct TransitionRoomData {
 
 extern struct TransitionRoomData gDoorAdjacentRooms[MAX_NUM_TRANSITION_ROOMS];
 
-extern s16 gMarioCurrentRoom;
+extern s16 gMarioCurrentRoom[3];
 extern s16 D_8035FEE2;
 extern s16 gNumDoorRenderCount;
 extern s16 gTHIWaterDrained;

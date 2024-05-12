@@ -151,7 +151,7 @@ s16 gCollisionFlags = COLLISION_FLAGS_NONE;
 TerrainData *gEnvironmentRegions;
 s32 gEnvironmentLevels[20];
 struct TransitionRoomData gDoorAdjacentRooms[MAX_NUM_TRANSITION_ROOMS];
-s16 gMarioCurrentRoom;
+s16 gMarioCurrentRoom[3];
 s16 D_8035FEE2;
 s16 gNumDoorRenderCount;
 s16 gTHIWaterDrained;
@@ -502,7 +502,7 @@ void spawn_objects_from_info(UNUSED s32 unused, struct SpawnInfo *spawnInfo) {
             }
 
             if (object->behavior == segmented_to_virtual(bhvSyobon)) {
-                gSyobonObject = object;
+                gLuigiObject = object;
                 geo_make_first_child(&object->header.gfx.node);
             }
 
@@ -564,7 +564,7 @@ void clear_objects(void) {
     gTHIWaterDrained = 0;
     gTimeStopState = 0;
     gMarioObject = NULL;
-    gMarioCurrentRoom = 0;
+    gMarioCurrentRoom[0] = 0;
 
     bzero(gDoorAdjacentRooms, sizeof(gDoorAdjacentRooms));
 

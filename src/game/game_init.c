@@ -649,11 +649,11 @@ void read_controller_inputs(void) {
 void init_controllers(void) {
     s16 port, cont;
 
+
     // Set controller 1 to point to the set of status/pads for input 1 and
     // init the controllers.
-    gControllers[0].statusData = &gControllerStatuses[0];
-    gControllers[0].controllerData = &gControllerPads[0];
-    osContInit(&gSIEventMesgQueue, &gControllerBits, &gControllerStatuses[0]);
+    assign_controller_data_to_port(&gControllers[0], 0);
+    osContInit(&gSIEventMesgQueue, &gControllerBits, gControllerStatuses);
 
     // Strangely enough, the EEPROM probe for save data is done in this function.
     // Save Pak detection?
@@ -664,7 +664,7 @@ void init_controllers(void) {
     // only 2 are connected here. The third seems to have been reserved for debug
     // purposes and was never connected in the retail ROM, thus gPlayer3Controller
     // cannot be used, despite being referenced in various code.
-    for (cont = 0, port = 0; port < 4 && cont < 4; port++) {
+    for (cont = 0, port = 0; port < 4; port++) {
         // Is controller plugged in?
         if (gControllerBits & (1 << port)) {
             // The game allows you to have just 1 controller plugged

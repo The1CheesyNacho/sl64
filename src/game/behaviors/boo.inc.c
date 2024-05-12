@@ -72,7 +72,7 @@ static s32 boo_should_be_active(void) {
         }
     } else if (!boo_should_be_stopped()) {
         if (o->oDistanceToMario < activationRadius
-            && (o->oRoom == gMarioCurrentRoom || gMarioCurrentRoom == 0)) {
+            && (o->oRoom == gMarioCurrentRoom[0] || gMarioCurrentRoom[0] == 0)) {
             return TRUE;
         }
     }

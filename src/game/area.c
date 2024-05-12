@@ -245,7 +245,7 @@ void load_area(s32 index) {
         gCurrAreaIndex = gCurrentArea->index;
         main_pool_pop_state();
         main_pool_push_state();
-        gMarioCurrentRoom = 0;
+        gMarioCurrentRoom[0] = 0;
 
         if (gCurrentArea->surfaceRooms != NULL) {
             bzero(gDoorAdjacentRooms, sizeof(gDoorAdjacentRooms));
