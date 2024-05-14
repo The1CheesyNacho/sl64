@@ -37,6 +37,9 @@
 #include "extras/debug_menu.h"
 #endif
 
+
+#define MAX_NUM_PLAYERS 3
+
 // First 3 controller slots
 struct Controller gControllers[3];
 
@@ -596,7 +599,7 @@ void read_controller_inputs(void) {
     }
     run_demo_inputs();
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < MAX_NUM_PLAYERS; i++) {
         struct Controller *controller = &gControllers[i];
 
         // if we're receiving inputs, update the controller struct with the new button info.
@@ -641,20 +644,20 @@ void read_controller_inputs(void) {
 #endif
 }
 
-#define MAX_NUM_PLAYERS 3
 
 /**
  * Initialize the controller structs to point at the OSCont information.
  */
 void init_controllers(void) {
     s16 port, cont;
+    int lastUsedPort = -1;
 
 
     // Set controller 1 to point to the set of status/pads for input 1 and
     // init the controllers.
     assign_controller_data_to_port(&gControllers[0], 0);
     osContInit(&gSIEventMesgQueue, &gControllerBits, gControllerStatuses);
-
+    
     // Strangely enough, the EEPROM probe for save data is done in this function.
     // Save Pak detection?
     gEepromProbe = osEepromProbe(&gSIEventMesgQueue);
@@ -664,18 +667,18 @@ void init_controllers(void) {
     // only 2 are connected here. The third seems to have been reserved for debug
     // purposes and was never connected in the retail ROM, thus gPlayer3Controller
     // cannot be used, despite being referenced in various code.
-    for (cont = 0, port = 0; port < 4; port++) {
+    for (port = 0; port < 3; port++) {
         // Is controller plugged in?
         if (gControllerBits & (1 << port)) {
             // The game allows you to have just 1 controller plugged
             // into any port in order to play the game. this was probably
             // so if any of the ports didn't work, you can have controllers
             // plugged into any of them and it will work.
-#ifdef RUMBLE_FEEDBACK
-            gControllers[cont].port = port;
-#endif
-            gControllers[cont].statusData = &gControllerStatuses[port];
-            gControllers[cont++].controllerData = &gControllerPads[port];
+            assign_controller_data_to_port(&gControllers[cont], port);
+
+            lastUsedPort = port;
+
+            cont++;
         }
     }
 }

@@ -30,3 +30,4 @@
 #include "molalla/model.inc.c"
 #include "syobon/model.inc.c"
 #include "shelby/model.inc.c"
+#include "wario/model.inc.c"
