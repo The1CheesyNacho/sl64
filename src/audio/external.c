@@ -427,7 +427,7 @@ s8 D_SH_80343E48_pad[0x8];
 
 struct Sound sSoundRequests[0x100];
 // Curiously, this has size 3, despite SEQUENCE_PLAYERS == 4 on EU
-struct ChannelVolumeScaleFade D_80360928[3][CHANNELS_MAX];
+struct ChannelVolumeScaleFade D_80360928[SEQUENCE_PLAYERS][CHANNELS_MAX];
 u8 sUsedChannelsForSoundBank[SOUND_BANK_COUNT];
 u8 sCurrentSound[SOUND_BANK_COUNT][MAX_CHANNELS_PER_SOUND_BANK]; // index into sSoundBanks
 
@@ -1787,7 +1787,7 @@ static void seq_player_play_sequence(u8 player, u8 seqId, u16 arg2) {
     }
 
     for (i = 0; i < CHANNELS_MAX; i++) {
-        D_80360928[player][i].remainingFrames = 0;
+        D_80360928[SEQUENCE_PLAYERS][i].remainingFrames = 0;
     }
 
 #if defined(VERSION_EU) || defined(VERSION_SH)
@@ -2194,6 +2194,7 @@ void sound_init(void) {
         sSoundBankUsedListBack[i] = 0;
         sSoundBankFreeListFront[i] = 1;
         sNumSoundsInBank[i] = 0;
+        sMaxChannelsForSoundBank[i] = MAX_CHANNELS_PER_SOUND_BANK;
     }
 
     for (i = 0; i < SOUND_BANK_COUNT; i++) {
@@ -2210,7 +2211,7 @@ void sound_init(void) {
         sSoundBanks[i][j].next = 0xff;
     }
 
-    for (j = 0; j < 3; j++) {
+    for (j = 0; j < SEQUENCE_PLAYERS; j++) {
         for (i = 0; i < CHANNELS_MAX; i++) {
             D_80360928[j][i].remainingFrames = 0;
         }

@@ -2115,6 +2115,7 @@ sound_ref .sound_peach_bake_a_cake
 sound_ref .sound_peach_for_mario
 sound_ref .sound_peach_mario2
 
+
 .sound_mario_jump_hoo:
 chan_setbank 8
 chan_setinstr 0
@@ -2123,10 +2124,10 @@ chan_end
 
 .layer_C3C:
 #if defined(VERSION_EU) || defined(VERSION_SH)
-  layer_transpose_mario 2
+  layer_transpose 2
 #endif
-layer_portamento_mario 0x82, 41, 127
-layer_note1_mario 37, 0x14, 127
+layer_portamento 0x82, 41, 127
+layer_note1 37, 0x14, 127
 layer_end
 
 .sound_mario_jump_wah:
@@ -2136,9 +2137,9 @@ chan_setlayer 0, .layer_C4C
 chan_end
 
 .layer_C4C:
-layer_transpose_mario -2
+layer_transpose -2
 .layer_C4E:
-layer_note1_mario 38, 0x18, 127
+layer_note1 38, 0x18, 127
 layer_end
 
 .sound_mario_jump_yah:
@@ -2148,10 +2149,10 @@ chan_setlayer 0, .layer_C5A
 chan_end
 
 .layer_C5A:
-layer_transpose_mario -2
+layer_transpose -2
 .layer_C5C:
-layer_portamento_mario 0x82, 39, 200
-layer_note1_mario 38, 0x24, 120
+layer_portamento 0x82, 39, 200
+layer_note1 38, 0x24, 120
 layer_end
 
 .sound_mario_hoohoo:
@@ -2161,8 +2162,8 @@ chan_setlayer 0, .layer_C6C
 chan_end
 
 .layer_C6C:
-layer_portamento_mario 0x82, 44, 200
-layer_note1_mario 39, 0x30, 127
+layer_portamento 0x82, 44, 200
+layer_note1 39, 0x30, 127
 layer_end
 
 .sound_mario_yahoo:
@@ -2172,11 +2173,11 @@ chan_setlayer 0, .layer_C7C
 chan_end
 
 .layer_C7C:
-layer_transpose_mario -2
+layer_transpose -2
 layer_somethingon
-layer_portamento_mario 0x85, 39, 255
-layer_note1_mario 42, 0x1e, 110
-layer_note1_mario 39, 0x41, 110
+layer_portamento 0x85, 39, 255
+layer_note1 42, 0x1e, 110
+layer_note1 39, 0x41, 110
 layer_end
 
 .sound_mario_uh:
@@ -2186,9 +2187,9 @@ chan_setlayer 0, .layer_C92
 chan_end
 
 .layer_C92:
-layer_transpose_mario -2
-layer_portamento_mario 0x81, 41, 255
-layer_note1_mario 38, 0x2b, 115
+layer_transpose -2
+layer_portamento 0x81, 41, 255
+layer_note1 38, 0x2b, 115
 layer_end
 
 .sound_mario_hrmm:
@@ -2198,8 +2199,8 @@ chan_setlayer 0, .layer_CA4
 chan_end
 
 .layer_CA4:
-layer_transpose_mario -2
-layer_note1_mario 44, 0x1e, 110
+layer_transpose -2
+layer_note1 44, 0x1e, 110
 layer_end
 
 .sound_mario_wah2:
@@ -2209,8 +2210,8 @@ chan_setlayer 0, .layer_CB2
 chan_end
 
 .layer_CB2:
-layer_transpose_mario -3
-layer_note1_mario 39, 0x1c, 127
+layer_transpose -3
+layer_note1 39, 0x1c, 127
 layer_end
 
 .sound_mario_whoa:
@@ -2220,8 +2221,8 @@ chan_setlayer 0, .layer_CC0
 chan_end
 
 .layer_CC0:
-layer_transpose_mario -2
-layer_note1_mario 40, 0x30, 110
+layer_transpose -2
+layer_note1 40, 0x30, 110
 layer_end
 
 .sound_mario_eeuh:
@@ -2231,8 +2232,8 @@ chan_setlayer 0, .layer_CCE
 chan_end
 
 .layer_CCE:
-layer_transpose_mario -2
-layer_note1_mario 40, 0x44, 105
+layer_transpose -2
+layer_note1 40, 0x44, 105
 layer_end
 
 .sound_mario_attacked:
@@ -2242,8 +2243,8 @@ chan_setlayer 0, .layer_CDC
 chan_end
 
 .layer_CDC:
-layer_transpose_mario -2
-layer_note1_mario 41, 0x30, 120
+layer_transpose -2
+layer_note1 41, 0x30, 120
 layer_end
 
 .sound_mario_ooof:
@@ -2253,8 +2254,8 @@ chan_setlayer 0, .layer_CEA
 chan_end
 
 .layer_CEA:
-layer_transpose_mario -2
-layer_note1_mario 38, 0x30, 127
+layer_transpose -2
+layer_note1 38, 0x30, 127
 layer_end
 
 .sound_mario_here_we_go:
@@ -2264,8 +2265,8 @@ chan_setlayer 0, .layer_CF8
 chan_end
 
 .layer_CF8:
-layer_portamento_mario 0x81, 38, 200
-layer_note1_mario 41, 0x85, 127
+layer_portamento 0x81, 38, 200
+layer_note1 41, 0x85, 127
 layer_end
 
 .sound_mario_yawning:
@@ -2275,8 +2276,8 @@ chan_setlayer 0, .layer_D09
 chan_end
 
 .layer_D09:
-layer_transpose_mario -2
-layer_note1_mario 39, 0x7f, 105
+layer_transpose -2
+layer_note1 39, 0x7f, 105
 layer_end
 
 .sound_mario_snoring1:
@@ -2286,8 +2287,8 @@ chan_setlayer 0, .layer_D17
 chan_end
 
 .layer_D17:
-layer_transpose_mario -2
-layer_note1_mario 39, 0x60, 64
+layer_transpose -2
+layer_note1 39, 0x60, 64
 layer_end
 
 .sound_mario_snoring2:
@@ -2297,8 +2298,8 @@ chan_setlayer 0, .layer_D25
 chan_end
 
 .layer_D25:
-layer_transpose_mario -2
-layer_note1_mario 39, 0x5c, 52
+layer_transpose -2
+layer_note1 39, 0x5c, 52
 layer_end
 
 .sound_mario_waaaooow:
@@ -2308,8 +2309,8 @@ chan_setlayer 0, .layer_D33
 chan_end
 
 .layer_D33:
-layer_transpose_mario -2
-layer_note1_mario 39, 0xaa, 127
+layer_transpose -2
+layer_note1 39, 0xaa, 127
 layer_end
 
 .sound_mario_haha:
@@ -2319,8 +2320,8 @@ chan_setlayer 0, .layer_D42
 chan_end
 
 .layer_D42:
-layer_transpose_mario -1
-layer_note1_mario 39, 0x4d, 120
+layer_transpose -1
+layer_note1 39, 0x4d, 120
 layer_end
 
 .sound_mario_uh2:
@@ -2330,8 +2331,8 @@ chan_setlayer 0, .layer_D50
 chan_end
 
 .layer_D50:
-layer_transpose_mario -2
-layer_note1_mario 43, 0x1e, 105
+layer_transpose -2
+layer_note1 43, 0x1e, 105
 layer_end
 
 .sound_mario_on_fire:
@@ -2341,8 +2342,8 @@ chan_setlayer 0, .layer_D5E
 chan_end
 
 .layer_D5E:
-layer_transpose_mario -2
-layer_note1_mario 39, 0xc8, 127
+layer_transpose -2
+layer_note1 39, 0xc8, 127
 layer_end
 
 .sound_mario_dying:
@@ -2352,8 +2353,8 @@ chan_setlayer 0, .layer_D6D
 chan_end
 
 .layer_D6D:
-layer_transpose_mario -2
-layer_note1_mario 39, 0x8c, 110
+layer_transpose -2
+layer_note1 39, 0x8c, 110
 layer_end
 
 .sound_mario_panting_cold:
@@ -2363,9 +2364,9 @@ chan_setlayer 0, .layer_D7C
 chan_end
 
 .layer_D7C:
-layer_transpose_mario -2
-layer_portamento_mario 0x82, 35, 255
-layer_note1_mario 38, 0x30, 127
+layer_transpose -2
+layer_portamento 0x82, 35, 255
+layer_note1 38, 0x30, 127
 layer_end
 
 .sound_mario_panting1:
@@ -2374,9 +2375,9 @@ chan_setinstr 2
 chan_setlayer 0, .layer_D8E
 chan_end
 
-// layer_note1_mario intentionally not used
+// layer_note1 intentionally not used
 .layer_D8E:
-layer_transpose_mario -2
+layer_transpose -2
 layer_note1 39, 0x3c, 100
 layer_end
 
@@ -2386,9 +2387,9 @@ chan_setinstr 2
 chan_setlayer 0, .layer_D9C
 chan_end
 
-// layer_note1_mario intentionally not used
+// layer_note1 intentionally not used
 .layer_D9C:
-layer_transpose_mario -2
+layer_transpose -2
 layer_delay 0x4
 layer_note1 38, 0x3c, 100
 layer_end
@@ -2399,9 +2400,9 @@ chan_setinstr 2
 chan_setlayer 0, .layer_DAC
 chan_end
 
-// layer_note1_mario intentionally not used
+// layer_note1 intentionally not used
 .layer_DAC:
-layer_transpose_mario -2
+layer_transpose -2
 layer_delay 0x8
 layer_note1 40, 0x3c, 100
 layer_end
@@ -2412,9 +2413,9 @@ chan_setinstr 7
 chan_setlayer 0, .layer_DBC
 chan_end
 
-// layer_note1_mario intentionally not used
+// layer_note1 intentionally not used
 .layer_DBC:
-layer_transpose_mario -2
+layer_transpose -2
 layer_note1 39, 0x10, 115
 layer_end
 
@@ -2424,9 +2425,9 @@ chan_setinstr 7
 chan_setlayer 0, .layer_DCA
 chan_end
 
-// layer_portamento_mario and layer_note1_mario intentionally not used
+// layer_portamento and layer_note1 intentionally not used
 .layer_DCA:
-layer_transpose_mario -2
+layer_transpose -2
 layer_portamento 0x81, 38, 255
 layer_note1 41, 0x18, 115
 layer_end
@@ -2437,10 +2438,10 @@ chan_setinstr 7
 chan_setlayer 0, .layer_DDC
 chan_end
 
-// layer_portamento_mario and layer_note1_mario intentionally not used
+// layer_portamento and layer_note1 intentionally not used
 // NOTE: This particular sound has been modified for use with the DISABLE_MARIO_PITCH_SHIFTING define since it may otherwise sound bad left alone
 .layer_DDC:
-layer_transpose_mario -2
+layer_transpose -2
 #ifndef DISABLE_MARIO_PITCH_SHIFTING
 layer_somethingon
 layer_portamento 0x85, 38, 255
@@ -2464,7 +2465,7 @@ chan_setlayer 1, .layer_538
 chan_end
 
 .layer_DFE:
-layer_transpose_mario -2
+layer_transpose -2
 layer_jump .layer_C5C
 
 .sound_mario_punch_hoo:
@@ -2479,9 +2480,9 @@ chan_setlayer 1, .layer_548
 chan_end
 
 .layer_E17:
-layer_transpose_mario -2
-layer_portamento_mario 0x81, 42, 255
-layer_note1_mario 38, 0x30, 115
+layer_transpose -2
+layer_portamento 0x81, 42, 255
+layer_note1 38, 0x30, 115
 layer_end
 
 .sound_mario_mama_mia:
@@ -2491,8 +2492,8 @@ chan_setlayer 0, .layer_E29
 chan_end
 
 .layer_E29:
-layer_portamento_mario 0x81, 38, 255
-layer_note1_mario 36, 0x8c, 115
+layer_portamento 0x81, 38, 255
+layer_note1 36, 0x8c, 115
 layer_end
 
 .sound_mario_okey_dokey:
@@ -2502,7 +2503,7 @@ chan_setlayer 0, .layer_E3A
 chan_end
 
 .layer_E3A:
-layer_note1_mario 39, 0x60, 115
+layer_note1 39, 0x60, 115
 layer_end
 
 .sound_mario_ground_pound_wah:
@@ -2515,7 +2516,7 @@ chan_setlayer 0, .layer_E49
 chan_end
 
 .layer_E49:
-layer_note1_mario 38, 0x91, 127
+layer_note1 38, 0x91, 127
 layer_end
 
 .sound_mario_punch_wah:
@@ -2530,7 +2531,7 @@ chan_setlayer 1, .layer_536
 chan_end
 
 .layer_E62:
-layer_transpose_mario -1
+layer_transpose -1
 layer_jump .layer_C4E
 
 .sound_peach_dear_mario:
@@ -2550,7 +2551,7 @@ chan_setlayer 0, .layer_E7C
 chan_end
 
 .layer_E7C:
-layer_note1_mario 39, 0x5a, 127
+layer_note1 39, 0x5a, 127
 layer_end
 
 .sound_mario_yippee:
@@ -2560,7 +2561,7 @@ chan_setlayer 0, .layer_E88
 chan_end
 
 .layer_E88:
-layer_note1_mario 39, 0x5a, 97
+layer_note1 39, 0x5a, 97
 layer_end
 
 .sound_mario_doh:
@@ -2570,7 +2571,7 @@ chan_setlayer 0, .layer_E94
 chan_end
 
 .layer_E94:
-layer_note1_mario 41, 0x46, 127
+layer_note1 41, 0x46, 127
 layer_end
 
 .sound_mario_game_over:
@@ -2580,7 +2581,7 @@ chan_setlayer 0, .layer_EA0
 chan_end
 
 .layer_EA0:
-layer_note1_mario 39, 0x55, 110
+layer_note1 39, 0x55, 110
 layer_end
 
 .sound_mario_hello:
@@ -2590,7 +2591,7 @@ chan_setlayer 0, .layer_EAC
 chan_end
 
 .layer_EAC:
-layer_note1_mario 39, 0x46, 127
+layer_note1 39, 0x46, 127
 layer_end
 
 .sound_mario_press_start_to_play:
@@ -2600,7 +2601,7 @@ chan_setlayer 0, .layer_EB8
 chan_end
 
 .layer_EB8:
-layer_note1_mario 39, 0x12c, 127
+layer_note1 39, 0x12c, 127
 layer_end
 
 .sound_mario_twirl_bounce:
@@ -2610,7 +2611,7 @@ chan_setlayer 0, .layer_EC5
 chan_end
 
 .layer_EC5:
-layer_note1_mario 39, 0x30, 127
+layer_note1 39, 0x30, 127
 layer_end
 
 .sound_mario_snoring3:
@@ -2625,15 +2626,15 @@ layer_loop 50
 layer_call .layer_fn_EE1
 layer_loopend
 layer_setinstr 21
-layer_note1_mario 39, 0x44c, 127
+layer_note1 39, 0x44c, 127
 layer_jump .layer_ED1
 layer_end
 
 .layer_fn_EE1:
 layer_setinstr 21
-layer_note1_mario 37, 0x53, 127
+layer_note1 37, 0x53, 127
 layer_setinstr 15
-layer_note1_mario 37, 0x4e, 64
+layer_note1 37, 0x4e, 64
 layer_end
 
 .sound_mario_so_longa_bowser:
@@ -2644,8 +2645,8 @@ chan_setlayer 1, .layer_EF7
 chan_end
 
 .layer_EF7:
-layer_portamento_mario 0x82, 42, 200
-layer_note1_mario 39, 0xc8, 110
+layer_portamento 0x82, 42, 200
+layer_note1 39, 0xc8, 110
 layer_end
 
 .sound_mario_ima_tired:
@@ -2655,7 +2656,7 @@ chan_setlayer 0, .layer_F08
 chan_end
 
 .layer_F08:
-layer_note1_mario 39, 0x96, 110
+layer_note1 39, 0x96, 110
 layer_end
 
 .sound_peach_mario:
@@ -2873,7 +2874,6 @@ sound_ref .sound_general_boing1
 sound_ref .sound_general_boing2
 sound_ref .sound_general_yoshi_walk
 sound_ref .sound_general_enemy_alert1
-sound_ref .sound_general_yoshi_talk
 sound_ref .sound_general_splattering
 sound_ref .sound_general_boing3
 sound_ref .sound_general_grand_star
@@ -2888,6 +2888,7 @@ sound_ref .sound_general_metal_pound
 sound_ref .sound_general_boing1
 sound_ref .sound_general_boing2
 sound_ref .sound_general_yoshi_walk
+sound_ref .sound_general_yoshi_talk
 sound_ref .sound_general_enemy_alert1
 
 .sound_general_activate_cap_switch:
@@ -4355,16 +4356,6 @@ chan_jump .sound_obj_koopa_the_quick_walk
 .sound_general_enemy_alert1:
 chan_jump .sound_obj_goomba_alert
 
-.sound_general_yoshi_talk:
-chan_setbank 0
-chan_setinstr 3
-chan_setlayer 0, .layer_1A35
-chan_end
-
-.layer_1A35:
-layer_note1 39, 0x32, 127
-layer_end
-
 .sound_general_splattering:
 chan_setbank 6
 chan_setinstr 2
@@ -5088,7 +5079,6 @@ sound_ref .sound_obj_bowser_roar
 sound_ref .sound_obj_bowser_tail_pickup
 sound_ref .sound_obj_bowser_defeated
 sound_ref .sound_obj_bowser_spinning
-sound_ref .sound_obj_thwimp
 
 .sound_general_swish_water:
 chan_setbank 6
@@ -5261,18 +5251,6 @@ chan_setinstr 1
 chan_setlayer 1, .layer_204E
 chan_end
 
-.sound_obj_thwimp:
-chan_setbank 7
-chan_setinstr 12
-chan_call .set_reverb
-chan_setlayer 0, .layer_2055
-chan_setval 1
-chan_call .delay
-chan_setbank 6
-chan_setinstr 1
-chan_setlayer 1, .layer_204E
-chan_end
-
 .layer_204E:
 layer_note1 37, 0xc, 127
 layer_note1 31, 0x1e, 127
@@ -5338,21 +5316,13 @@ layer_note1 39, 0x48, 110
 layer_end
 
 .sound_obj_jump_walk_water:
-chan_setbank 7
-chan_setinstr 12
-chan_setval 55
-chan_call .set_reverb
-chan_setlayer 0, .layer_2055
-chan_setval 1
-chan_call .delay
-chan_setbank 6
-chan_setinstr 1
-chan_setlayer 1, .layer_20AE
+chan_setbank 4
+chan_setinstr 5
+chan_setlayer 0, .layer_20AE
 chan_end
 
 .layer_20AE:
-layer_note1 47, 0xc, 127
-layer_note1 41, 0x1e, 127
+layer_note1 59, 0x24, 105
 layer_end
 
 .chan_20B2:
@@ -7387,7 +7357,7 @@ chan_setvibratoextent 3
 chan_setvibratorate 60
 chan_setval 25
 chan_call .set_reverb
-chan_setlayer 0, .layer_F8C
+chan_setlayer 0, .layer_2E28
 chan_setlayer 1, .layer_2E3D
 chan_setlayer 2, .layer_2E34
 chan_setval 70
@@ -7412,12 +7382,17 @@ layer_end
 
 .layer_2E34:
 layer_delay 0x6e
-layer_note1 39, 0xc8, 110
+layer_transpose 0
+layer_note1 39, 0xc8, 31
 layer_end
 
 .layer_2E3D:
+layer_transpose 24
 layer_delay 0x1e
-layer_note1 39, 0x6f, 110
+layer_note1 25, 0x2, 18
+layer_note1 37, 0x7, 36
+layer_note1 30, 0x5, 18
+layer_note1 42, 0x37, 36
 layer_end
 
 .sound_menu_yoshi_gain_lives:
@@ -8003,6 +7978,7 @@ layer_note0 38, 0x3, 127, 127
 layer_delay 0x2a
 layer_jump .layer_32B7
 
+
 .channelA_table:
 sound_ref .sound_luigi_jump_yah
 sound_ref .sound_luigi_jump_wah
@@ -8118,63 +8094,8 @@ sound_ref .sound_wario_twirl_bounce
 sound_ref .sound_wario_snoring3
 sound_ref .sound_wario_so_longa_bowser
 sound_ref .sound_wario_ima_tired
+
 .channelC_table:
-sound_ref .sound_waluigi_jump_yah
-sound_ref .sound_waluigi_jump_wah
-sound_ref .sound_waluigi_jump_hoo
-sound_ref .sound_waluigi_hoohoo
-sound_ref .sound_waluigi_yahoo
-sound_ref .sound_waluigi_uh
-sound_ref .sound_waluigi_hrmm
-sound_ref .sound_waluigi_wah2
-sound_ref .sound_waluigi_whoa
-sound_ref .sound_waluigi_eeuh
-sound_ref .sound_waluigi_attacked
-sound_ref .sound_waluigi_ooof
-sound_ref .sound_waluigi_here_we_go
-sound_ref .sound_waluigi_yawning
-sound_ref .sound_waluigi_snoring1
-sound_ref .sound_waluigi_snoring2
-sound_ref .sound_waluigi_waaaooow
-sound_ref .sound_waluigi_haha
-sound_ref .sound_waluigi_panting1
-sound_ref .sound_waluigi_uh2
-sound_ref .sound_waluigi_on_fire
-sound_ref .sound_waluigi_dying
-sound_ref .sound_waluigi_panting_cold
-sound_ref .sound_waluigi_coughing3
-sound_ref .sound_waluigi_panting1
-sound_ref .sound_waluigi_panting2
-sound_ref .sound_waluigi_panting3
-sound_ref .sound_waluigi_coughing1
-sound_ref .sound_waluigi_coughing2
-sound_ref .sound_waluigi_coughing3
-sound_ref .sound_waluigi_punch_yah
-sound_ref .sound_waluigi_punch_hoo
-sound_ref .sound_waluigi_mama_mia
-sound_ref .sound_waluigi_okey_dokey
-sound_ref .sound_waluigi_ground_pound_wah
-sound_ref .sound_waluigi_drowning
-sound_ref .sound_waluigi_punch_wah
-sound_ref .sound_waluigi_uh
-sound_ref .sound_waluigi_hrmm
-sound_ref .sound_waluigi_wah2
-sound_ref .sound_peach_dear_waluigi
-sound_ref .sound_waluigi_jump_hoo
-sound_ref .sound_waluigi_jump_hoo
-sound_ref .sound_waluigi_yahoo
-sound_ref .sound_waluigi_yahoo
-sound_ref .sound_waluigi_yahoo
-sound_ref .sound_waluigi_waha
-sound_ref .sound_waluigi_yippee
-sound_ref .sound_waluigi_doh
-sound_ref .sound_waluigi_game_over
-sound_ref .sound_waluigi_hello
-sound_ref .sound_waluigi_press_start_to_play
-sound_ref .sound_waluigi_twirl_bounce
-sound_ref .sound_waluigi_snoring3
-sound_ref .sound_waluigi_so_longa_bowser
-sound_ref .sound_waluigi_ima_tired
 
 .channelD_table:
 // Add custom sounds for Channel D here!
@@ -8184,6 +8105,7 @@ sound_ref .sound_waluigi_ima_tired
 
 .channelF_table:
 // Add custom sounds for Channel F here!
+
 
 .align 2, 0
 .envelope_32C4:
@@ -8360,378 +8282,365 @@ envelope_line 10 16000
 envelope_line 200 32760
 envelope_goto 3
 
+.sound_general_yoshi_talk:
+chan_setbank 0
+chan_setinstr 3
+chan_setlayer 0, .layer_1A35
+chan_end
+
+.layer_1A35:
+layer_note1 39, 0x32, 127
+layer_end
+
+
 .sound_luigi_jump_hoo:
 chan_setbank 11
 chan_setinstr 0
-chan_setlayer 0, .layer_F3C
+chan_setlayer 0, .layer_luigi_C3C
 chan_end
 
-.layer_F3C:
-#if defined(VERSION_EU) || defined(VERSION_SH)
-  layer_transpose 2
-#endif
-layer_portamento 0x82, 41, 127
-layer_note1 37, 0x14, 127
+.layer_luigi_C3C:
+.ifdef VERSION_EU
+.endif
+layer_note1 39, 0x14, 97
 layer_end
 
 .sound_luigi_jump_wah:
 chan_setbank 11
 chan_setinstr 1
-chan_setlayer 0, .layer_F4C
+chan_setlayer 0, .layer_luigi_C4C
 chan_end
 
-.layer_F4C:
-layer_transpose -2
-.layer_F4E:
-layer_note1 38, 0x18, 127
+.layer_luigi_C4C:
+.layer_luigi_C4E:
+layer_note1 39, 0x18, 97
 layer_end
 
 .sound_luigi_jump_yah:
 chan_setbank 12
 chan_setinstr 9
-chan_setlayer 0, .layer_F5A
+chan_setlayer 0, .layer_luigi_C5A
 chan_end
 
-.layer_F5A:
-layer_transpose -2
-.layer_F5C:
-layer_portamento 0x82, 39, 200
-layer_note1 38, 0x24, 120
+.layer_luigi_C5A:
+.layer_luigi_C5C:
+layer_note1 39, 0x24, 97
 layer_end
 
 .sound_luigi_hoohoo:
 chan_setbank 12
 chan_setinstr 1
-chan_setlayer 0, .layer_F6C
+chan_setlayer 0, .layer_luigi_C6C
 chan_end
 
-.layer_F6C:
-layer_portamento 0x82, 44, 200
-layer_note1 39, 0x30, 127
+.layer_luigi_C6C:
+.ifdef VERSION_EU
+.endif
+layer_note1 39, 0x30, 97
 layer_end
 
 .sound_luigi_yahoo:
 chan_setbank 11
 chan_setinstr 4
-chan_setlayer 0, .layer_F8C
+chan_setlayer 0, .layer_luigi_C7C
 chan_end
 
-.layer_F8C:
-layer_note1 39, 0x6f, 110
+.layer_luigi_C7C:
+
+layer_somethingon
+layer_note1 39, 0x1e, 97
+layer_note1 39, 0x41, 97
 layer_end
 
 .sound_luigi_uh:
 chan_setbank 11
 chan_setinstr 5
-chan_setlayer 0, .layer_F92
+chan_setlayer 0, .layer_luigi_C92
 chan_end
 
-.layer_F92:
-layer_transpose -2
-layer_portamento 0x81, 41, 255
-layer_note1 38, 0x2b, 115
+.layer_luigi_C92:
+layer_note1 39, 0x2b, 97
 layer_end
 
 .sound_luigi_hrmm:
 chan_setbank 11
 chan_setinstr 6
-chan_setlayer 0, .layer_FA4
+chan_setlayer 0, .layer_luigi_CA4
 chan_end
 
-.layer_FA4:
-layer_transpose -2
-layer_note1 44, 0x1e, 110
+.layer_luigi_CA4:
+layer_note1 39, 0x1e, 97
 layer_end
 
 .sound_luigi_wah2:
 chan_setbank 11
 chan_setinstr 7
-chan_setlayer 0, .layer_FB2
+chan_setlayer 0, .layer_luigi_CB2
 chan_end
 
-.layer_FB2:
-layer_transpose -3
-layer_note1 39, 0x1c, 127
+.layer_luigi_CB2:
+layer_note1 39, 0x1c, 97
 layer_end
 
 .sound_luigi_whoa:
 chan_setbank 11
 chan_setinstr 8
-chan_setlayer 0, .layer_FC0
+chan_setlayer 0, .layer_luigi_CC0
 chan_end
 
-.layer_FC0:
-layer_transpose -2
-layer_note1 40, 0x30, 110
+.layer_luigi_CC0:
+layer_note1 39, 0x30, 97
 layer_end
 
 .sound_luigi_eeuh:
 chan_setbank 11
 chan_setinstr 9
-chan_setlayer 0, .layer_FCE
+chan_setlayer 0, .layer_luigi_CCE
 chan_end
 
-.layer_FCE:
-layer_transpose -2
-layer_note1 40, 0x44, 105
+.layer_luigi_CCE:
+layer_note1 39, 0x44, 97
 layer_end
 
 .sound_luigi_attacked:
 chan_setbank 11
 chan_setinstr 10
-chan_setlayer 0, .layer_FDC
+chan_setlayer 0, .layer_luigi_CDC
 chan_end
 
-.layer_F0C:
-layer_transpose -2
-layer_note1 41, 0x30, 120
+.layer_luigi_CDC:
+layer_note1 39, 0x30, 97
 layer_end
 
 .sound_luigi_ooof:
 chan_setbank 11
 chan_setinstr 11
-chan_setlayer 0, .layer_FEA
+chan_setlayer 0, .layer_luigi_CEA
 chan_end
 
-.layer_FEA:
-layer_transpose -2
-layer_note1 38, 0x30, 127
+.layer_luigi_CEA:
+layer_note1 39, 0x30, 97
 layer_end
 
 .sound_luigi_here_we_go:
 chan_setbank 11
 chan_setinstr 12
-chan_setlayer 0, .layer_FF8
+chan_setlayer 0, .layer_luigi_CF8
 chan_end
 
-.layer_FF8:
-layer_portamento 0x81, 38, 200
-layer_note1 41, 0x85, 127
+.layer_luigi_CF8:
+layer_note1 39, 0x85, 97
 layer_end
 
 .sound_luigi_yawning:
 chan_setbank 11
 chan_setinstr 13
-chan_setlayer 0, .layer_F09
+chan_setlayer 0, .layer_luigi_D09
 chan_end
 
-.layer_F09:
-layer_transpose -2
-layer_note1 39, 0x7f, 105
+.layer_luigi_D09:
+layer_note1 39, 0x7f, 97
 layer_end
 
 .sound_luigi_snoring1:
 chan_setbank 11
 chan_setinstr 14
-chan_setlayer 0, .layer_F17
+chan_setlayer 0, .layer_luigi_D17
 chan_end
 
-.layer_F17:
-layer_transpose -2
-layer_note1 39, 0x60, 64
+.layer_luigi_D17:
+layer_note1 39, 0x60, 97
 layer_end
 
 .sound_luigi_snoring2:
 chan_setbank 11
 chan_setinstr 15
-chan_setlayer 0, .layer_F25
+chan_setlayer 0, .layer_luigi_D25
 chan_end
 
-.layer_F25:
-layer_transpose -2
-layer_note1 39, 0x5c, 52
+.layer_luigi_D25:
+layer_note1 39, 0x5c, 97
 layer_end
 
 .sound_luigi_waaaooow:
 chan_setbank 12
 chan_setinstr 0
-chan_setlayer 0, .layer_F33
+chan_setlayer 0, .layer_luigi_D33
 chan_end
 
-.layer_F33:
-layer_transpose -2
-layer_note1 39, 0xaa, 127
+.layer_luigi_D33:
+layer_note1 39, 0xaa, 97
 layer_end
 
 .sound_luigi_haha:
 chan_setbank 11
 chan_setinstr 3
-chan_setlayer 0, .layer_F42
+chan_setlayer 0, .layer_luigi_D42
 chan_end
 
-.layer_F42:
-layer_transpose -1
-layer_note1 39, 0x4d, 120
+.layer_luigi_D42:
+layer_note1 39, 0x4d, 97
 layer_end
 
 .sound_luigi_uh2:
 chan_setbank 12
 chan_setinstr 6
-chan_setlayer 0, .layer_F50
+chan_setlayer 0, .layer_luigi_D50
 chan_end
 
-.layer_F50:
-layer_transpose -2
-layer_note1 43, 0x1e, 105
+.layer_luigi_D50:
+layer_note1 39, 0x1e, 97
 layer_end
 
 .sound_luigi_on_fire:
 chan_setbank 12
 chan_setinstr 5
-chan_setlayer 0, .layer_F5E
+chan_setlayer 0, .layer_luigi_D5E
 chan_end
 
-.layer_F5E:
-layer_transpose -2
-layer_note1 39, 0xc8, 127
+.layer_luigi_D5E:
+layer_note1 39, 0xc8, 97
 layer_end
 
 .sound_luigi_dying:
 chan_setbank 12
 chan_setinstr 4
-chan_setlayer 0, .layer_F6D
+chan_setlayer 0, .layer_luigi_D6D
 chan_end
 
-.layer_F6D:
-layer_transpose -2
-layer_note1 39, 0x8c, 110
+.layer_luigi_D6D:
+layer_note1 39, 0x8c, 97
 layer_end
 
 .sound_luigi_panting_cold:
 chan_setbank 12
 chan_setinstr 2
-chan_setlayer 0, .layer_F7C
+chan_setlayer 0, .layer_luigi_D7C
 chan_end
 
-.layer_F7C:
-layer_transpose -2
-layer_portamento 0x82, 35, 255
-layer_note1 38, 0x30, 127
+.layer_luigi_D7C:
+layer_note1 39, 0x30, 97
 layer_end
 
 .sound_luigi_panting1:
 chan_setbank 12
 chan_setinstr 2
-chan_setlayer 0, .layer_F8E
+chan_setlayer 0, .layer_luigi_D8E
 chan_end
 
-.layer_F8E:
-layer_transpose -2
-layer_note1 39, 0x3c, 100
+.layer_luigi_D8E:
+layer_note1 39, 0x3c, 97
 layer_end
 
 .sound_luigi_panting2:
 chan_setbank 12
 chan_setinstr 2
-chan_setlayer 0, .layer_F9C
+chan_setlayer 0, .layer_luigi_D9C
 chan_end
 
-.layer_F9C:
-layer_transpose -2
+.layer_luigi_D9C:
 layer_delay 0x4
-layer_note1 38, 0x3c, 100
+layer_note1 39, 0x3c, 97
 layer_end
 
 .sound_luigi_panting3:
 chan_setbank 12
 chan_setinstr 2
-chan_setlayer 0, .layer_FAC
+chan_setlayer 0, .layer_luigi_DAC
 chan_end
 
-.layer_FAC:
-layer_transpose -2
-layer_delay 0x8
-layer_note1 40, 0x3c, 100
+.layer_luigi_DAC:
+layer_note1 39, 0x3c, 97
 layer_end
 
 .sound_luigi_coughing1:
 chan_setbank 12
 chan_setinstr 7
-chan_setlayer 0, .layer_FBC
+chan_setlayer 0, .layer_luigi_DBC
 chan_end
 
-.layer_FBC:
-layer_transpose -2
-layer_note1 39, 0x10, 115
+.layer_luigi_DBC:
+layer_note1 39, 0x10, 97
 layer_end
 
 .sound_luigi_coughing2:
 chan_setbank 12
 chan_setinstr 7
-chan_setlayer 0, .layer_FCA
+chan_setlayer 0, .layer_luigi_DCA
 chan_end
 
-.layer_FCA:
-layer_transpose -2
-layer_portamento 0x81, 38, 255
-layer_note1 41, 0x18, 115
+.layer_luigi_DCA:
+layer_note1 39, 0x18, 97
 layer_end
 
 .sound_luigi_coughing3:
 chan_setbank 12
 chan_setinstr 7
-chan_setlayer 0, .layer_FDC
+chan_setlayer 0, .layer_luigi_DDC
 chan_end
 
-.layer_FDC:
-layer_transpose -2
+.layer_luigi_DDC:
 layer_somethingon
-layer_portamento 0x85, 38, 255
-layer_note1 41, 0xc, 115
-layer_note1 35, 0x12, 115
+layer_note1 39, 0xc, 97
+layer_note1 39, 0x12, 97
 layer_end
 
 .sound_luigi_punch_yah:
 chan_setbank 12
 chan_setinstr 9
-chan_setlayer 0, .layer_FFE
+chan_setlayer 0, .layer_luigi_DFE
 chan_setval 1
 chan_call .delay
 chan_setbank 0
 chan_setinstr 0
-chan_setlayer 1, .layer_538
+chan_setlayer 1, .layer_luigi_538
 chan_end
 
-.layer_FFE:
-layer_transpose -2
-layer_jump .layer_F5C
+.layer_luigi_538:
+layer_portamento 0x81, 46, 255
+layer_note1 39, 0xf, 97
+layer_end
+
+.layer_luigi_DFE:
+layer_jump .layer_luigi_C5C
 
 .sound_luigi_punch_hoo:
 chan_setbank 12
 chan_setinstr 10
-chan_setlayer 0, .layer_FE7
+chan_setlayer 0, .layer_luigi_E17
 chan_setval 1
 chan_call .delay
 chan_setbank 0
 chan_setinstr 0
-chan_setlayer 1, .layer_548
+chan_setlayer 1, .layer_luigi_548
 chan_end
 
-.layer_FE7:
-layer_transpose -2
-layer_portamento 0x81, 42, 255
-layer_note1 38, 0x30, 115
+.layer_luigi_548:
+layer_note1 39, 0x12, 97
+layer_end
+
+.layer_luigi_E17:
+layer_note1 39, 0x30, 97
 layer_end
 
 .sound_luigi_mama_mia:
 chan_setbank 12
 chan_setinstr 11
-chan_setlayer 0, .layer_F29
+chan_setlayer 0, .layer_luigi_E29
 chan_end
 
-.layer_F29:
-layer_portamento 0x81, 38, 255
-layer_note1 36, 0x8c, 115
+.layer_luigi_E29:
+layer_note1 39, 0x8c, 97
 layer_end
 
 .sound_luigi_okey_dokey:
 chan_setbank 12
 chan_setinstr 12
-chan_setlayer 0, .layer_F3A
+chan_setlayer 0, .layer_luigi_E3A
 chan_end
 
-.layer_F3A:
-layer_note1 39, 0x60, 115
+.layer_luigi_E3A:
+layer_note1 39, 0x60, 97
 layer_end
 
 .sound_luigi_ground_pound_wah:
@@ -8740,1194 +8649,648 @@ chan_jump .sound_luigi_wah2
 .sound_luigi_drowning:
 chan_setbank 12
 chan_setinstr 13
-chan_setlayer 0, .layer_F49
+chan_setlayer 0, .layer_luigi_E49
 chan_end
 
-.layer_F49:
-layer_note1 38, 0x91, 127
+.layer_luigi_E49:
+layer_note1 39, 0x91, 97
 layer_end
 
 .sound_luigi_punch_wah:
 chan_setbank 11
 chan_setinstr 1
-chan_setlayer 0, .layer_F62
+chan_setlayer 0, .layer_luigi_E62
 chan_setval 1
 chan_call .delay
 chan_setbank 0
 chan_setinstr 0
-chan_setlayer 1, .layer_536
+chan_setlayer 1, .layer_luigi_536
 chan_end
 
-.layer_F62:
-layer_transpose -1
-layer_jump .layer_F4E
+.layer_luigi_536:
+layer_transpose 1
 
-.sound_peach_dear_luigi:
-chan_setbank 12
-chan_setinstr 15
-chan_setlayer 0, .layer_F6F
-chan_end
+.layer_luigi_E62:
+layer_jump .layer_luigi_C4E
 
-.layer_F6F:
-layer_note1 39, 0x2bc, 127
-layer_end
+  .sound_peach_dear_luigi:
+  chan_setbank 12
+  chan_setinstr 15
+  chan_setlayer 0, .layer_luigi_E6F
+  chan_end
 
-.sound_luigi_waha:
-chan_setbank 11
-chan_setinstr 24
-chan_setlayer 0, .layer_FFC
-chan_end
+  .layer_luigi_E6F:
+  layer_note1 39, 0x2bc, 97
+  layer_end
 
-.layer_FFC:
-layer_note1 39, 0x5a, 127
-layer_end
+  .sound_luigi_waha:
+  chan_setbank 11
+  chan_setinstr 24
+  chan_setlayer 0, .layer_luigi_E7C
+  chan_end
 
-.sound_luigi_yippee:
-chan_setbank 11
-chan_setinstr 25
-chan_setlayer 0, .layer_F88
-chan_end
+  .layer_luigi_E7C:
+  layer_note1 39, 0x5a, 97
+  layer_end
 
-.layer_F88:
-layer_note1 39, 0x5a, 97
-layer_end
+  .sound_luigi_yippee:
+  chan_setbank 11
+  chan_setinstr 25
+  chan_setlayer 0, .layer_luigi_E88
+  chan_end
 
-.sound_luigi_doh:
-chan_setbank 11
-chan_setinstr 16
-chan_setlayer 0, .layer_F94
-chan_end
+  .layer_luigi_E88:
+  layer_note1 39, 0x5a, 97
+  layer_end
 
-.layer_F94:
-layer_note1 41, 0x46, 127
-layer_end
+  .sound_luigi_doh:
+  chan_setbank 11
+  chan_setinstr 16
+  chan_setlayer 0, .layer_luigi_E94
+  chan_end
 
-.sound_luigi_game_over:
-chan_setbank 11
-chan_setinstr 17
-chan_setlayer 0, .layer_FA0
-chan_end
+  .layer_luigi_E94:
+  layer_note1 39, 0x46, 97
+  layer_end
 
-.layer_FA0:
-layer_note1 39, 0x55, 110
-layer_end
+  .sound_luigi_game_over:
+  chan_setbank 11
+  chan_setinstr 17
+  chan_setlayer 0, .layer_luigi_EA0
+  chan_end
 
-.sound_luigi_hello:
-chan_setbank 11
-chan_setinstr 18
-chan_setlayer 0, .layer_F51
-chan_end
+  .layer_luigi_EA0:
+  layer_note1 39, 0x55, 97
+  layer_end
 
-.layer_F51:
-layer_note1 39, 0x46, 127
-layer_end
+  .sound_luigi_hello:
+  chan_setbank 11
+  chan_setinstr 18
+  chan_setlayer 0, .layer_luigi_EAC
+  chan_end
 
-.sound_luigi_press_start_to_play:
-chan_setbank 11
-chan_setinstr 19
-chan_setlayer 0, .layer_FB8
-chan_end
+  .layer_luigi_EAC:
+  layer_note1 39, 0x46, 97
+  layer_end
 
-.layer_FB8:
-layer_note1 39, 0x12c, 127
-layer_end
+  .sound_luigi_press_start_to_play:
+  chan_setbank 11
+  chan_setinstr 19
+  chan_setlayer 0, .layer_luigi_EB8
+  chan_end
 
-.sound_luigi_twirl_bounce:
-chan_setbank 11
-chan_setinstr 20
-chan_setlayer 0, .layer_FC5
-chan_end
+  .layer_luigi_EB8:
+  layer_note1 39, 0x12c, 97
+  layer_end
 
-.layer_FC5:
-layer_note1 39, 0x30, 127
-layer_end
+  .sound_luigi_twirl_bounce:
+  chan_setbank 11
+  chan_setinstr 20
+  chan_setlayer 0, .layer_luigi_EC5
+  chan_end
 
-.sound_luigi_snoring3:
-chan_setbank 11
-chan_setlayer 0, .layer_FCF
-chan_end
+  .layer_luigi_EC5:
+  layer_note1 39, 0x30, 97
+  layer_end
 
-.layer_FCF:
-layer_delay 0x4e
-.layer_FD1:
-layer_loop 50
-layer_call .layer_0_EF1
-layer_loopend
-layer_setinstr 21
-layer_note1 39, 0x44c, 127
-layer_jump .layer_FD1
-layer_end
+  .sound_luigi_snoring3:
+  chan_setbank 11
+  chan_setlayer 0, .layer_luigi_ECF
+  chan_end
 
-.layer_0_EF1:
-layer_setinstr 21
-layer_note1 37, 0x53, 127
-layer_setinstr 15
-layer_note1 37, 0x4e, 64
-layer_end
+  .layer_luigi_ECF:
+  layer_delay 0x4e
+  .layer_luigi_ED1:
+  layer_loop 50
+  layer_call .layer_luigi_fn_EE1
+  layer_loopend
+  layer_setinstr 21
+  layer_note1 39, 0x44c, 97
+  layer_jump .layer_luigi_ED1
+  layer_end
 
-.sound_luigi_so_longa_bowser:
-chan_setbank 11
-chan_setinstr 22
-chan_setlayer 0, .layer_FF7
-chan_setlayer 1, .layer_FF7
-chan_end
+  .layer_luigi_fn_EE1:
+  layer_setinstr 21
+  layer_note1 39, 0x53, 97
+  layer_setinstr 15
+  layer_note1 39, 0x4e, 97
+  layer_end
 
-.layer_FF7:
-layer_portamento 0x82, 42, 200
-layer_note1 39, 0xc8, 110
-layer_end
+  .sound_luigi_so_longa_bowser:
+  chan_setbank 11
+  chan_setinstr 22
+  chan_setlayer 0, .layer_luigi_EF7
+  chan_setlayer 1, .layer_luigi_EF7
+  chan_end
 
-.sound_luigi_ima_tired:
-chan_setbank 11
-chan_setinstr 23
-chan_setlayer 0, .layer_F58
-chan_end
+  .layer_luigi_EF7:
+  layer_note1 39, 0xc8, 97
+  layer_end
 
-.layer_F58:
-layer_note1 39, 0x96, 110
-layer_end
+  .sound_luigi_ima_tired:
+  chan_setbank 11
+  chan_setinstr 23
+  chan_setlayer 0, .layer_luigi_F08
+  chan_end
 
+  .layer_luigi_F08:
+  layer_note1 39, 0x96, 97
+  layer_end
+  
 .sound_wario_jump_hoo:
 chan_setbank 13
 chan_setinstr 0
-chan_setlayer 0, .layer_wario_F3C
+chan_setlayer 0, .layer_wario_C3C
 chan_end
 
-.layer_wario_F3C:
-layer_note1 37, 0x14, 127
+.layer_wario_C3C:
+layer_note1 38, 0x61, 127
 layer_end
 
 .sound_wario_jump_wah:
 chan_setbank 13
 chan_setinstr 1
-chan_setlayer 0, .layer_wario_F4C
+chan_setlayer 0, .layer_wario_C4C
 chan_end
 
-.layer_wario_F4C:
-layer_note1 38, 0x18, 127
+.layer_wario_C4C:
+.layer_wario_C4E:
+layer_note1 38, 0x34, 127
 layer_end
 
 .sound_wario_jump_yah:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 9
-chan_setlayer 0, .layer_wario_F5A
+chan_setlayer 0, .layer_wario_C5A
 chan_end
 
-.layer_wario_F5A:
+.layer_wario_C5A:
+layer_note1 38, 0x4d, 120
+layer_end
+
+.layer_wario_C5C:
 layer_note1 38, 0x24, 120
 layer_end
 
 .sound_wario_hoohoo:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 1
-chan_setlayer 0, .layer_wario_F6C
+chan_setlayer 0, .layer_wario_C6C
 chan_end
 
-.layer_wario_F6C:
-layer_portamento 0x82, 44, 200
-layer_note1 39, 0x30, 127
+.layer_wario_C6C:
+layer_note1 38, 0x6e, 127
 layer_end
 
 .sound_wario_yahoo:
 chan_setbank 13
 chan_setinstr 4
-chan_setlayer 0, .layer_wario_F8C
+chan_setlayer 0, .layer_wario_C7C
 chan_end
 
-.layer_wario_F8C:
-layer_note1 39, 0x6f, 110
+.layer_wario_C7C:
+layer_note1 38, 0xb8, 110
 layer_end
 
 .sound_wario_uh:
 chan_setbank 13
 chan_setinstr 5
-chan_setlayer 0, .layer_wario_F92
+chan_setlayer 0, .layer_wario_C92
 chan_end
 
-.layer_wario_F92:
-layer_transpose -2
-layer_portamento 0x81, 41, 255
-layer_note1 38, 0x2b, 115
+.layer_wario_C92:
+layer_note1 38, 0x27, 115
 layer_end
 
 .sound_wario_hrmm:
 chan_setbank 13
 chan_setinstr 6
-chan_setlayer 0, .layer_wario_FA4
+chan_setlayer 0, .layer_wario_CA4
 chan_end
 
-.layer_wario_FA4:
-layer_transpose -2
-layer_note1 44, 0x1e, 110
+.layer_wario_CA4:
+layer_note1 38, 0x3f, 110
 layer_end
 
 .sound_wario_wah2:
 chan_setbank 13
 chan_setinstr 7
-chan_setlayer 0, .layer_wario_FB2
+chan_setlayer 0, .layer_wario_CB2
 chan_end
 
-.layer_wario_FB2:
-layer_transpose -3
-layer_note1 39, 0x1c, 127
+.layer_wario_CB2:
+layer_note1 38, 0x74, 127
 layer_end
 
 .sound_wario_whoa:
 chan_setbank 13
 chan_setinstr 8
-chan_setlayer 0, .layer_wario_FC0
+chan_setlayer 0, .layer_wario_CC0
 chan_end
 
-.layer_wario_FC0:
-layer_transpose -2
-layer_note1 40, 0x30, 110
+.layer_wario_CC0:
+layer_note1 38, 0x4c, 110
 layer_end
 
 .sound_wario_eeuh:
 chan_setbank 13
 chan_setinstr 9
-chan_setlayer 0, .layer_wario_FCE
+chan_setlayer 0, .layer_wario_CCE
 chan_end
 
-.layer_wario_FCE:
-layer_transpose -2
-layer_note1 40, 0x44, 105
+.layer_wario_CCE:
+layer_note1 38, 0x43, 105
 layer_end
 
 .sound_wario_attacked:
 chan_setbank 13
 chan_setinstr 10
-chan_setlayer 0, .layer_wario_FDC
+chan_setlayer 0, .layer_wario_CDC
 chan_end
 
-.layer_wario_F0C:
-layer_transpose -2
-layer_note1 41, 0x30, 120
+.layer_wario_CDC:
+layer_note1 38, 0x33, 120
 layer_end
 
 .sound_wario_ooof:
 chan_setbank 13
 chan_setinstr 11
-chan_setlayer 0, .layer_wario_FEA
+chan_setlayer 0, .layer_wario_CEA
 chan_end
 
-.layer_wario_FEA:
-layer_transpose -2
-layer_note1 38, 0x30, 127
+.layer_wario_CEA:
+layer_note1 38, 0x3c, 127
 layer_end
 
 .sound_wario_here_we_go:
 chan_setbank 13
 chan_setinstr 12
-chan_setlayer 0, .layer_wario_FF8
+chan_setlayer 0, .layer_wario_CF8
 chan_end
 
-.layer_wario_FF8:
-layer_portamento 0x81, 38, 200
-layer_note1 41, 0x85, 127
+.layer_wario_CF8:
+layer_note1 38, 0xbf, 127
 layer_end
 
 .sound_wario_yawning:
 chan_setbank 13
 chan_setinstr 13
-chan_setlayer 0, .layer_wario_F09
+chan_setlayer 0, .layer_wario_D09
 chan_end
 
-.layer_wario_F09:
-layer_transpose -2
-layer_note1 39, 0x7f, 105
+.layer_wario_D09:
+layer_note1 38, 0x14c, 105
 layer_end
 
 .sound_wario_snoring1:
 chan_setbank 13
 chan_setinstr 14
-chan_setlayer 0, .layer_wario_F17
+chan_setlayer 0, .layer_wario_D17
 chan_end
 
-.layer_wario_F17:
-layer_transpose -2
-layer_note1 39, 0x60, 64
+.layer_wario_D17:
+layer_note1 38, 0xce, 64
 layer_end
 
 .sound_wario_snoring2:
 chan_setbank 13
 chan_setinstr 15
-chan_setlayer 0, .layer_wario_F25
+chan_setlayer 0, .layer_wario_D25
 chan_end
 
-.layer_wario_F25:
-layer_transpose -2
-layer_note1 39, 0x5c, 52
+.layer_wario_D25:
+layer_note1 38, 0xa1, 52
 layer_end
 
 .sound_wario_waaaooow:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 0
-chan_setlayer 0, .layer_wario_F33
+chan_setlayer 0, .layer_wario_D33
 chan_end
 
-.layer_wario_F33:
-layer_transpose -2
-layer_note1 39, 0xaa, 127
+.layer_wario_D33:
+layer_note1 38, 0x121, 127
 layer_end
 
 .sound_wario_haha:
 chan_setbank 13
 chan_setinstr 3
-chan_setlayer 0, .layer_wario_F42
+chan_setlayer 0, .layer_wario_D42
 chan_end
 
-.layer_wario_F42:
-layer_transpose -1
-layer_note1 39, 0x4d, 120
+.layer_wario_D42:
+layer_note1 38, 0x159, 120
 layer_end
 
 .sound_wario_uh2:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 6
-chan_setlayer 0, .layer_wario_F50
+chan_setlayer 0, .layer_wario_D50
 chan_end
 
-.layer_wario_F50:
-layer_transpose -2
-layer_note1 43, 0x1e, 105
+.layer_wario_D50:
+layer_note1 38, 0x9b, 105
 layer_end
 
 .sound_wario_on_fire:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 5
-chan_setlayer 0, .layer_wario_F5E
+chan_setlayer 0, .layer_wario_D5E
 chan_end
 
-.layer_wario_F5E:
-layer_transpose -2
-layer_note1 39, 0xc8, 127
+.layer_wario_D5E:
+layer_note1 38, 0x34, 127
 layer_end
 
 .sound_wario_dying:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 4
-chan_setlayer 0, .layer_wario_F6D
+chan_setlayer 0, .layer_wario_D6D
 chan_end
 
-.layer_wario_F6D:
-layer_transpose -2
-layer_note1 39, 0x8c, 110
+.layer_wario_D6D:
+layer_note1 38, 0xe5, 110
 layer_end
 
 .sound_wario_panting_cold:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 2
-chan_setlayer 0, .layer_wario_F7C
+chan_setlayer 0, .layer_wario_D7C
 chan_end
 
-.layer_wario_F7C:
-layer_transpose -2
-layer_portamento 0x82, 35, 255
-layer_note1 38, 0x30, 127
+.layer_wario_D7C:
+layer_note1 38, 0xc2, 127
 layer_end
 
 .sound_wario_panting1:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 2
-chan_setlayer 0, .layer_wario_F8E
+chan_setlayer 0, .layer_wario_D8E
 chan_end
 
-.layer_wario_F8E:
-layer_transpose -2
-layer_note1 39, 0x3c, 100
+.layer_wario_D8E:
+layer_note1 38, 0x3c, 100
 layer_end
 
 .sound_wario_panting2:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 2
-chan_setlayer 0, .layer_wario_F9C
+chan_setlayer 0, .layer_wario_D9C
 chan_end
 
-.layer_wario_F9C:
-layer_transpose -2
+.layer_wario_D9C:
 layer_delay 0x4
 layer_note1 38, 0x3c, 100
 layer_end
 
 .sound_wario_panting3:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 2
-chan_setlayer 0, .layer_wario_FAC
+chan_setlayer 0, .layer_wario_DAC
 chan_end
 
-.layer_wario_FAC:
-layer_transpose -2
+.layer_wario_DAC:
 layer_delay 0x8
-layer_note1 40, 0x3c, 100
+layer_note1 38, 0x3c, 100
 layer_end
 
 .sound_wario_coughing1:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 7
-chan_setlayer 0, .layer_wario_FBC
+chan_setlayer 0, .layer_wario_DBC
 chan_end
 
-.layer_wario_FBC:
-layer_transpose -2
-layer_note1 39, 0x10, 115
+.layer_wario_DBC:
+layer_note1 38, 0xa1, 115
 layer_end
 
 .sound_wario_coughing2:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 7
-chan_setlayer 0, .layer_wario_FCA
+chan_setlayer 0, .layer_wario_DCA
 chan_end
 
-.layer_wario_FCA:
-layer_transpose -2
-layer_portamento 0x81, 38, 255
-layer_note1 41, 0x18, 115
+.layer_wario_DCA:
+layer_note1 38, 0x18, 115
 layer_end
 
 .sound_wario_coughing3:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 7
-chan_setlayer 0, .layer_wario_FDC
+chan_setlayer 0, .layer_wario_DDC
 chan_end
 
-.layer_wario_FDC:
-layer_transpose -2
+.layer_wario_DDC:
 layer_somethingon
-layer_portamento 0x85, 38, 255
-layer_note1 41, 0xc, 115
-layer_note1 35, 0x12, 115
+layer_note1 38, 0xc, 115
+layer_note1 38, 0x12, 115
 layer_end
 
 .sound_wario_punch_yah:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 9
-chan_setlayer 0, .layer_wario_FFE
+chan_setlayer 0, .layer_wario_DFE
 chan_setval 1
 chan_call .delay
 chan_setbank 0
 chan_setinstr 0
-chan_setlayer 1, .layer_538
+chan_setlayer 1, .layer_wario_538
 chan_end
 
-.layer_wario_FFE:
-layer_transpose -2
-layer_jump .layer_wario_F5A
+.layer_wario_538:
+layer_note1 38, 0xf, 100
+layer_end
+
+.layer_wario_DFE:
+layer_jump .layer_wario_C5C
 
 .sound_wario_punch_hoo:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 10
-chan_setlayer 0, .layer_wario_FE7
+chan_setlayer 0, .layer_wario_E17
 chan_setval 1
 chan_call .delay
 chan_setbank 0
 chan_setinstr 0
-chan_setlayer 1, .layer_548
+chan_setlayer 1, .layer_wario_548
 chan_end
 
-.layer_wario_FE7:
-layer_transpose -2
-layer_portamento 0x81, 42, 255
-layer_note1 38, 0x30, 115
+.layer_wario_548:
+layer_note1 38, 0x12, 100
+layer_end
+
+.layer_wario_E17:
+layer_note1 38, 0xa3, 115
 layer_end
 
 .sound_wario_mama_mia:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 11
-chan_setlayer 0, .layer_wario_F29
+chan_setlayer 0, .layer_wario_E29
 chan_end
 
-.layer_wario_F29:
-layer_portamento 0x81, 38, 255
-layer_note1 36, 0x8c, 115
+.layer_wario_E29:
+layer_note1 38, 0xd9, 115
 layer_end
 
 .sound_wario_okey_dokey:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 12
-chan_setlayer 0, .layer_wario_F3A
+chan_setlayer 0, .layer_wario_E3A
 chan_end
 
-.layer_wario_F3A:
-layer_note1 39, 0x60, 115
+.layer_wario_E3A:
+layer_note1 38, 0x133, 115
 layer_end
 
 .sound_wario_ground_pound_wah:
 chan_jump .sound_wario_wah2
 
 .sound_wario_drowning:
-chan_setbank 13
+chan_setbank 14
 chan_setinstr 13
-chan_setlayer 0, .layer_wario_F49
+chan_setlayer 0, .layer_wario_E49
 chan_end
 
-.layer_wario_F49:
-layer_note1 38, 0x91, 127
+.layer_wario_E49:
+layer_note1 38, 0xf4, 127
 layer_end
 
 .sound_wario_punch_wah:
 chan_setbank 13
 chan_setinstr 1
-chan_setlayer 0, .layer_wario_F62
+chan_setlayer 0, .layer_wario_E62
 chan_setval 1
 chan_call .delay
 chan_setbank 0
 chan_setinstr 0
-chan_setlayer 1, .layer_536
+chan_setlayer 1, .layer_wario_536
 chan_end
 
-.layer_wario_F62:
-layer_transpose -1
-layer_jump .layer_wario_F4C
-
-.sound_peach_dear_wario:
-chan_setbank 13
-chan_setinstr 15
-chan_setlayer 0, .layer_wario_F6F
-chan_end
-
-.layer_wario_F6F:
-layer_note1 39, 0x2bc, 127
-layer_end
-
-.sound_wario_waha:
-chan_setbank 13
-chan_setinstr 24
-chan_setlayer 0, .layer_wario_FFC
-chan_end
-
-.layer_wario_FFC:
-layer_note1 39, 0x5a, 127
-layer_end
-
-.sound_wario_yippee:
-chan_setbank 13
-chan_setinstr 25
-chan_setlayer 0, .layer_wario_F88
-chan_end
-
-.layer_wario_F88:
-layer_note1 39, 0x5a, 97
-layer_end
-
-.sound_wario_doh:
-chan_setbank 13
-chan_setinstr 16
-chan_setlayer 0, .layer_wario_F94
-chan_end
-
-.layer_wario_F94:
-layer_note1 41, 0x46, 127
-layer_end
-
-.sound_wario_game_over:
-chan_setbank 13
-chan_setinstr 17
-chan_setlayer 0, .layer_wario_FA0
-chan_end
-
-.layer_wario_FA0:
-layer_note1 39, 0x55, 110
-layer_end
-
-.sound_wario_hello:
-chan_setbank 13
-chan_setinstr 18
-chan_setlayer 0, .layer_wario_F51
-chan_end
-
-.layer_wario_F51:
-layer_note1 39, 0x46, 127
-layer_end
-
-.sound_wario_press_start_to_play:
-chan_setbank 13
-chan_setinstr 19
-chan_setlayer 0, .layer_wario_FB8
-chan_end
-
-.layer_wario_FB8:
-layer_note1 39, 0x12c, 127
-layer_end
-
-.sound_wario_twirl_bounce:
-chan_setbank 13
-chan_setinstr 20
-chan_setlayer 0, .layer_wario_FC5
-chan_end
-
-.layer_wario_FC5:
-layer_note1 39, 0x30, 127
-layer_end
-
-.sound_wario_snoring3:
-chan_setbank 13
-chan_setlayer 0, .layer_wario_FCF
-chan_end
-
-.layer_wario_FCF:
-layer_delay 0x4e
-.layer_wario_FD1:
-layer_loop 50
-layer_call .layer_02_EF1
-layer_loopend
-layer_setinstr 21
-layer_note1 39, 0x44c, 127
-layer_jump .layer_wario_FD1
-layer_end
-
-.layer_02_EF1:
-layer_setinstr 21
-layer_note1 37, 0x53, 127
-layer_setinstr 15
-layer_note1 37, 0x4e, 64
-layer_end
-
-.sound_wario_so_longa_bowser:
-chan_setbank 13
-chan_setinstr 22
-chan_setlayer 0, .layer_wario_FF7
-chan_setlayer 1, .layer_wario_FF7
-chan_end
-
-.layer_wario_FF7:
-layer_portamento 0x82, 42, 200
-layer_note1 39, 0xc8, 110
-layer_end
-
-.sound_wario_ima_tired:
-chan_setbank 13
-chan_setinstr 23
-chan_setlayer 0, .layer_wario_F58
-chan_end
-
-.layer_wario_F58:
-layer_note1 39, 0x96, 110
-layer_end
-
-
-.sound_waluigi_jump_hoo:
-chan_setbank 15
-chan_setinstr 0
-chan_setlayer 0, .layer_waluigi_F3C
-chan_end
-
-.layer_waluigi_F3C:
-#if defined(VERSION_EU) || defined(VERSION_SH)
-  layer_transpose 2
-#endif
-layer_note1 37, 0x14, 127
-layer_end
-
-.sound_waluigi_jump_wah:
-chan_setbank 15
-chan_setinstr 1
-chan_setlayer 0, .layer_waluigi_F4C
-chan_end
-
-.layer_waluigi_F4C:
-layer_transpose -2
-.layer_waluigi_F4E:
-layer_note1 38, 0x18, 127
-layer_end
-
-.sound_waluigi_jump_yah:
-chan_setbank 16
-chan_setinstr 9
-chan_setlayer 0, .layer_waluigi_F5A
-chan_end
-
-.layer_waluigi_F5A:
-layer_transpose -2
-.layer_waluigi_F5C:
-layer_portamento 0x82, 39, 200
-layer_note1 38, 0x24, 120
-layer_end
-
-.sound_waluigi_hoohoo:
-chan_setbank 16
-chan_setinstr 1
-chan_setlayer 0, .layer_waluigi_F6C
-chan_end
-
-.layer_waluigi_F6C:
-layer_portamento 0x82, 44, 200
-layer_note1 39, 0x30, 127
-layer_end
-
-.sound_waluigi_yahoo:
-chan_setbank 15
-chan_setinstr 4
-chan_setlayer 0, .layer_waluigi_F8C
-chan_end
-
-.layer_waluigi_F8C:
-layer_note1 39, 0x6f, 110
-layer_end
-
-.sound_waluigi_uh:
-chan_setbank 15
-chan_setinstr 5
-chan_setlayer 0, .layer_waluigi_F92
-chan_end
-
-.layer_waluigi_F92:
-layer_transpose -2
-layer_portamento 0x81, 41, 255
-layer_note1 38, 0x2b, 115
-layer_end
-
-.sound_waluigi_hrmm:
-chan_setbank 15
-chan_setinstr 6
-chan_setlayer 0, .layer_waluigi_FA4
-chan_end
-
-.layer_waluigi_FA4:
-layer_transpose -2
-layer_note1 44, 0x1e, 110
-layer_end
-
-.sound_waluigi_wah2:
-chan_setbank 15
-chan_setinstr 7
-chan_setlayer 0, .layer_waluigi_FB2
-chan_end
-
-.layer_waluigi_FB2:
-layer_transpose -3
-layer_note1 39, 0x1c, 127
-layer_end
-
-.sound_waluigi_whoa:
-chan_setbank 15
-chan_setinstr 8
-chan_setlayer 0, .layer_waluigi_FC0
-chan_end
-
-.layer_waluigi_FC0:
-layer_transpose -2
-layer_note1 40, 0x30, 110
-layer_end
-
-.sound_waluigi_eeuh:
-chan_setbank 15
-chan_setinstr 9
-chan_setlayer 0, .layer_waluigi_FCE
-chan_end
-
-.layer_waluigi_FCE:
-layer_transpose -2
-layer_note1 40, 0x44, 105
-layer_end
-
-.sound_waluigi_attacked:
-chan_setbank 15
-chan_setinstr 10
-chan_setlayer 0, .layer_waluigi_FDC
-chan_end
-
-.layer_waluigi_F0C:
-layer_transpose -2
-layer_note1 41, 0x30, 120
-layer_end
-
-.sound_waluigi_ooof:
-chan_setbank 15
-chan_setinstr 11
-chan_setlayer 0, .layer_waluigi_FEA
-chan_end
-
-.layer_waluigi_FEA:
-layer_transpose -2
-layer_note1 38, 0x30, 127
-layer_end
-
-.sound_waluigi_here_we_go:
-chan_setbank 15
-chan_setinstr 12
-chan_setlayer 0, .layer_waluigi_FF8
-chan_end
-
-.layer_waluigi_FF8:
-layer_portamento 0x81, 38, 200
-layer_note1 41, 0x85, 127
-layer_end
-
-.sound_waluigi_yawning:
-chan_setbank 15
-chan_setinstr 13
-chan_setlayer 0, .layer_waluigi_F09
-chan_end
-
-.layer_waluigi_F09:
-layer_transpose -2
-layer_note1 39, 0x7f, 105
-layer_end
-
-.sound_waluigi_snoring1:
-chan_setbank 15
-chan_setinstr 14
-chan_setlayer 0, .layer_waluigi_F17
-chan_end
-
-.layer_waluigi_F17:
-layer_transpose -2
-layer_note1 39, 0x60, 64
-layer_end
-
-.sound_waluigi_snoring2:
-chan_setbank 15
-chan_setinstr 15
-chan_setlayer 0, .layer_waluigi_F25
-chan_end
-
-.layer_waluigi_F25:
-layer_transpose -2
-layer_note1 39, 0x5c, 52
-layer_end
-
-.sound_waluigi_waaaooow:
-chan_setbank 16
-chan_setinstr 0
-chan_setlayer 0, .layer_waluigi_F33
-chan_end
-
-.layer_waluigi_F33:
-layer_transpose -2
-layer_note1 39, 0xaa, 127
-layer_end
-
-.sound_waluigi_haha:
-chan_setbank 15
-chan_setinstr 3
-chan_setlayer 0, .layer_waluigi_F42
-chan_end
-
-.layer_waluigi_F42:
-layer_transpose -1
-layer_note1 39, 0x4d, 120
-layer_end
-
-.sound_waluigi_uh2:
-chan_setbank 16
-chan_setinstr 6
-chan_setlayer 0, .layer_waluigi_F50
-chan_end
-
-.layer_waluigi_F50:
-layer_transpose -2
-layer_note1 43, 0x1e, 105
-layer_end
-
-.sound_waluigi_on_fire:
-chan_setbank 16
-chan_setinstr 5
-chan_setlayer 0, .layer_waluigi_F5E
-chan_end
-
-.layer_waluigi_F5E:
-layer_transpose -2
-layer_note1 39, 0xc8, 127
-layer_end
-
-.sound_waluigi_dying:
-chan_setbank 16
-chan_setinstr 4
-chan_setlayer 0, .layer_waluigi_F6D
-chan_end
-
-.layer_waluigi_F6D:
-layer_transpose -2
-layer_note1 39, 0x8c, 110
-layer_end
-
-.sound_waluigi_panting_cold:
-chan_setbank 16
-chan_setinstr 2
-chan_setlayer 0, .layer_waluigi_F7C
-chan_end
-
-.layer_waluigi_F7C:
-layer_transpose -2
-layer_portamento 0x82, 35, 255
-layer_note1 38, 0x30, 127
-layer_end
-
-.sound_waluigi_panting1:
-chan_setbank 16
-chan_setinstr 2
-chan_setlayer 0, .layer_waluigi_F8E
-chan_end
-
-.layer_waluigi_F8E:
-layer_transpose -2
-layer_note1 39, 0x3c, 100
-layer_end
-
-.sound_waluigi_panting2:
-chan_setbank 16
-chan_setinstr 2
-chan_setlayer 0, .layer_waluigi_F9C
-chan_end
-
-.layer_waluigi_F9C:
-layer_transpose -2
-layer_delay 0x4
-layer_note1 38, 0x3c, 100
-layer_end
-
-.sound_waluigi_panting3:
-chan_setbank 16
-chan_setinstr 2
-chan_setlayer 0, .layer_waluigi_FAC
-chan_end
-
-.layer_waluigi_FAC:
-layer_transpose -2
-layer_delay 0x8
-layer_note1 40, 0x3c, 100
-layer_end
-
-.sound_waluigi_coughing1:
-chan_setbank 16
-chan_setinstr 7
-chan_setlayer 0, .layer_waluigi_FBC
-chan_end
-
-.layer_waluigi_FBC:
-layer_transpose -2
-layer_note1 39, 0x10, 115
-layer_end
-
-.sound_waluigi_coughing2:
-chan_setbank 16
-chan_setinstr 7
-chan_setlayer 0, .layer_waluigi_FCA
-chan_end
-
-.layer_waluigi_FCA:
-layer_transpose -2
-layer_portamento 0x81, 38, 255
-layer_note1 41, 0x18, 115
-layer_end
-
-.sound_waluigi_coughing3:
-chan_setbank 16
-chan_setinstr 7
-chan_setlayer 0, .layer_waluigi_FDC
-chan_end
-
-.layer_waluigi_FDC:
-layer_transpose -2
-layer_somethingon
-layer_portamento 0x85, 38, 255
-layer_note1 41, 0xc, 115
-layer_note1 35, 0x12, 115
-layer_end
-
-.sound_waluigi_punch_yah:
-chan_setbank 16
-chan_setinstr 9
-chan_setlayer 0, .layer_waluigi_FFE
-chan_setval 1
-chan_call .delay
-chan_setbank 0
-chan_setinstr 0
-chan_setlayer 1, .layer_538
-chan_end
-
-.layer_waluigi_FFE:
-layer_transpose -2
-layer_jump .layer_waluigi_F5C
-
-.sound_waluigi_punch_hoo:
-chan_setbank 16
-chan_setinstr 10
-chan_setlayer 0, .layer_waluigi_FE7
-chan_setval 1
-chan_call .delay
-chan_setbank 0
-chan_setinstr 0
-chan_setlayer 1, .layer_548
-chan_end
-
-.layer_waluigi_FE7:
-layer_transpose -2
-layer_portamento 0x81, 42, 255
-layer_note1 38, 0x30, 115
-layer_end
-
-.sound_waluigi_mama_mia:
-chan_setbank 16
-chan_setinstr 11
-chan_setlayer 0, .layer_waluigi_F29
-chan_end
-
-.layer_waluigi_F29:
-layer_portamento 0x81, 38, 255
-layer_note1 36, 0x8c, 115
-layer_end
-
-.sound_waluigi_okey_dokey:
-chan_setbank 16
-chan_setinstr 12
-chan_setlayer 0, .layer_waluigi_F3A
-chan_end
-
-.layer_waluigi_F3A:
-layer_note1 39, 0x60, 115
-layer_end
-
-.sound_waluigi_ground_pound_wah:
-chan_jump .sound_waluigi_wah2
-
-.sound_waluigi_drowning:
-chan_setbank 16
-chan_setinstr 13
-chan_setlayer 0, .layer_waluigi_F49
-chan_end
-
-.layer_waluigi_F49:
-layer_note1 38, 0x91, 127
-layer_end
-
-.sound_waluigi_punch_wah:
-chan_setbank 15
-chan_setinstr 1
-chan_setlayer 0, .layer_waluigi_F62
-chan_setval 1
-chan_call .delay
-chan_setbank 0
-chan_setinstr 0
-chan_setlayer 1, .layer_536
-chan_end
-
-.layer_waluigi_F62:
-layer_transpose -1
-layer_jump .layer_waluigi_F4E
-
-.sound_peach_dear_waluigi:
-chan_setbank 16
-chan_setinstr 15
-chan_setlayer 0, .layer_waluigi_F6F
-chan_end
-
-.layer_waluigi_F6F:
-layer_note1 39, 0x2bc, 127
-layer_end
-
-.sound_waluigi_waha:
-chan_setbank 15
-chan_setinstr 24
-chan_setlayer 0, .layer_waluigi_FFC
-chan_end
-
-.layer_waluigi_FFC:
-layer_note1 39, 0x5a, 127
-layer_end
-
-.sound_waluigi_yippee:
-chan_setbank 15
-chan_setinstr 25
-chan_setlayer 0, .layer_waluigi_F88
-chan_end
-
-.layer_waluigi_F88:
-layer_note1 39, 0x5a, 97
-layer_end
-
-.sound_waluigi_doh:
-chan_setbank 15
-chan_setinstr 16
-chan_setlayer 0, .layer_waluigi_F94
-chan_end
-
-.layer_waluigi_F94:
-layer_note1 41, 0x46, 127
-layer_end
-
-.sound_waluigi_game_over:
-chan_setbank 15
-chan_setinstr 17
-chan_setlayer 0, .layer_waluigi_FA0
-chan_end
-
-.layer_waluigi_FA0:
-layer_note1 39, 0x55, 110
-layer_end
-
-.sound_waluigi_hello:
-chan_setbank 15
-chan_setinstr 18
-chan_setlayer 0, .layer_waluigi_F51
-chan_end
-
-.layer_waluigi_F51:
-layer_note1 39, 0x46, 127
-layer_end
-
-.sound_waluigi_press_start_to_play:
-chan_setbank 15
-chan_setinstr 19
-chan_setlayer 0, .layer_waluigi_FB8
-chan_end
-
-.layer_waluigi_FB8:
-layer_note1 39, 0x12c, 127
-layer_end
-
-.sound_waluigi_twirl_bounce:
-chan_setbank 15
-chan_setinstr 20
-chan_setlayer 0, .layer_waluigi_FC5
-chan_end
-
-.layer_waluigi_FC5:
-layer_note1 39, 0x30, 127
-layer_end
-
-.sound_waluigi_snoring3:
-chan_setbank 15
-chan_setlayer 0, .layer_waluigi_FCF
-chan_end
-
-.layer_waluigi_FCF:
-layer_delay 0x4e
-.layer_waluigi_FD1:
-layer_loop 50
-layer_call .layer_03_EF1
-layer_loopend
-layer_setinstr 21
-layer_note1 39, 0x44c, 127
-layer_jump .layer_waluigi_FD1
-layer_end
-
-.layer_03_EF1:
-layer_setinstr 21
-layer_note1 37, 0x53, 127
-layer_setinstr 15
-layer_note1 37, 0x4e, 64
-layer_end
-
-.sound_waluigi_so_longa_bowser:
-chan_setbank 15
-chan_setinstr 22
-chan_setlayer 0, .layer_waluigi_FF7
-chan_setlayer 1, .layer_waluigi_FF7
-chan_end
-
-.layer_waluigi_FF7:
-layer_portamento 0x82, 42, 200
-layer_note1 39, 0xc8, 110
-layer_end
-
-.sound_waluigi_ima_tired:
-chan_setbank 15
-chan_setinstr 23
-chan_setlayer 0, .layer_waluigi_F58
-chan_end
-
-.layer_waluigi_F58:
-layer_note1 39, 0x96, 110
-layer_end
+.layer_wario_536:
+
+.layer_wario_E62:
+layer_jump .layer_wario_C4E
+
+  .sound_peach_dear_wario:
+  chan_setbank 14
+  chan_setinstr 15
+  chan_setlayer 0, .layer_wario_E6F
+  chan_end
+
+  .layer_wario_E6F:
+  layer_note1 38, 0x3b, 127
+  layer_end
+
+  .sound_wario_waha:
+  chan_setbank 13
+  chan_setinstr 24
+  chan_setlayer 0, .layer_wario_E7C
+  chan_end
+
+  .layer_wario_E7C:
+  layer_note1 38, 0x95, 127
+  layer_end
+
+  .sound_wario_yippee:
+  chan_setbank 13
+  chan_setinstr 25
+  chan_setlayer 0, .layer_wario_E88
+  chan_end
+
+  .layer_wario_E88:
+  layer_note1 38, 0xa2, 97
+  layer_end
+
+  .sound_wario_doh:
+  chan_setbank 13
+  chan_setinstr 16
+  chan_setlayer 0, .layer_wario_E94
+  chan_end
+
+  .layer_wario_E94:
+  layer_note1 38, 0x2e, 127
+  layer_end
+
+  .sound_wario_game_over:
+  chan_setbank 13
+  chan_setinstr 17
+  chan_setlayer 0, .layer_wario_EA0
+  chan_end
+
+  .layer_wario_EA0:
+  layer_note1 38, 0xab, 110
+  layer_end
+
+  .sound_wario_hello:
+  chan_setbank 13
+  chan_setinstr 18
+  chan_setlayer 0, .layer_wario_EAC
+  chan_end
+
+  .layer_wario_EAC:
+  layer_note1 38, 0x50, 127
+  layer_end
+
+  .sound_wario_press_start_to_play:
+  chan_setbank 13
+  chan_setinstr 19
+  chan_setlayer 0, .layer_wario_EB8
+  chan_end
+
+  .layer_wario_EB8:
+  layer_note1 38, 0x9c, 127
+  layer_end
+
+  .sound_wario_twirl_bounce:
+  chan_setbank 13
+  chan_setinstr 20
+  chan_setlayer 0, .layer_wario_EC5
+  chan_end
+
+  .layer_wario_EC5:
+  layer_note1 38, 0x6d, 127
+  layer_end
+
+  .sound_wario_snoring3:
+  chan_setbank 13
+  chan_setlayer 0, .layer_wario_ECF
+  chan_end
+
+  .layer_wario_ECF:
+  layer_delay 0x4e
+  .layer_wario_ED1:
+  layer_loop 50
+  layer_call .layer_wario_fn_EE1
+  layer_loopend
+  layer_setinstr 21
+  layer_note1 38, 0x44c, 127
+  layer_jump .layer_wario_ED1
+  layer_end
+
+  .layer_wario_fn_EE1:
+  layer_setinstr 21
+  layer_note1 38, 0x53, 127
+  layer_setinstr 15
+  layer_note1 38, 0x4e, 64
+  layer_end
+
+  .sound_wario_so_longa_bowser:
+  chan_setbank 13
+  chan_setinstr 22
+  chan_setlayer 0, .layer_wario_EF7
+  chan_end
+
+  .layer_wario_EF7:
+  layer_note1 38, 0xc0, 110
+  layer_end
+
+  .sound_wario_ima_tired:
+  chan_setbank 13
+  chan_setinstr 23
+  chan_setlayer 0, .layer_wario_F08
+  chan_end
+
+  .layer_wario_F08:
+  layer_note1 38, 0xe1, 110
+  layer_end
