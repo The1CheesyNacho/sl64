@@ -162,6 +162,7 @@ const LevelScript level_castle_grounds_entry[] = {
     LOAD_MIO0        (/*seg*/ 0x08, _common0_mio0SegmentRomStart, _common0_mio0SegmentRomEnd),
     LOAD_RAW         (/*seg*/ 0x0F, _common0_geoSegmentRomStart,  _common0_geoSegmentRomEnd),
     ALLOC_LEVEL_POOL(),
+    CMD2D(/*model*/ MODEL_WALUIGI, /*bhvParam*/ BPARAM4(0x03), /*bhv*/ bhvWaluigi),
     CMD2C(/*model*/ MODEL_WARIO, /*bhvParam*/ BPARAM4(0x02), /*bhv*/ bhvSyobon),
     CMD23(/*model*/ MODEL_LUIGI, /*bhvParam*/ BPARAM4(0x01), /*bhv*/ bhvLuigi),
     MARIO(/*model*/ MODEL_MARIO, /*bhvParam*/ BPARAM4(0x00), /*bhv*/ bhvMario),

@@ -7,7 +7,7 @@
 #include "types.h"
 
 extern struct GraphNodeObject gMirrorMario;
-extern struct MarioBodyState gBodyStates[3];
+extern struct MarioBodyState gBodyStates[4];
 
 #ifdef GODDARD_MFACE
 Gfx *geo_draw_mario_head_goddard(s32 callContext, struct GraphNode *node, Mat4 *c);

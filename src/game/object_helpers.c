@@ -2246,7 +2246,7 @@ void bhv_init_room(void) {
 
 s32 cur_obj_is_mario_in_room(void) {
 u32 playerIndex;
-   for (playerIndex = 0; playerIndex < 3; playerIndex++) {
+   for (playerIndex = 0; playerIndex < 4; playerIndex++) {
     
     if (o->oRoom != -1 && gMarioCurrentRoom[playerIndex] != 0) {
         if (gMarioCurrentRoom[playerIndex] == o->oRoom // Object is in Mario's room.

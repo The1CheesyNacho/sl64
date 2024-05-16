@@ -689,19 +689,23 @@ static void level_cmd_set_mario_start_pos(void) {
     gPlayerSpawnInfos[0].areaIndex = CMD_GET(u8, 2);
     gPlayerSpawnInfos[1].areaIndex = CMD_GET(u8, 2);
     gPlayerSpawnInfos[2].areaIndex = CMD_GET(u8, 2);
+    gPlayerSpawnInfos[3].areaIndex = CMD_GET(u8, 2);
 
 #if IS_64_BIT
     vec3s_set(gPlayerSpawnInfos[0].startPos, CMD_GET(s16, 6), CMD_GET(s16, 8), CMD_GET(s16, 10));
     vec3s_set(gPlayerSpawnInfos[1].startPos, CMD_GET(s16, 6), CMD_GET(s16, 8), CMD_GET(s16, 10));
     vec3s_set(gPlayerSpawnInfos[2].startPos, CMD_GET(s16, 6), CMD_GET(s16, 8), CMD_GET(s16, 10));
+    vec3s_set(gPlayerSpawnInfos[3].startPos, CMD_GET(s16, 6), CMD_GET(s16, 8), CMD_GET(s16, 10));
 #else
     vec3s_copy(gPlayerSpawnInfos[0].startPos, CMD_GET(Vec3s, 6));
     vec3s_copy(gPlayerSpawnInfos[1].startPos, CMD_GET(Vec3s, 6));
     vec3s_copy(gPlayerSpawnInfos[2].startPos, CMD_GET(Vec3s, 6));
+    vec3s_copy(gPlayerSpawnInfos[3].startPos, CMD_GET(Vec3s, 6));
 #endif
     vec3s_set(gPlayerSpawnInfos[0].startAngle, 0, CMD_GET(s16, 4) * 0x8000 / 180, 0);
     vec3s_set(gPlayerSpawnInfos[1].startAngle, 0, CMD_GET(s16, 4) * 0x8000 / 180, 0);
     vec3s_set(gPlayerSpawnInfos[2].startAngle, 0, CMD_GET(s16, 4) * 0x8000 / 180, 0);
+    vec3s_set(gPlayerSpawnInfos[3].startAngle, 0, CMD_GET(s16, 4) * 0x8000 / 180, 0);
 
     sCurrentCmd = CMD_NEXT;
 }
@@ -724,7 +728,18 @@ static void level_cmd_2C(void) {
 }
 
 static void level_cmd_2D(void) {
-    area_update_objects();
+    ModelID16 model = (CMD_GET(ModelID16, 2) & 0x0FFF);
+
+    vec3s_set(gPlayerSpawnInfos[3].startPos, 0, 0, 0);
+    vec3s_set(gPlayerSpawnInfos[3].startAngle, 0, 0, 0);
+
+    gPlayerSpawnInfos[3].activeAreaIndex = -1;
+    gPlayerSpawnInfos[3].areaIndex = 0;
+    gPlayerSpawnInfos[3].respawnInfo = 0;
+    gPlayerSpawnInfos[3].behaviorArg = CMD_GET(u32, 4);
+    gPlayerSpawnInfos[3].behaviorScript = CMD_GET(void *, 8);
+    gPlayerSpawnInfos[3].model = gLoadedGraphNodes[model];
+    gPlayerSpawnInfos[3].next = NULL;
     sCurrentCmd = CMD_NEXT;
 }
 

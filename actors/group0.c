@@ -31,3 +31,4 @@
 #include "syobon/model.inc.c"
 #include "shelby/model.inc.c"
 #include "wario/model.inc.c"
+#include "waluigi/model.inc.c"

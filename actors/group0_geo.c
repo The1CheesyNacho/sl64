@@ -22,3 +22,4 @@
 #include "syobon/geo.inc.c"
 #include "shelby/geo.inc.c"
 #include "wario/geo.inc.c"
+#include "waluigi/geo.inc.c"

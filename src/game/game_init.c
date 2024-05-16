@@ -38,10 +38,10 @@
 #endif
 
 
-#define MAX_NUM_PLAYERS 3
+#define MAX_NUM_PLAYERS 4
 
 // First 3 controller slots
-struct Controller gControllers[3];
+struct Controller gControllers[4];
 
 // Gfx handlers
 struct SPTask *gGfxSPTask;
@@ -78,9 +78,11 @@ uintptr_t gPhysicalZBuffer;
 void *gMarioAnimsMemAlloc;
 void *gLuigiAnimsMemAlloc;
 void *gSyobonAnimsMemAlloc;
+void *gWaluiginAnimsMemAlloc;
 void *gDemoInputsMemAlloc;
 struct DmaHandlerList gMarioAnimsBuf;
 struct DmaHandlerList gSyobonAnimsBuf;
+struct DmaHandlerList gWaluiginAnimsBuf;
 struct DmaHandlerList gLuigiAnimsBuf;
 struct DmaHandlerList gDemoInputsBuf;
 
@@ -100,6 +102,7 @@ void (*gGoddardVblankCallback)(void) = NULL;
 struct Controller *gPlayer1Controller = &gControllers[0];
 struct Controller *gPlayer2Controller = &gControllers[1];
 struct Controller *gPlayer3Controller = &gControllers[2]; // Probably debug only, see note below
+struct Controller *gPlayer4Controller = &gControllers[3];
 
 // Title Screen Demo Handler
 struct DemoInput *gCurrDemoInput = NULL;
@@ -711,6 +714,9 @@ void setup_game_memory(void) {
     gSyobonAnimsMemAlloc = main_pool_alloc(0x4000, MEMORY_POOL_LEFT);
     set_segment_base_addr(17, (void *) gSyobonAnimsMemAlloc);
     setup_dma_table_list(&gSyobonAnimsBuf, gMarioAnims, gSyobonAnimsMemAlloc);
+    gWaluiginAnimsMemAlloc = main_pool_alloc(0x4000, MEMORY_POOL_LEFT);
+    set_segment_base_addr(17, (void *) gWaluiginAnimsMemAlloc);
+    setup_dma_table_list(&gWaluiginAnimsBuf, gMarioAnims, gWaluiginAnimsMemAlloc);
     // Setup Demo Inputs List
     gDemoInputsMemAlloc = main_pool_alloc(0x800, MEMORY_POOL_LEFT);
     set_segment_base_addr(24, (void *) gDemoInputsMemAlloc);

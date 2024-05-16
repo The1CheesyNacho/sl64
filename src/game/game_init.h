@@ -21,7 +21,7 @@ struct DemoInput {
     u8 buttonMask;
 };
 
-extern struct Controller gControllers[3];
+extern struct Controller gControllers[4];
 extern OSContStatus gControllerStatuses[4];
 extern OSContPad gControllerPads[4];
 extern OSMesgQueue gGameVblankQueue;
@@ -34,6 +34,7 @@ extern uintptr_t gPhysicalZBuffer;
 extern void *gMarioAnimsMemAlloc;
 extern void *gLuigiAnimsMemAlloc;
 extern void *gSyobonAnimsMemAlloc;
+extern void *gWaluiginAnimsMemAlloc;
 extern void *gDemoInputsMemAlloc;
 extern struct SPTask *gGfxSPTask;
 #ifdef USE_SYSTEM_MALLOC
@@ -50,6 +51,7 @@ extern s8 gEepromProbe;
 extern struct DmaHandlerList gMarioAnimsBuf;
 extern struct DmaHandlerList gLuigiAnimsBuf;
 extern struct DmaHandlerList gSyobonAnimsBuf;
+extern struct DmaHandlerList gWaluiginAnimsBuf;
 extern struct DmaHandlerList gDemoInputsBuf;
 
 #ifdef GODDARD_MFACE
@@ -58,6 +60,7 @@ extern void (*gGoddardVblankCallback)(void);
 extern struct Controller *gPlayer1Controller;
 extern struct Controller *gPlayer2Controller;
 extern struct Controller *gPlayer3Controller;
+extern struct Controller *gPlayer4Controller;
 extern struct DemoInput *gCurrDemoInput;
 extern u16 gDemoInputListID;
 extern struct DemoInput gRecordedDemoInput;
@@ -65,6 +68,7 @@ extern struct DemoInput gRecordedDemoInput;
 // this area is the demo input + the header. when the demo is loaded in, there is a header the size
 // of a single word next to the input list. this word is the current ID count.
 extern struct DmaHandlerList gMarioAnimsBuf;
+extern struct DmaHandlerList gWaluiginAnimsBuf;
 extern struct DmaHandlerList gSyobonAnimsBuf;
 extern struct DmaHandlerList gLuigiAnimsBuf;
 extern struct DmaHandlerList gDemoInputsBuf;

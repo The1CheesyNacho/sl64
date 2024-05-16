@@ -334,9 +334,11 @@ enum LevelCommandsIDList {
     CMD_PTR(bhv)
     
 // unused
-#define CMD2D() \
-    CMD_BBH(LVL_SCRIPT_CMD_2D, 0x04, 0x0000)
-
+#define CMD2D(model, bhvArg, bhv) \
+    CMD_BBH(LVL_SCRIPT_CMD_2D, 0x0C, model), \
+    CMD_W(bhvArg), \
+    CMD_PTR(bhv)
+    
 #define TERRAIN(terrainData) \
     CMD_BBH(LVL_SCRIPT_CMD_2E, 0x08, 0x0000), \
     CMD_PTR(terrainData)

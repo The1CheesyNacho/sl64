@@ -150,6 +150,7 @@ extern struct MarioState gMarioStates[];
 extern struct MarioState *gMarioState;
 extern struct MarioState *gLuigiState;
 extern struct MarioState *gSyobonState;
+extern struct MarioState *gWaState;
 
 extern s16 sCurrPlayMode;
 extern u16 D_80339ECA;

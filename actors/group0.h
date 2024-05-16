@@ -352,4 +352,6 @@ extern const Gfx white_particle_small_unused_dl[];
 
 #include "wario/geo_header.h"
 
+#include "waluigi/geo_header.h"
+
 #endif

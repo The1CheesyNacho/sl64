@@ -497,12 +497,17 @@ void spawn_objects_from_info(UNUSED s32 unused, struct SpawnInfo *spawnInfo) {
             }
 
             if (object->behavior == segmented_to_virtual(bhvLuigi)) {
-                gLuigiObject = object;
+                gMarioObject = object;
                 geo_make_first_child(&object->header.gfx.node);
             }
 
             if (object->behavior == segmented_to_virtual(bhvSyobon)) {
-                gLuigiObject = object;
+                gMarioObject = object;
+                geo_make_first_child(&object->header.gfx.node);
+            }
+
+            if (object->behavior == segmented_to_virtual(bhvWaluigi)) {
+                gMarioObject = object;
                 geo_make_first_child(&object->header.gfx.node);
             }
 
