@@ -668,9 +668,6 @@ s8 current_mario_room_check(s16 room) {
             result = TRUE;
         } else {
             result = FALSE;
-        }
-
-        sPrevCheckMarioRoom = gMarioCurrentRoom;
     }
 
     return result;
