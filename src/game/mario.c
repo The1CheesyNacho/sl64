@@ -15,6 +15,7 @@
 #include "level_update.h"
 #include "main.h"
 #include "mario.h"
+#include "hud.h"
 #include "mario_actions_airborne.h"
 #include "mario_actions_automatic.h"
 #include "mario_actions_cutscene.h"
