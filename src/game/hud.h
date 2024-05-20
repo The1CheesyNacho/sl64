@@ -35,5 +35,6 @@ enum CameraHUDLut {
 #define HUD_CAMERA_X 54 // This starts counting from the right edge
 void set_hud_camera_status(s16 status);
 void render_hud(void);
+void hud_force_idle();
 
 #endif // HUD_H
